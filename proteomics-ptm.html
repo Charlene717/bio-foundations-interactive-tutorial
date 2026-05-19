@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.16 蛋白質體與翻譯後修飾 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html" class="active">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 16 / 18 · BLOCK D</div>
+<h1 data-zh="蛋白質體與翻譯後修飾" data-en="Proteomics &amp; Post-translational Modifications">蛋白質體與翻譯後修飾</h1>
+<p class="subtitle" data-lang="zh">RNA-seq 告訴你「轉錄了什麼」，但細胞真正做事的工具是蛋白。LC-MS/MS、DDA/DIA、TMT、PTM 富集——資料形態與 RNA-seq 完全不同，需要另一套統計與品管。</p>
+<p class="subtitle" data-lang="en">RNA-seq tells you what's transcribed, but proteins are what cells use. LC-MS/MS, DDA/DIA, TMT, PTM enrichment — data shape and stats differ entirely from RNA-seq.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="原理" data-en="PRINCIPLE">原理</div>
+<h2 data-zh="LC-MS/MS：把蛋白切成胜肽再量" data-en="LC-MS/MS: Digest Proteins, Measure Peptides">LC-MS/MS：把蛋白切成胜肽再量</h2>
+<div data-lang="zh">
+<p>標準 bottom-up 流程：(1) 萃取蛋白 → (2) <strong>tryptic digestion</strong>（trypsin 切 K/R 之後） → (3) LC 分離胜肽 → (4) ESI 離子化 → (5) MS1 全譜（質荷比 + 強度）→ (6) MS2 碎裂（HCD/CID）得到胜肽序列指紋 → (7) 資料庫搜尋配對胜肽（MaxQuant / Spectronaut / DIA-NN / MSFragger）→ (8) 蛋白組裝（peptide → protein）+ FDR 控制（PSM/peptide/protein 三層）。</p>
+<p><strong>Top-down 蛋白體：</strong>直接量整蛋白，可解析 proteoforms 與 PTM 組合；但通量低、需高解析儀器（Orbitrap / FTMS）。</p>
+</div>
+<div data-lang="en">
+<p>Standard bottom-up: (1) protein extraction → (2) <strong>tryptic digestion</strong> (after K/R) → (3) LC separation → (4) ESI ionization → (5) MS1 (m/z + intensity) → (6) MS2 fragmentation (HCD/CID) for peptide fingerprint → (7) database search (MaxQuant, Spectronaut, DIA-NN, MSFragger) → (8) protein assembly + FDR control at PSM/peptide/protein levels.</p>
+<p><strong>Top-down:</strong> intact protein measurement, resolves proteoforms and PTM combinations — but low throughput, needs high-resolution instruments (Orbitrap / FTMS).</p>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="量測模式" data-en="ACQUISITION MODE">量測模式</div>
+<h2 data-zh="DDA vs DIA：兩種採集策略" data-en="DDA vs DIA: Two Acquisition Strategies">DDA vs DIA：兩種採集策略</h2>
+<table class="comp-table">
+<thead><tr><th></th><th>DDA</th><th>DIA</th></tr></thead>
+<tbody>
+<tr><td data-zh="原理" data-en="Principle"><strong>原理</strong></td><td data-zh="挑選 top-N 強訊號做 MS2" data-en="Pick top-N intense peaks for MS2">top-N</td><td data-zh="掃描整個 m/z 範圍，所有 precursor 都做 MS2" data-en="Scan all m/z windows, MS2 every precursor">全掃</td></tr>
+<tr><td data-zh="優點" data-en="Pros"><strong>優點</strong></td><td data-zh="光譜解析清晰、傳統流程支援好" data-en="Clean spectra, mature pipeline">傳統</td><td data-zh="重現性高、無 missing value 問題、可重新分析" data-en="High reproducibility, no missing values, re-analyzable">重現性</td></tr>
+<tr><td data-zh="挑戰" data-en="Cons"><strong>挑戰</strong></td><td data-zh="missing value（top-N 沒選到）、隨機性" data-en="Missing values (not in top-N), stochastic">missing</td><td data-zh="chimeric spectra、需 spectral library 或 in-silico library" data-en="Chimeric spectra; needs spectral library">複雜</td></tr>
+<tr><td data-zh="工具" data-en="Tools"><strong>工具</strong></td><td>MaxQuant, Proteome Discoverer, MSFragger</td><td>Spectronaut, DIA-NN, Skyline</td></tr>
+</tbody></table>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>定量策略：</strong>label-free（LFQ）/ TMT 同位素標籤（一次量 6–18 plex）/ SILAC 代謝標記。TMT 在減少 missing value、跨樣本一致性上很強，但有 "ratio compression" 偏差。</span>
+<span data-lang="en"><strong>Quantitation:</strong> label-free (LFQ) / TMT isobaric tagging (6–18 plex) / SILAC metabolic labeling. TMT reduces missing values and improves cross-sample consistency but suffers "ratio compression."</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="PTM" data-en="PTMs">PTM</div>
+<h2 data-zh="七大 PTM 與其專屬富集" data-en="Seven Common PTMs and Their Enrichments">七大 PTM 與其專屬富集</h2>
+<div class="card-grid cols-3">
+<div class="card"><h4>Phosphorylation</h4><div data-lang="zh"><p>Ser/Thr/Tyr 上，訊號傳導核心。富集：TiO₂、IMAC（Fe3+/Ti4+）。資料庫：PhosphoSitePlus。</p></div><div data-lang="en"><p>On Ser/Thr/Tyr, signaling hub. Enrichment: TiO₂, IMAC. DB: PhosphoSitePlus.</p></div></div>
+<div class="card"><h4>Acetylation</h4><div data-lang="zh"><p>Lys 上，染色質、代謝、訊號。富集：抗 acetyl-K 抗體 / Western blot。</p></div><div data-lang="en"><p>On Lys, chromatin/metabolism/signaling. Enrichment: anti-acK antibody.</p></div></div>
+<div class="card"><h4>Methylation</h4><div data-lang="zh"><p>Arg/Lys（me1/me2/me3）影響蛋白與 DNA 結合。富集：抗 methyl-K/R 抗體。</p></div><div data-lang="en"><p>On Arg/Lys, alters interactions. Enrichment: anti-meK/R antibodies.</p></div></div>
+<div class="card"><h4>Ubiquitination</h4><div data-lang="zh"><p>Lys 接 ubiquitin（K48/K63/K11 等不同 chain → 命運不同）。富集：抗 GG remnant（trypsin 切後 ubiquitin 留 GG）。</p></div><div data-lang="en"><p>Lys-linked ubiquitin (K48/K63/K11 chains → different fates). Enrichment: anti-GG remnant after trypsin.</p></div></div>
+<div class="card"><h4>SUMOylation</h4><div data-lang="zh"><p>類 ubiquitin，影響核 transport、DNA repair。富集：His-SUMO 純化。</p></div><div data-lang="en"><p>Ubiquitin-like, affects nuclear transport, DNA repair. Enrichment: His-SUMO purification.</p></div></div>
+<div class="card"><h4>Glycosylation</h4><div data-lang="zh"><p>N-linked（Asn）/ O-linked（Ser/Thr）、O-GlcNAc。富集：lectin、HILIC、PNGase F 處理；glycoproteomics 軟體：pGlyco3, Byonic, Glyco-Decipher。</p></div><div data-lang="en"><p>N-linked (Asn) / O-linked (Ser/Thr), O-GlcNAc. Enrichment: lectin, HILIC, PNGase F; tools: pGlyco3, Byonic, Glyco-Decipher.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="互動視覺化" data-en="INTERACTIVE">互動視覺化</div>
+<h2 data-zh="蛋白質與 mRNA 相關性散佈" data-en="Protein vs mRNA Correlation">蛋白質與 mRNA 相關性散佈</h2>
+<div class="interactive-panel">
+<p data-lang="zh">調整 mRNA-protein 一致性的「噪音」與「翻譯後解耦」程度，觀察散佈圖如何變化。</p>
+<p data-lang="en">Adjust noise and post-translational decoupling to see how the scatter changes.</p>
+<div class="slider-group"><label><span data-zh="noise (技術 + 生物)" data-en="noise (tech + bio)">noise</span> <span id="nVal">0.3</span></label><input type="range" id="nSlider" min="0" max="100" value="30"></div>
+<div class="slider-group"><label><span data-zh="解耦比例（受 PTM、降解影響）" data-en="decoupling fraction (PTM/degradation)">decoupling</span> <span id="dVal">0.3</span></label><input type="range" id="dSlider" min="0" max="60" value="30"></div>
+<div class="chart-container" style="height:380px"><canvas id="pmChart"></canvas></div>
+<p style="font-size:.82rem;color:var(--c-ink-muted);text-align:center;" id="corrLabel"></p>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">1. 想做大規模、跨樣本可重複的蛋白組學定量，最適合的採集模式是？</p>
+<p data-lang="en">1. For large-scale, reproducible proteomic quantitation across samples, the best acquisition mode?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. DDA top-3</span><span data-lang="en">A. DDA top-3</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. DIA（廣覆蓋、高重現性、少 missing value）</span><span data-lang="en">B. DIA (broad coverage, reproducible, fewer missing values)</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 不做質譜直接用抗體陣列</span><span data-lang="en">C. Skip MS, use antibody array</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 只跑一個樣本</span><span data-lang="en">D. Run a single sample</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">2. 磷酸化富集最常用的方法是？</p>
+<p data-lang="en">2. The most common phospho-enrichment method?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 抗體 IP</span><span data-lang="en">A. Antibody IP</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. PNGase F 處理</span><span data-lang="en">B. PNGase F treatment</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. TiO₂ 或 IMAC</span><span data-lang="en">C. TiO₂ or IMAC</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. Lectin 親和</span><span data-lang="en">D. Lectin affinity</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="0">
+<p data-lang="zh">3. TMT 多通道實驗常被批評的偏差是？</p>
+<p data-lang="en">3. The common bias criticized in TMT multiplexed experiments?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. Ratio compression（共流出胜肽造成比值「打平」）</span><span data-lang="en">A. Ratio compression (co-eluting peptides flatten ratios)</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 完全沒有 missing value</span><span data-lang="en">B. No missing values</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 需要 fresh-frozen 樣本</span><span data-lang="en">C. Requires fresh-frozen samples</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 不能與 DIA 結合</span><span data-lang="en">D. Cannot be combined with DIA</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="transcriptomics.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="轉錄體學" data-en="Transcriptomics">轉錄體學</span></a>
+<a href="metabolomics-lipidomics.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="代謝體與脂質體" data-en="Metabolomics &amp;amp; Lipidomics">代謝體與脂質體</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+
+function randn(){let u=0,v=0;while(u===0)u=Math.random();while(v===0)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+const pmChart=new Chart(document.getElementById('pmChart'),{type:'scatter',data:{datasets:[{label:'gene',data:[],pointRadius:3,backgroundColor:'rgba(4,120,87,0.55)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'log2 mRNA'},min:-4,max:4},y:{title:{display:true,text:'log2 protein'},min:-4,max:4}}}});
+function updatePM(){
+  const n=+document.getElementById('nSlider').value/100;
+  const d=+document.getElementById('dSlider').value/100;
+  document.getElementById('nVal').textContent=n.toFixed(2);
+  document.getElementById('dVal').textContent=d.toFixed(2);
+  const pts=[];
+  let sx=0,sy=0,sxx=0,syy=0,sxy=0;
+  for(let i=0;i<300;i++){
+    const m=randn()*1.8;
+    let p;
+    if(Math.random()<d){ p=randn()*1.8+(m*0.2); }
+    else { p=m+randn()*n*1.5; }
+    pts.push({x:m,y:p}); sx+=m; sy+=p; sxx+=m*m; syy+=p*p; sxy+=m*p;
+  }
+  const n2=300; const r=(n2*sxy-sx*sy)/Math.sqrt((n2*sxx-sx*sx)*(n2*syy-sy*sy));
+  pmChart.data.datasets[0].data=pts; pmChart.update('none');
+  const L=I18n.get();
+  document.getElementById('corrLabel').textContent=(L==='zh'?'相關係數 r ≈ ':'Correlation r ≈ ')+r.toFixed(2);
+}
+['nSlider','dSlider'].forEach(id=>document.getElementById(id).addEventListener('input',updatePM));
+document.addEventListener('langchange',updatePM);
+updatePM();
+
+const QF={
+ zh:{q1_y:'DIA 全掃 m/z 範圍，重現性高、missing value 極少，特別適合大規模研究。',q1_n:'正確答案已標示。',
+     q2_y:'TiO₂ 與 IMAC 是 phosphopeptide 富集的金標準。',q2_n:'正確答案已標示。',
+     q3_y:'TMT ratio compression 是共流出胜肽（co-eluting peptides）干擾 reporter ion 強度造成的比值「打平」現象。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'DIA scans the full m/z range with high reproducibility and minimal missing values — ideal for large studies.',q1_n:'Correct answer highlighted.',
+     q2_y:'TiO₂ and IMAC are gold-standard phosphopeptide enrichment methods.',q2_n:'Correct answer highlighted.',
+     q3_y:'TMT ratio compression arises when co-eluting peptides distort reporter ion intensities, flattening true ratios.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

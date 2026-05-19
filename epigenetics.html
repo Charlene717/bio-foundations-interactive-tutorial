@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.12 表觀遺傳 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html" class="active">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 12 / 18 · BLOCK C</div>
+<h1 data-zh="表觀遺傳" data-en="Epigenetics">表觀遺傳</h1>
+<p class="subtitle" data-lang="zh">同樣的 DNA、不同的細胞——差別在於染色質上「化學標籤」的組合。DNA 甲基化、組蛋白修飾、染色質可及性、非編碼 RNA、X 失活、印記，這些共同構成「表觀基因組」。</p>
+<p class="subtitle" data-lang="en">Same DNA, different cells — the difference lies in the chromatin "tags." DNA methylation, histone marks, accessibility, non-coding RNAs, X-inactivation, imprinting all make up the "epigenome."</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="DNA 甲基化" data-en="DNA METHYLATION">DNA 甲基化</div>
+<h2 data-zh="5mC：最熟悉的 epi-mark" data-en="5mC: The Most Familiar Epi-mark">5mC：最熟悉的 epi-mark</h2>
+<div data-lang="zh">
+<p>哺乳類 5-methylcytosine 主要在 <strong>CpG dinucleotides</strong>。基因組整體 5mC 比例 ~70–80%（CpG），但 <strong>CpG islands</strong>（promoter 附近高 GC 富集區）大多為<strong>未甲基化</strong>狀態以維持轉錄活性。</p>
+<p><strong>三類規則：</strong>(1) Promoter CpG island 甲基化 → 抑制；(2) Gene body 甲基化 → 與活躍轉錄共存（與 splicing 相關）；(3) Enhancer 甲基化 → 多半失活。</p>
+<p><strong>動態調控：</strong>DNMT1（維持）、DNMT3A/3B（從頭）、TET1/2/3（5mC → 5hmC → 5fC → 5caC → DNA repair 移除）。胚胎發育與 PGC 發育中有兩次全基因組重編程。</p>
+</div>
+<div data-lang="en">
+<p>Mammalian 5-methylcytosine (5mC) is mainly at <strong>CpG dinucleotides</strong>. ~70–80% of CpGs are methylated, but <strong>CpG islands</strong> (GC-rich regions near promoters) are mostly unmethylated to allow transcription.</p>
+<p><strong>Three rules:</strong> (1) Promoter CGI methylation → silencing; (2) Gene-body methylation → coexists with active transcription (linked to splicing); (3) Enhancer methylation → typically inactive.</p>
+<p><strong>Dynamic regulation:</strong> DNMT1 (maintenance), DNMT3A/3B (de novo), TET1/2/3 (5mC → 5hmC → 5fC → 5caC → repair-mediated removal). Two whole-genome reprogramming events during embryogenesis and PGC development.</p>
+</div>
+<table class="comp-table">
+<thead><tr><th data-zh="技術" data-en="Tech">技術</th><th data-zh="原理" data-en="Principle">原理</th><th data-zh="優缺點" data-en="Pros/cons">優缺點</th></tr></thead>
+<tbody>
+<tr><td><strong>WGBS</strong></td><td data-zh="亞硫酸氫鹽轉換 C → U（5mC 保留）" data-en="Bisulfite converts C → U (5mC preserved)">Bisulfite</td><td data-zh="全基因組 CpG 解析；DNA 損傷重；read 比對偏差" data-en="Whole genome; high damage; alignment bias">解析高，傷 DNA</td></tr>
+<tr><td><strong>RRBS</strong></td><td data-zh="MspI 切後再 bisulfite，富集 CGI" data-en="MspI then bisulfite, enriches CGIs">CGI 偏好</td><td data-zh="便宜、覆蓋 CGI、覆蓋 enhancer 不足" data-en="Cheap, CGI-focused, undercovers enhancers">便宜，限 CGI</td></tr>
+<tr><td><strong>EM-seq</strong></td><td data-zh="酶法轉換（無 bisulfite 損傷）" data-en="Enzymatic conversion, no bisulfite damage">酶法</td><td data-zh="DNA 完整、library 品質高（NEB）" data-en="Better DNA integrity (NEB)">較新，普及中</td></tr>
+<tr><td><strong>Illumina EPIC / MethylationEPIC</strong></td><td data-zh="陣列（935K CpGs）" data-en="Array (935K CpGs)">CpG array</td><td data-zh="便宜、大樣本流行病學（如 epigenetic age）" data-en="Cheap, epidemiology (epigenetic age)">陣列限</td></tr>
+<tr><td><strong>Nanopore native methylation</strong></td><td data-zh="long-read 直接讀電流" data-en="Long-read native ionic-current">Direct</td><td data-zh="無轉換、可同時測序列+甲基化、單分子 phased haplotype" data-en="No conversion; sequence + methylation; haplotype-phased">前沿</td></tr>
+</tbody></table>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="組蛋白修飾" data-en="HISTONE MARKS">組蛋白修飾</div>
+<h2 data-zh="組蛋白語言" data-en="The Histone Code">組蛋白語言</h2>
+<div data-lang="zh"><p>組蛋白 N 端「尾部」可被多種共價修飾：<strong>乙醯化 (ac)</strong>、<strong>甲基化 (me1/me2/me3)</strong>、<strong>磷酸化 (p)</strong>、<strong>泛素化 (ub)</strong>、<strong>SUMO 化</strong>。每個 mark 與染色質狀態強相關，組合形成「組蛋白語言」。</p></div>
+<div data-lang="en"><p>Histone N-terminal "tails" undergo multiple covalent modifications: <strong>acetylation (ac)</strong>, <strong>methylation (me1/me2/me3)</strong>, <strong>phosphorylation (p)</strong>, <strong>ubiquitination (ub)</strong>, <strong>SUMOylation</strong>. Each mark correlates with a chromatin state; combinations form the "histone code."</p></div>
+<div class="card-grid cols-3">
+<div class="card"><h4>H3K4me3</h4><div data-lang="zh"><p>活躍 promoter（TSS ±1 kb）。寫入：MLL/KMT2 家族。</p></div><div data-lang="en"><p>Active promoter (TSS ±1 kb). Writer: MLL/KMT2 family.</p></div></div>
+<div class="card"><h4>H3K4me1 + H3K27ac</h4><div data-lang="zh"><p>活躍 enhancer。前者單獨可標記 primed enhancer。</p></div><div data-lang="en"><p>Active enhancer. H3K4me1 alone marks primed enhancers.</p></div></div>
+<div class="card"><h4>H3K36me3</h4><div data-lang="zh"><p>Gene body 活躍轉錄區。Writer: SETD2。</p></div><div data-lang="en"><p>Gene body of active transcription. Writer: SETD2.</p></div></div>
+<div class="card"><h4>H3K27me3</h4><div data-lang="zh"><p>Polycomb 介導的<strong>facultative</strong> heterochromatin。Writer: EZH2 / PRC2。</p></div><div data-lang="en"><p>Polycomb-mediated <strong>facultative</strong> heterochromatin. Writer: EZH2 / PRC2.</p></div></div>
+<div class="card"><h4>H3K9me3</h4><div data-lang="zh"><p><strong>Constitutive</strong> heterochromatin（重複序列、retroelement 沉默）。Writer: SUV39H, SETDB1。</p></div><div data-lang="en"><p><strong>Constitutive</strong> heterochromatin (repeats, retroelement silencing). Writer: SUV39H, SETDB1.</p></div></div>
+<div class="card"><h4>γH2AX (Ser139p)</h4><div data-lang="zh"><p>DSB 反應指標——細胞遭到 DNA 斷裂後快速磷酸化 H2AX。</p></div><div data-lang="en"><p>DSB response marker — rapid phosphorylation of H2AX upon DNA breaks.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="特殊機制" data-en="SPECIAL MECHANISMS">特殊機制</div>
+<h2 data-zh="X 失活、印記、跨代效應" data-en="X-Inactivation, Imprinting, Transgenerational Effects">X 失活、印記、跨代效應</h2>
+<div class="card-grid cols-2">
+<div class="card"><h4 data-zh="❌ X-inactivation (XCI)" data-en="❌ X-inactivation (XCI)">❌ X-inactivation</h4>
+<div data-lang="zh"><p>女性兩條 X 中一條隨機（或 imprinted）失活。由 <strong>XIST lncRNA</strong> 包覆 cis X 並招募 PRC2/PRC1 → H3K27me3 / H2AK119ub。XIST 失調可造成 escape 與 X-linked 疾病表型差異。</p></div>
+<div data-lang="en"><p>One of two X's silenced (random or imprinted) in females. <strong>XIST lncRNA</strong> coats the cis X and recruits PRC2/PRC1 → H3K27me3 / H2AK119ub. Dysregulated XIST causes escape and varying X-linked disease severity.</p></div></div>
+<div class="card"><h4 data-zh="🧬 印記 (Imprinting)" data-en="🧬 Imprinting">🧬 印記</h4>
+<div data-lang="zh"><p>某些基因只表達父或母方的等位基因，由 ICR (imprinting control region) 上的甲基化決定。15q11-q13：Prader-Willi (父系缺失) vs Angelman (母系缺失)。11p15.5：BWS / Russell-Silver。</p></div>
+<div data-lang="en"><p>Some genes express only paternal or maternal allele, controlled by ICRs (imprinting control regions). 15q11-q13: Prader-Willi (paternal loss) vs Angelman (maternal loss). 11p15.5: BWS / Russell-Silver.</p></div></div>
+<div class="card"><h4 data-zh="⏰ Epigenetic clocks" data-en="⏰ Epigenetic clocks">⏰ 表觀生物時鐘</h4>
+<div data-lang="zh"><p>Horvath 2013 多組織時鐘、Hannum 2013、PhenoAge、GrimAge、DunedinPACE——用 CpG 位點預測「生物學年齡」。與健康風險、死亡率關聯。可用 EWAS 探討環境暴露效應。</p></div>
+<div data-lang="en"><p>Horvath 2013 multi-tissue clock, Hannum 2013, PhenoAge, GrimAge, DunedinPACE — predict "biological age" from CpG sites. Correlate with health, mortality. Used in EWAS for environmental exposure.</p></div></div>
+<div class="card"><h4 data-zh="🌱 Transgenerational" data-en="🌱 Transgenerational">🌱 跨代效應</h4>
+<div data-lang="zh"><p>環境（飢荒、毒物、壓力）能影響後代表觀，但人類資料尚未完全確立 epigenetic 跨代繼承（多數受混雜變因影響）。植物與 C. elegans 證據較強。</p></div>
+<div data-lang="en"><p>Environment (famine, toxins, stress) can affect offspring epigenome, but human transgenerational epigenetic inheritance is not fully established (confounded). Stronger evidence in plants and C. elegans.</p></div></div>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">1. 在 promoter CpG island 上的高度甲基化通常意味？</p>
+<p data-lang="en">1. High methylation at a promoter CpG island typically means?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 該基因高度表達</span><span data-lang="en">A. Gene is highly expressed</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 該基因正在進行 alternative splicing</span><span data-lang="en">B. Gene is undergoing alternative splicing</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 該基因被沉默</span><span data-lang="en">C. Gene is silenced</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 該基因是 imprinted 父系等位</span><span data-lang="en">D. Gene is paternal imprinted allele</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="0">
+<p data-lang="zh">2. 在 ChIP-seq 上 H3K27me3 與 H3K4me3 同時富集（bivalent domain）最常出現在？</p>
+<p data-lang="en">2. Bivalent domains (H3K27me3 + H3K4me3 co-occupy) are most associated with?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 胚胎幹細胞中發育基因，準備好但尚未表達</span><span data-lang="en">A. Developmental genes "primed" in ESCs</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 已分化體細胞的 housekeeping 基因</span><span data-lang="en">B. Housekeeping genes in differentiated cells</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 偽基因</span><span data-lang="en">C. Pseudogenes</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 端粒</span><span data-lang="en">D. Telomeres</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">3. WGBS 與 Nanopore 直接甲基化偵測相比，Nanopore 的最大優勢是？</p>
+<p data-lang="en">3. Compared to WGBS, the biggest advantage of Nanopore native methylation is?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. Cost 較低</span><span data-lang="en">A. Lower cost</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 不需轉換、可同時測序列、甲基化與單分子 phased haplotype</span><span data-lang="en">B. No chemical conversion; reads sequence + methylation + phased haplotype simultaneously</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 解析度遠高於 WGBS</span><span data-lang="en">C. Higher resolution than WGBS</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 對 CpG island 偏好</span><span data-lang="en">D. CGI-biased</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="inheritance-popgen.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="遺傳與群體遺傳" data-en="Inheritance &amp;amp; Population Genetics">遺傳與群體遺傳</span></a>
+<a href="cell-cycle-signaling.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="細胞週期、分裂與訊號傳遞" data-en="Cell Cycle, Division &amp;amp; Signaling">細胞週期、分裂與訊號傳遞</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+const QF={
+ zh:{q1_y:'Promoter CGI 甲基化會干擾 TF 結合與 Pol II PIC 組裝，是經典的「沉默信號」。',q1_n:'正確答案已標示。',
+     q2_y:'Bivalent domain 是 ESC 中發育基因「primed but not expressed」的特徵——一旦分化便偏向 H3K4me3 或 H3K27me3 一方。',q2_n:'正確答案已標示。',
+     q3_y:'Nanopore 不需化學轉換；同時讀序列+甲基化+phased haplotype 是其獨特優勢。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'Promoter CGI methylation blocks TF binding / PIC assembly — a classical silencing signal.',q1_n:'Correct answer highlighted.',
+     q2_y:'Bivalent domains in ESCs mark "primed but not expressed" developmental genes — they resolve toward one mark upon differentiation.',q2_n:'Correct answer highlighted.',
+     q3_y:'Nanopore needs no chemical conversion; reads sequence + methylation + phased haplotype simultaneously.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

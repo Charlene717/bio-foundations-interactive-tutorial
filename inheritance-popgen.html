@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.11 遺傳與群體遺傳 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html" class="active">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 11 / 18 · BLOCK C</div>
+<h1 data-zh="遺傳與群體遺傳" data-en="Inheritance &amp; Population Genetics">遺傳與群體遺傳</h1>
+<p class="subtitle" data-lang="zh">從孟德爾的豌豆到 UK Biobank 50 萬人——同樣的數學在現代 GWAS、PRS、admixture、選汰偵測中重複使用。理解這一層，能讓你看出資料背後的進化故事。</p>
+<p class="subtitle" data-lang="en">From Mendel's peas to the 500K UK Biobank — the same math underlies modern GWAS, PRS, admixture, and selection scans. Understanding this layer reveals the evolutionary story behind your data.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="孟德爾遺傳" data-en="MENDELIAN GENETICS">孟德爾遺傳</div>
+<h2 data-zh="從豌豆到單基因疾病" data-en="From Peas to Monogenic Disease">從豌豆到單基因疾病</h2>
+<div data-lang="zh">
+<p>孟德爾兩大定律：<strong>分離律 (segregation)</strong>——同源染色體上的等位基因在配子形成時分離；<strong>自由組合律 (independent assortment)</strong>——不同染色體上的等位基因獨立分離（僅當不連鎖時嚴格成立）。</p>
+<p><strong>單基因疾病遺傳模式：</strong></p>
+<ul>
+<li><strong>體染色體顯性 (AD)</strong>：每代出現、雜合即發病（HD, NF1, BRCA1/2）。</li>
+<li><strong>體染色體隱性 (AR)</strong>：常需近親婚配；患者父母多為帶因者（CF, SCA, PKU）。</li>
+<li><strong>X-linked recessive</strong>：男性病多、女性主要為帶因者（DMD, hemophilia, color blindness）。</li>
+<li><strong>X-linked dominant</strong>：罕見；女性常較輕（如 Rett syndrome）。</li>
+<li><strong>Mitochondrial</strong>：母系遺傳，異質性 (heteroplasmy) 影響表現（MELAS, LHON）。</li>
+<li><strong>Imprinting</strong>：印記基因僅來自父或母的等位基因表達（Prader-Willi / Angelman, 15q11-q13）。</li>
+</ul>
+</div>
+<div data-lang="en">
+<p>Mendel's two laws: <strong>segregation</strong> — homologous alleles separate during gamete formation; <strong>independent assortment</strong> — alleles on different chromosomes segregate independently (strictly true only when unlinked).</p>
+<p><strong>Monogenic inheritance patterns:</strong></p>
+<ul>
+<li><strong>Autosomal dominant (AD)</strong>: appears every generation; heterozygotes affected (HD, NF1, BRCA1/2).</li>
+<li><strong>Autosomal recessive (AR)</strong>: often consanguineous; parents are carriers (CF, SCA, PKU).</li>
+<li><strong>X-linked recessive</strong>: males affected, females usually carriers (DMD, hemophilia, color blindness).</li>
+<li><strong>X-linked dominant</strong>: rare; females milder (Rett).</li>
+<li><strong>Mitochondrial</strong>: maternal inheritance, heteroplasmy modulates expression (MELAS, LHON).</li>
+<li><strong>Imprinting</strong>: expression from only one parent's allele (Prader-Willi / Angelman, 15q11-q13).</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="群體遺傳" data-en="POPULATION GENETICS">群體遺傳</div>
+<h2 data-zh="Hardy-Weinberg、LD、Fst 與選汰" data-en="Hardy-Weinberg, LD, Fst &amp; Selection">Hardy-Weinberg、LD、Fst 與選汰</h2>
+<div class="card-grid cols-2">
+<div class="card"><h4>📐 <span data-zh="Hardy-Weinberg 平衡" data-en="Hardy-Weinberg equilibrium">Hardy-Weinberg 平衡</span></h4>
+<div data-lang="zh"><p>等位基因頻率 p, q 滿足 <code>p² + 2pq + q² = 1</code> 在隨機交配、無選汰、無突變、大族群下穩定。<strong>HWE 偏離</strong>是基因型分布異常的訊號（如 inbreeding、population structure、選汰、定序錯誤）。GWAS QC 必檢項。</p></div>
+<div data-lang="en"><p>Allele frequencies p, q satisfy <code>p² + 2pq + q² = 1</code> under random mating, no selection/mutation, large population. <strong>HWE deviation</strong> signals inbreeding, structure, selection, or genotyping errors — a GWAS QC checkpoint.</p></div></div>
+
+<div class="card"><h4>🔗 <span data-zh="連鎖不平衡 (LD)" data-en="Linkage disequilibrium">連鎖不平衡 (LD)</span></h4>
+<div data-lang="zh"><p>兩個位點等位基因比預期更常一起出現。LD 由<strong>遺傳距離</strong>、<strong>重組率</strong>、<strong>族群歷史</strong>共同決定。GWAS 中 lead SNP 不一定是因果——常需 fine-mapping (SuSiE/CAVIAR) 找真實 causal variant。</p></div>
+<div data-lang="en"><p>Two loci's alleles co-occur more than expected. LD shaped by distance, recombination rate, and population history. In GWAS the lead SNP isn't always causal — fine-mapping (SuSiE, CAVIAR) finds the true causal variant.</p></div></div>
+
+<div class="card"><h4>🌍 <span data-zh="族群分化 Fst" data-en="Population differentiation Fst">族群分化 Fst</span></h4>
+<div data-lang="zh"><p>衡量兩族群間等位基因頻率差異程度（0 ~ 1）。Fst 高的位點可能歷經<strong>族群特異選汰</strong>（如 lactase persistence、SLC24A5 皮膚色素、EPAS1 高海拔）。</p></div>
+<div data-lang="en"><p>Measures allele-frequency difference between populations (0–1). High-Fst loci may reflect <strong>population-specific selection</strong> (lactase persistence, SLC24A5 pigmentation, EPAS1 high altitude).</p></div></div>
+
+<div class="card"><h4>📊 <span data-zh="族群結構與 admixture" data-en="Structure &amp; admixture">族群結構與 admixture</span></h4>
+<div data-lang="zh"><p>PCA / ADMIXTURE / STRUCTURE 將樣本投影到主成分或 K 個祖先成分上。GWAS 必須以 PC 校正以避免假陽性。Reference panels：1000 Genomes、HGDP、UK Biobank、PAGE、TopMed。</p></div>
+<div data-lang="en"><p>PCA / ADMIXTURE / STRUCTURE project samples onto PCs or K ancestry components. GWAS must include PCs to avoid spurious associations. Reference panels: 1000G, HGDP, UK Biobank, PAGE, TopMed.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="GWAS 與 PRS" data-en="GWAS &amp; PRS">GWAS 與 PRS</div>
+<h2 data-zh="從關聯到風險預測" data-en="From Association to Risk Prediction">從關聯到風險預測</h2>
+<div data-lang="zh">
+<p><strong>GWAS</strong>：在大型樣本（10K–1M+）中對每個 SNP 做表型關聯，顯著閾值 p &lt; 5×10⁻⁸（Bonferroni for ~1M independent tests）。輸出 Manhattan plot 與 QQ plot。重要工具：PLINK、SAIGE、REGENIE、GCTA。</p>
+<p><strong>Heritability</strong>：表型變異中由遺傳解釋的比例。SNP-heritability h²_SNP 是 GWAS 能解釋的部分（多為總 h² 的一半）。LDSC、GREML 估計。</p>
+<p><strong>PRS (Polygenic Risk Score)</strong>：將 GWAS 結果加權求和成單一風險分數。PRS-CS / LDpred2 / PRS-CSx 等使用 LD 結構與貝氏縮放權重。<strong>限制：</strong>大多基於歐裔，跨族群泛化差；目前仍多為輔助、非獨立預測。</p>
+</div>
+<div data-lang="en">
+<p><strong>GWAS:</strong> per-SNP association in large cohorts (10K–1M+). Significance: p &lt; 5×10⁻⁸ (Bonferroni for ~1M tests). Outputs Manhattan and QQ plots. Tools: PLINK, SAIGE, REGENIE, GCTA.</p>
+<p><strong>Heritability:</strong> the proportion of phenotype variance explained by genetics. SNP-heritability h²_SNP is what GWAS captures (often ~half total h²). Estimated by LDSC, GREML.</p>
+<p><strong>PRS:</strong> weighted sum of GWAS-derived effects. PRS-CS / LDpred2 / PRS-CSx use LD + Bayesian shrinkage. <strong>Limitation:</strong> mostly European-derived, poor cross-ancestry transferability; currently auxiliary.</p>
+</div>
+<div class="interactive-panel">
+<p style="margin-bottom:8px" data-lang="zh">模擬 HWE：拖動等位頻率 p，看基因型分布。</p>
+<p style="margin-bottom:8px" data-lang="en">Simulate HWE — drag allele frequency p to update genotype distribution.</p>
+<div class="slider-group"><label><span>p (allele A)</span> <span id="pVal">0.30</span></label><input type="range" id="pSlider" min="1" max="99" value="30"></div>
+<div class="chart-container" style="height:280px"><canvas id="hweChart"></canvas></div>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">1. 在大型族群中 SNP HWE p 值極小（HWE 不成立），最不可能的原因是？</p>
+<p data-lang="en">1. In a large cohort, a SNP fails HWE strongly. The LEAST likely explanation?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 基因分型錯誤（如 cluster 失敗）</span><span data-lang="en">A. Genotyping error (cluster failure)</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 族群結構（subpopulations 混合）</span><span data-lang="en">B. Population structure</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 樣本太大造成功率過大（HWE 仍應成立但檢出小偏差）</span><span data-lang="en">C. Large sample size with HWE still holding (only tiny deviation detected)</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 強選汰</span><span data-lang="en">D. Strong selection</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">2. GWAS 的全基因組顯著閾值 p &lt; 5×10⁻⁸ 對應的修正方式是？</p>
+<p data-lang="en">2. GWAS genome-wide significance p &lt; 5×10⁻⁸ corresponds to which correction?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. FDR 5%</span><span data-lang="en">A. 5% FDR</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. Bonferroni 對約 100 萬個獨立檢驗</span><span data-lang="en">B. Bonferroni for ~1 million independent tests</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. Holm 修正</span><span data-lang="en">C. Holm correction</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. permutation p</span><span data-lang="en">D. Permutation p</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">3. 在非歐裔個體上套用歐裔 PRS 模型常出現的主要問題是？</p>
+<p data-lang="en">3. The main issue when applying a European-derived PRS to non-European individuals?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 完全沒問題</span><span data-lang="en">A. No issue at all</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. PRS 直接無效（無相關性）</span><span data-lang="en">B. PRS is entirely uncorrelated</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. LD 結構與等位頻率差異使預測力下降，可能加劇健康不平等</span><span data-lang="en">C. Different LD and allele frequencies reduce predictive power, potentially worsening health inequities</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 統計效能提升</span><span data-lang="en">D. Increased statistical power</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="mutations-variants.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="突變與遺傳變異" data-en="Mutations &amp;amp; Genetic Variants">突變與遺傳變異</span></a>
+<a href="epigenetics.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="表觀遺傳" data-en="Epigenetics">表觀遺傳</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+const hweChart=new Chart(document.getElementById('hweChart'),{type:'bar',data:{labels:['AA (p²)','Aa (2pq)','aa (q²)'],datasets:[{label:'Genotype frequency',data:[0.09,0.42,0.49],backgroundColor:['rgba(4,120,87,0.78)','rgba(20,184,166,0.78)','rgba(234,88,12,0.78)']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:1}}}});
+function updateHWE(){
+  const p=+document.getElementById('pSlider').value/100; const q=1-p;
+  document.getElementById('pVal').textContent=p.toFixed(2);
+  hweChart.data.datasets[0].data=[p*p,2*p*q,q*q];
+  hweChart.update('none');
+}
+document.getElementById('pSlider').addEventListener('input',updateHWE);
+updateHWE();
+const QF={
+ zh:{q1_y:'樣本越大越能偵測微小偏差，但「HWE 仍成立」與「偏離 HWE」是不同概念；大樣本是偵測手段，不會「造成」HWE 失敗。',q1_n:'正確答案已標示。',
+     q2_y:'5×10⁻⁸ ≈ 0.05/10⁶——對應約一百萬個獨立檢驗的 Bonferroni 修正。',q2_n:'正確答案已標示。',
+     q3_y:'LD 結構與頻率差異使歐裔 PRS 在非歐裔人群效力下降，這也是 PRS 公平性的核心議題。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'Large samples detect tiny deviations, but a sample-size effect itself doesn\'t \"cause\" HWE failure.',q1_n:'Correct answer highlighted.',
+     q2_y:'5×10⁻⁸ ≈ 0.05/10⁶ — Bonferroni for ~1 million independent tests.',q2_n:'Correct answer highlighted.',
+     q3_y:'Differences in LD and allele frequencies reduce PRS power in non-European populations — a core equity issue.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

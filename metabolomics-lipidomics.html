@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.17 代謝體與脂質體 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html" class="active">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 17 / 18 · BLOCK D</div>
+<h1 data-zh="代謝體與脂質體" data-en="Metabolomics &amp; Lipidomics">代謝體與脂質體</h1>
+<p class="subtitle" data-lang="zh">DNA / RNA / 蛋白都在「指揮」，但實際的化學反應發生在小分子代謝物上。代謝體與脂質體量到的是生命的「即時生理狀態」——也是最接近表型的層級。</p>
+<p class="subtitle" data-lang="en">DNA, RNA, and proteins direct, but real chemistry happens at the metabolite level. Metabolomics and lipidomics measure the cell's instantaneous physiological state — the closest layer to phenotype.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="概覽" data-en="OVERVIEW">概覽</div>
+<h2 data-zh="代謝體 vs 脂質體 vs 蛋白體 vs 轉錄體" data-en="Metabolome vs Lipidome vs Proteome vs Transcriptome">代謝體 vs 脂質體 vs 蛋白體 vs 轉錄體</h2>
+<table class="comp-table">
+<thead><tr><th></th><th data-zh="尺寸" data-en="Size">尺寸</th><th data-zh="多樣性" data-en="Diversity">多樣性</th><th data-zh="動力學" data-en="Dynamics">動力學</th><th data-zh="與表型距離" data-en="Distance to phenotype">距表型</th></tr></thead>
+<tbody>
+<tr><td>Transcriptome</td><td data-zh="0.5–10 kb" data-en="0.5–10 kb">0.5–10 kb</td><td data-zh="~20K 編碼 + ncRNA" data-en="~20K coding + ncRNA">~20K</td><td data-zh="分鐘–小時" data-en="min–hr">分鐘</td><td data-zh="遠" data-en="Far">遠</td></tr>
+<tr><td>Proteome</td><td>5–500 kDa</td><td data-zh="~20K 蛋白 × isoform/PTM" data-en="~20K × isoform/PTM">~×PTM</td><td data-zh="小時–天" data-en="hr–day">小時</td><td data-zh="中" data-en="Mid">中</td></tr>
+<tr><td>Metabolome</td><td data-zh="50–1500 Da" data-en="50–1500 Da">50–1500 Da</td><td data-zh="~5K–10K（人類）" data-en="~5K–10K (human)">~10K</td><td data-zh="秒–分鐘" data-en="sec–min">秒</td><td data-zh="近" data-en="Close">近</td></tr>
+<tr><td>Lipidome</td><td data-zh="200–2000 Da" data-en="200–2000 Da">200–2000 Da</td><td data-zh="~40K 結構（不含異構物）" data-en="~40K structures">~40K</td><td data-zh="分鐘–小時" data-en="min–hr">分鐘</td><td data-zh="近" data-en="Close">近</td></tr>
+</tbody></table>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>快速回顧：</strong>代謝產物變化速度極快，採樣方法（quench, snap freeze）關鍵——血液離開血管 30 秒就有顯著變化。前處理是代謝體最大誤差來源。</span>
+<span data-lang="en"><strong>Quick review:</strong> Metabolites change in seconds — sample handling (quench, snap-freeze) is critical. Blood diverges within 30 s of draw. Pre-analytical handling is the biggest variance source.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="技術" data-en="TECHNIQUES">技術</div>
+<h2 data-zh="LC-MS / GC-MS / NMR" data-en="LC-MS / GC-MS / NMR">LC-MS / GC-MS / NMR</h2>
+<div class="card-grid cols-3">
+<div class="card"><h4>🧪 <span data-zh="LC-MS（液相 + 質譜）" data-en="LC-MS">LC-MS</span></h4>
+<div data-lang="zh"><p>當前主力。HILIC（親水）+ RP（疏水）兩種管柱組合涵蓋大部分極性與非極性代謝物。正/負模式都掃才能完整。</p></div>
+<div data-lang="en"><p>Workhorse today. HILIC (polar) + reverse-phase (nonpolar) columns cover most analytes. Run positive and negative modes for full coverage.</p></div></div>
+<div class="card"><h4>🌡️ <span data-zh="GC-MS（氣相 + 質譜）" data-en="GC-MS">GC-MS</span></h4>
+<div data-lang="zh"><p>適合揮發性、衍生化代謝物（如 TCA cycle 中間物）。資料庫成熟（NIST），定量精度高。</p></div>
+<div data-lang="en"><p>For volatile / derivatized metabolites (TCA cycle intermediates). Mature library (NIST), high quantitative precision.</p></div></div>
+<div class="card"><h4>🧲 <span data-zh="NMR（核磁共振）" data-en="NMR">NMR</span></h4>
+<div data-lang="zh"><p>非破壞性、結構明確、定量絕對；通量低、敏感度比 MS 差幾個數量級，常用於體液（尿、血漿）大樣本流行病學。</p></div>
+<div data-lang="en"><p>Non-destructive, unambiguous structure, absolute quantitation; lower throughput and sensitivity than MS. Common in biofluid epidemiology (urine, plasma).</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="鑑定信心" data-en="IDENTIFICATION CONFIDENCE">鑑定信心</div>
+<h2 data-zh="MSI 信心等級" data-en="MSI Confidence Levels">MSI 信心等級</h2>
+<table class="comp-table">
+<thead><tr><th>Level</th><th data-zh="標準" data-en="Criteria">標準</th><th data-zh="例" data-en="Example">例</th></tr></thead>
+<tbody>
+<tr><td><strong>L1</strong></td><td data-zh="與本實驗室標準品同條件比對：m/z + retention time + MS² + 強度比" data-en="In-house standard: m/z + RT + MS² + intensity">完全比對</td><td data-zh="絕對定量" data-en="Absolute quant">絕對</td></tr>
+<tr><td><strong>L2</strong></td><td data-zh="與公開光譜資料庫匹配（HMDB, METLIN, MoNA）" data-en="Matched to public spectral DB (HMDB, METLIN, MoNA)">公開資料庫</td><td data-zh="可信註解" data-en="Putative">可信</td></tr>
+<tr><td><strong>L3</strong></td><td data-zh="化學類別已知（如「flavonoid」），具體分子未定" data-en="Chemical class known, specific molecule not">類別已知</td><td data-zh="假設性" data-en="Tentative">假設</td></tr>
+<tr><td><strong>L4</strong></td><td data-zh="僅有 m/z，未鑑定" data-en="m/z only, unknown">未知</td><td data-zh="exploratory" data-en="exploratory">未知</td></tr>
+</tbody></table>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>
+<span data-lang="zh"><strong>陷阱：</strong>許多論文報告「找到某代謝物」其實是 L2/L3 註解——同分異構物（如 leucine vs isoleucine）在 LC-MS 上常難分辨，需 retention time + MS² 雙重證據。報告務必說明 MSI level。</span>
+<span data-lang="en"><strong>Pitfall:</strong> Many papers report a "found metabolite" at L2/L3 level — isomers (e.g. leucine vs isoleucine) are hard to distinguish on LC-MS without RT + MS² evidence. Always report MSI level.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="脂質體" data-en="LIPIDOMICS">脂質體</div>
+<h2 data-zh="LIPID MAPS 分類與生物學意涵" data-en="LIPID MAPS Classification &amp; Biology">LIPID MAPS 分類與生物學意涵</h2>
+<div class="card-grid cols-2">
+<div class="card"><h4>🧈 <span data-zh="脂肪酸 (FA)" data-en="Fatty acids (FA)">脂肪酸</span></h4>
+<div data-lang="zh"><p>飽和、單元、多元不飽和（omega-3/6）；連結到發炎、心血管、神經發展。</p></div>
+<div data-lang="en"><p>Saturated, monounsaturated, polyunsaturated (omega-3/6); inflammation, cardiovascular, neural development.</p></div></div>
+<div class="card"><h4>🧴 <span data-zh="甘油脂 (TG, DG, MG)" data-en="Glycerolipids (TG, DG, MG)">甘油脂</span></h4>
+<div data-lang="zh"><p>能量儲存（TG = triglyceride）；DG / MG 是訊號脂質（如 DAG 活化 PKC）。</p></div>
+<div data-lang="en"><p>Energy storage (TG); DG / MG are signaling lipids (DAG activates PKC).</p></div></div>
+<div class="card"><h4>💧 <span data-zh="磷脂 (PC, PE, PS, PI)" data-en="Phospholipids (PC, PE, PS, PI)">磷脂</span></h4>
+<div data-lang="zh"><p>膜主要成分；PI 衍生 PIP/PIP2/PIP3 控制細胞訊號；PS 暴露是 apoptosis 標記。</p></div>
+<div data-lang="en"><p>Main membrane lipids; PI yields PIP/PIP2/PIP3 for signaling; PS exposure marks apoptosis.</p></div></div>
+<div class="card"><h4>🍳 <span data-zh="鞘脂 (Sphingolipids)" data-en="Sphingolipids">鞘脂</span></h4>
+<div data-lang="zh"><p>ceramide、sphingomyelin、glycosphingolipid；ceramide 觸發 apoptosis、ferroptosis。Lipid raft 主要成分。</p></div>
+<div data-lang="en"><p>Ceramide, sphingomyelin, glycosphingolipid; ceramide triggers apoptosis, ferroptosis. Core of lipid rafts.</p></div></div>
+<div class="card"><h4>🪨 <span data-zh="固醇 (Sterols)" data-en="Sterols">固醇</span></h4>
+<div data-lang="zh"><p>膽固醇、膽汁酸、類固醇激素（cortisol, estradiol, testosterone）。</p></div>
+<div data-lang="en"><p>Cholesterol, bile acids, steroid hormones (cortisol, estradiol, testosterone).</p></div></div>
+<div class="card"><h4>🧬 <span data-zh="脂質體分析挑戰" data-en="Lipidomics challenges">分析挑戰</span></h4>
+<div data-lang="zh"><p>同分異構物多（如不同 sn-position 的 PC）、需區分 class/subclass/acyl chain 三層；註解工具：LipidSearch、LipidBlast、MS-DIAL、Lipid-Pro。</p></div>
+<div data-lang="en"><p>Many isomers (e.g. PC sn-position variants); must distinguish class / subclass / acyl chain. Tools: LipidSearch, LipidBlast, MS-DIAL, Lipid-Pro.</p></div></div>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">1. 一篇代謝體論文只報告「找到 metabolite X」，未提 MSI level，最可能的問題是？</p>
+<p data-lang="en">1. A metabolomics paper reports "found metabolite X" without specifying MSI level. The most likely issue?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 結果完全可信</span><span data-lang="en">A. Fully trustworthy</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 可能只是 L2/L3 註解，與同分異構物難以區分，需謹慎</span><span data-lang="en">B. Could be L2/L3 — possibly confused with isomers; treat with caution</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 一定是 L1 級鑑定</span><span data-lang="en">C. Must be L1 identification</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 與技術完全無關</span><span data-lang="en">D. Unrelated to technology</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">2. 量測極性代謝物（如 amino acids, organic acids）最常用的 LC 管柱是？</p>
+<p data-lang="en">2. The LC column most commonly used for polar metabolites (amino acids, organic acids)?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. C18 reverse-phase</span><span data-lang="en">A. C18 reverse-phase</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. SCX 強陽離子交換</span><span data-lang="en">B. SCX strong cation exchange</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. HILIC（親水交互作用）</span><span data-lang="en">C. HILIC (hydrophilic interaction)</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. SEC（尺寸排阻）</span><span data-lang="en">D. SEC (size exclusion)</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="0">
+<p data-lang="zh">3. 為什麼血液取樣後的「處理時間」對代謝體分析特別關鍵？</p>
+<p data-lang="en">3. Why is "handling time" after blood draw particularly critical for metabolomics?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 紅血球持續代謝、酵素持續反應、代謝物在數十秒內就有顯著變化</span><span data-lang="en">A. RBCs keep metabolizing and enzymes act — metabolites change significantly within tens of seconds</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 處理時間完全不重要</span><span data-lang="en">B. Handling time is irrelevant</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 只影響 RNA-seq</span><span data-lang="en">C. Only affects RNA-seq</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 處理時間越長越好</span><span data-lang="en">D. Longer handling is better</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="proteomics-ptm.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="蛋白質體與翻譯後修飾" data-en="Proteomics &amp;amp; Post-translational Modifications">蛋白質體與翻譯後修飾</span></a>
+<a href="systems-multiomics-clinical.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="系統生物學、多組學與臨床轉譯" data-en="Systems Biology, Multi-omics &amp;amp; Clinic">系統生物學、多組學與臨床轉譯</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+const QF={
+ zh:{q1_y:'L2/L3 註解可能不確定到分子層級；同分異構物 LC-MS 上難分。需報 MSI level 才知道可信度。',q1_n:'正確答案已標示。',
+     q2_y:'HILIC 是極性代謝物的最常用 LC 管柱；C18 是疏水代謝物用。',q2_n:'正確答案已標示。',
+     q3_y:'血液離開血管後 RBC 仍代謝、酵素仍作用，代謝物變化以秒計。pre-analytical 變異是代謝體最大誤差源。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'L2/L3 annotations may not pin to a single molecule — isomers confound LC-MS without RT + MS² evidence; MSI level is essential.',q1_n:'Correct answer highlighted.',
+     q2_y:'HILIC is the standard for polar metabolites; C18 is for hydrophobic compounds.',q2_n:'Correct answer highlighted.',
+     q3_y:'After collection, RBCs continue metabolizing and enzymes act — metabolites shift within seconds. Pre-analytical handling dominates variance.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

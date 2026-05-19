@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.10 突變與遺傳變異 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html" class="active">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 10 / 18 · BLOCK C</div>
+<h1 data-zh="突變與遺傳變異" data-en="Mutations &amp; Genetic Variants">突變與遺傳變異</h1>
+<p class="subtitle" data-lang="zh">「變異 (variant)」涵蓋從單一鹼基替換到整段染色體重排——尺寸、頻率、功能效應、germline vs somatic 等屬性決定了它們在 VCF 裡如何被記錄、用哪個工具偵測、如何解讀。</p>
+<p class="subtitle" data-lang="en">Variants range from single-base substitutions to chromosome-scale rearrangements. Size, frequency, function, and germline-vs-somatic origin shape how they appear in VCFs, which tool detects them, and how to interpret them.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="變異類型" data-en="VARIANT TYPES">變異類型</div>
+<h2 data-zh="從 SNV 到 SV：六大尺寸層級" data-en="From SNV to SV: Six Size Tiers">從 SNV 到 SV：六大尺寸層級</h2>
+<table class="comp-table">
+<thead><tr><th data-zh="類型" data-en="Type">類型</th><th data-zh="尺寸" data-en="Size">尺寸</th><th data-zh="例子" data-en="Example">例子</th><th data-zh="主要偵測工具" data-en="Tools">工具</th></tr></thead>
+<tbody>
+<tr><td><strong>SNV</strong></td><td>1 bp</td><td data-zh="單鹼基替換（A→G）" data-en="Single base sub (A→G)">A→G</td><td>GATK HaplotypeCaller, DeepVariant, Strelka2, Mutect2</td></tr>
+<tr><td><strong>Indel (small)</strong></td><td>1–50 bp</td><td data-zh="frame-shift insertion / deletion" data-en="frame-shift insertion / deletion">indel</td><td>same as SNV; harder near homopolymers</td></tr>
+<tr><td><strong>STR / microsatellite</strong></td><td>2–60 bp repeat × varying copies</td><td data-zh="CAG triplet 在 HTT 基因擴增 → 亨丁頓" data-en="CAG triplet in HTT → Huntington">CAG (HTT)</td><td>HipSTR, ExpansionHunter, Straglr (long-read)</td></tr>
+<tr><td><strong>CNV</strong></td><td>50 bp – ~ Mb</td><td data-zh="重複數變異（拷貝數增加/減少）" data-en="Copy number gain/loss">CNV</td><td>CNVkit, GATK gCNV, Control-FREEC, ichorCNA</td></tr>
+<tr><td><strong>SV (other)</strong></td><td>&gt; 50 bp</td><td>inversion, translocation, duplication, complex SV</td><td>Manta, DELLY, GRIDSS, Sniffles2 (long-read), SVision</td></tr>
+<tr><td><strong>Aneuploidy / 染色體</strong></td><td>whole chromosome</td><td>trisomy 21 (Down syndrome)、monosomy X (Turner)</td><td>karyotype / SNP array / NIPT / cytogenomics</td></tr>
+</tbody></table>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>快速回顧：</strong>SNV vs Mutation：在臨床/族群遺傳語境中，「variant」指任何序列差異（中性的也算）；「mutation」傾向指有害或新生變化。HGVS 命名規範可避免歧義（如 <code>NM_004006.3:c.1521_1523delCTT (p.Phe508del)</code>）。</span>
+<span data-lang="en"><strong>Quick review:</strong> SNV vs mutation: in clinical/population context, "variant" means any sequence difference (including neutral); "mutation" suggests deleterious or de novo. Use HGVS naming for unambiguity (e.g. <code>NM_004006.3:c.1521_1523delCTT (p.Phe508del)</code>).</span>
+</div></div>
+<div class="callout advanced"><span class="callout-icon">🚀</span><div>
+<span data-lang="zh"><strong>進階補充：</strong>每個 SV breakpoint 都應對應到具體生物學機制：NHEJ（NHEJ scar 短同源）、MMEJ（microhomology &gt; 2 bp）、HR（gene conversion）、L1 retrotransposition（poly-A tail + TSD）、replication-mediated（FoSTeS / MMBIR）。breakpoint signature 反推機制是進階 SV 分析方向。</span>
+<span data-lang="en"><strong>Deep dive:</strong> Each SV breakpoint maps to a mechanism: NHEJ (short homology scar), MMEJ (microhomology &gt; 2 bp), HR (gene conversion), L1 retrotransposition (polyA + TSD), replication-mediated (FoSTeS / MMBIR). Breakpoint signatures back out mechanisms — an advanced SV-analysis direction.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="功能影響" data-en="FUNCTIONAL IMPACT">功能影響</div>
+<h2 data-zh="CDS 內變異的功能類型" data-en="Functional Classes Within CDS">CDS 內變異的功能類型</h2>
+<div class="card-grid cols-3">
+<div class="card"><h4>Synonymous</h4><div data-lang="zh"><p>不改變胺基酸（簡並性）；通常中性，但可能影響 codon usage、splicing、mRNA 穩定性。</p></div><div data-lang="en"><p>Codon changes but amino acid unchanged. Usually neutral, but can affect codon usage, splicing, mRNA stability.</p></div></div>
+<div class="card"><h4>Missense</h4><div data-lang="zh"><p>替換一個胺基酸（e.g. p.R273H in TP53）。影響由保守性、結構位置、PTM 推估，REVEL / AlphaMissense 可做 in-silico 預測。</p></div><div data-lang="en"><p>Substitutes an amino acid (e.g. p.R273H in TP53). Impact predicted by conservation, structural location, PTM — REVEL / AlphaMissense for in-silico scoring.</p></div></div>
+<div class="card"><h4>Nonsense (stop-gain)</h4><div data-lang="zh"><p>產生 premature stop，常導致 NMD（nonsense-mediated decay）→ 蛋白完全消失 (LoF)。</p></div><div data-lang="en"><p>Premature stop, often triggers NMD → complete loss of function.</p></div></div>
+<div class="card"><h4>Frameshift</h4><div data-lang="zh"><p>indel 非 3 倍數 → 改變讀框，下游胺基酸完全改變 → 通常 LoF。</p></div><div data-lang="en"><p>Indel not multiple of 3 → frame shifted, downstream sequence changes → usually LoF.</p></div></div>
+<div class="card"><h4>Splice-site / splice-region</h4><div data-lang="zh"><p>影響 5'SS、3'SS、branch point、polypyrimidine tract → 異常剪接 → 隱性 exon、intron retention。SpliceAI 是當前金標準預測。</p></div><div data-lang="en"><p>Affects 5'SS, 3'SS, branch point, polypyrimidine tract → aberrant splicing, cryptic exon, intron retention. SpliceAI is current gold standard.</p></div></div>
+<div class="card"><h4>Regulatory</h4><div data-lang="zh"><p>promoter / enhancer / 5'UTR uORF / 3'UTR miRNA-site 變異——多數 GWAS hits 在非編碼區，需 colocalization / fine-mapping / ENCODE cCRE 註解協助解讀。</p></div><div data-lang="en"><p>Promoter / enhancer / 5'UTR uORF / 3'UTR miRNA-site changes. Most GWAS hits are non-coding — interpret with colocalization, fine-mapping, ENCODE cCRE annotation.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="Germline vs Somatic" data-en="GERMLINE vs SOMATIC">Germline vs Somatic</h2>
+<h2 data-zh="兩種變異來源、兩套分析流程" data-en="Two Origins, Two Pipelines">兩種變異來源、兩套分析流程</h2>
+<table class="comp-table">
+<thead><tr><th></th><th>Germline</th><th>Somatic</th></tr></thead>
+<tbody>
+<tr><td data-zh="來源" data-en="Origin"><strong>來源</strong></td><td data-zh="遺傳自父母、存在所有細胞" data-en="Inherited; in all cells">遺傳</td><td data-zh="體細胞分裂時產生、僅部分細胞攜帶" data-en="Arises during somatic divisions; subclonal">體細胞</td></tr>
+<tr><td data-zh="VAF" data-en="VAF"><strong>VAF</strong></td><td data-zh="0.5（雜合）或 1.0（純合）" data-en="0.5 (het) or 1.0 (hom)">0.5 / 1.0</td><td data-zh="0.01–0.5（次群體）" data-en="0.01–0.5 (subclonal)">0.01–0.5</td></tr>
+<tr><td data-zh="實驗設計" data-en="Design"><strong>實驗</strong></td><td data-zh="單一樣本，常用血液 / 唾液" data-en="Single sample, blood/saliva typical">單樣本</td><td data-zh="腫瘤 vs 正常配對；或 panel of normals" data-en="Tumor vs normal pair, or panel of normals">配對</td></tr>
+<tr><td data-zh="工具" data-en="Tools"><strong>工具</strong></td><td>GATK HaplotypeCaller, DeepVariant, GLnexus</td><td>Mutect2, Strelka2, Varscan2, MuSE</td></tr>
+<tr><td data-zh="解讀資料庫" data-en="DBs"><strong>資料庫</strong></td><td>ClinVar, gnomAD, ACMG/AMP 2015</td><td>COSMIC, OncoKB, CIViC, AMP/ASCO/CAP 2017</td></tr>
+</tbody></table>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="臨床判讀" data-en="CLINICAL INTERPRETATION">臨床判讀</div>
+<h2 data-zh="ACMG/AMP 五級致病性" data-en="ACMG/AMP Five-tier Pathogenicity">ACMG/AMP 五級致病性</h2>
+<div class="card-grid cols-3">
+<div class="card"><h4>Pathogenic (P)</h4><div data-lang="zh"><p>強證據支持致病。臨床可直接行動（如預防性手術、家系追蹤）。</p></div><div data-lang="en"><p>Strong evidence; clinical action allowed (prophylactic surgery, family screening).</p></div></div>
+<div class="card"><h4>Likely Pathogenic (LP)</h4><div data-lang="zh"><p>&gt; 90% 概率致病。多數情境可比照 P 行動，但 caveat 較大。</p></div><div data-lang="en"><p>&gt; 90% probability pathogenic. Typically treated like P with appropriate caveats.</p></div></div>
+<div class="card"><h4>VUS (Uncertain)</h4><div data-lang="zh"><p>證據不足以分類；臨床不能單獨據此行動。多達 60–80% 罕見變異落在此類，需 functional study 或家系數據釐清。</p></div><div data-lang="en"><p>Insufficient evidence. Not actionable alone. Up to 60–80% of rare variants fall here — need functional / segregation studies.</p></div></div>
+<div class="card"><h4>Likely Benign (LB)</h4><div data-lang="zh"><p>&gt; 90% 機率良性。</p></div><div data-lang="en"><p>&gt; 90% probability benign.</p></div></div>
+<div class="card"><h4>Benign (B)</h4><div data-lang="zh"><p>明顯良性，如高 MAF（&gt; 5%）。</p></div><div data-lang="en"><p>Clearly benign (e.g. MAF &gt; 5%).</p></div></div>
+<div class="card"><h4 data-zh="工具" data-en="Tools">工具</h4><div data-lang="zh"><p>VEP, ANNOVAR, SnpEff（註解）；REVEL/AlphaMissense（missense）；SpliceAI（splicing）；InterVar/PathoMan（自動 ACMG）。</p></div><div data-lang="en"><p>VEP, ANNOVAR, SnpEff (annotation); REVEL/AlphaMissense (missense); SpliceAI (splicing); InterVar/PathoMan (auto ACMG).</p></div></div>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">1. germline 變異在血液樣本的雜合 VAF 應該接近？</p>
+<p data-lang="en">1. A heterozygous germline variant in blood should have VAF near?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 0.05</span><span data-lang="en">A. 0.05</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 0.5</span><span data-lang="en">B. 0.5</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 0.1</span><span data-lang="en">C. 0.1</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 0.95</span><span data-lang="en">D. 0.95</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">2. 一個 1 bp deletion 落在 CDS，最可能的功能效應是？</p>
+<p data-lang="en">2. A 1-bp deletion within CDS most likely causes?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. Synonymous</span><span data-lang="en">A. Synonymous</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. Missense</span><span data-lang="en">B. Missense</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. Frameshift（多半 NMD → LoF）</span><span data-lang="en">C. Frameshift (often NMD → LoF)</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. No effect</span><span data-lang="en">D. No effect</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">3. ACMG/AMP 的 VUS 變異適合的臨床行動是？</p>
+<p data-lang="en">3. The clinical action appropriate for an ACMG VUS variant is?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 直接執行預防性手術</span><span data-lang="en">A. Proceed to prophylactic surgery</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 視為 benign 不採取行動</span><span data-lang="en">B. Treat as benign, no action</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 不單獨據此行動；尋找 family segregation、functional study、follow-up</span><span data-lang="en">C. Don't act on alone; pursue family segregation, functional study, follow-up</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 直接列為 P</span><span data-lang="en">D. Reclassify as P</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="genome-structure.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="基因組結構與註解" data-en="Genome Structure &amp;amp; Annotation">基因組結構與註解</span></a>
+<a href="inheritance-popgen.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="遺傳與群體遺傳" data-en="Inheritance &amp;amp; Population Genetics">遺傳與群體遺傳</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+const QF={
+ zh:{q1_y:'Germline het 雙等位中一個有變異 → VAF ≈ 0.5（隨機定序波動）。',q1_n:'正確答案已標示。',
+     q2_y:'1 bp deletion 不是 3 倍數 → frameshift → 下游序列全變、常觸發 NMD。',q2_n:'正確答案已標示。',
+     q3_y:'VUS 不能單獨行動，需家系分離、功能驗證或追蹤觀察。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'Germline het has one variant of two alleles → VAF ≈ 0.5 with sequencing noise.',q1_n:'Correct answer highlighted.',
+     q2_y:'1 bp deletion is not a multiple of 3 → frameshift → downstream changes, NMD likely.',q2_n:'Correct answer highlighted.',
+     q3_y:'VUS isn\'t actionable alone — pursue segregation, functional, or follow-up.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

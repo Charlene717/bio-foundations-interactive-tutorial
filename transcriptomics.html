@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.15 轉錄體學 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html" class="active">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 15 / 18 · BLOCK D</div>
+<h1 data-zh="轉錄體學" data-en="Transcriptomics">轉錄體學</h1>
+<p class="subtitle" data-lang="zh">RNA-seq 是當代生物學最常用的量測——但「RNA-seq」是一整族技術的代稱，每一種解析不同的生物學問題：bulk 平均、單細胞解析、空間定位、isoform 解析、長讀真實。</p>
+<p class="subtitle" data-lang="en">RNA-seq is the most common modern measurement — but "RNA-seq" is a family of technologies: bulk averages, single-cell resolution, spatial localization, isoform resolution, long-read truth.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="技術家族" data-en="TECHNOLOGY FAMILY">技術家族</div>
+<h2 data-zh="轉錄體技術全景" data-en="Landscape of Transcriptomics Technologies">轉錄體技術全景</h2>
+<table class="comp-table">
+<thead><tr><th data-zh="技術" data-en="Tech">技術</th><th data-zh="解析度" data-en="Resolution">解析度</th><th data-zh="優點" data-en="Pros">優點</th><th data-zh="限制" data-en="Limits">限制</th></tr></thead>
+<tbody>
+<tr><td><strong>Bulk RNA-seq</strong></td><td data-zh="樣本平均" data-en="Sample average">樣本平均</td><td data-zh="便宜、深、適合 DE 與 GWAS coloc" data-en="Cheap, deep, good for DE & GWAS coloc">便宜深</td><td data-zh="細胞型態混合" data-en="Cell-type mixture">混合</td></tr>
+<tr><td><strong>scRNA-seq (10x / Drop-seq / Smart-seq3)</strong></td><td data-zh="單細胞" data-en="Single cell">單細胞</td><td data-zh="細胞型態解析、罕見群體偵測" data-en="Cell-type resolution, rare populations">解析高</td><td data-zh="解離偏差、低 capture、高 dropout" data-en="Dissociation bias, low capture, dropout">技術偏差</td></tr>
+<tr><td><strong>snRNA-seq</strong></td><td data-zh="單核" data-en="Single nucleus">單核</td><td data-zh="FFPE、難解離組織（腦/心/肌）" data-en="FFPE, hard-to-dissociate tissues">FFPE 友善</td><td data-zh="核 RNA pool 偏少 mt、富 intronic" data-en="Few mt, intronic-rich">RNA pool 偏</td></tr>
+<tr><td><strong>Visium / Slide-seq / Stereo-seq</strong></td><td data-zh="空間 + 偽單細胞" data-en="Spatial + pseudo-SC">空間（spot）</td><td data-zh="保留組織結構" data-en="Preserves tissue context">空間</td><td data-zh="解析度有限（spot 多細胞）" data-en="Limited resolution (multi-cell spots)">解析限</td></tr>
+<tr><td><strong>Xenium / MERFISH / CosMx / Curio</strong></td><td data-zh="次細胞 in situ" data-en="Subcellular in situ">次細胞</td><td data-zh="保留組織、超高解析" data-en="Preserves tissue, subcellular">in situ</td><td data-zh="panel 預定義（300–1000 genes）、解碼複雜" data-en="Panel-based, decoding complex">panel 限</td></tr>
+<tr><td><strong>CITE-seq / Total-seq</strong></td><td data-zh="細胞 + 表面蛋白" data-en="Cell + surface protein">RNA + protein</td><td data-zh="同細胞量 RNA 與抗體 ADT" data-en="RNA + ADT in same cell">多模</td><td data-zh="抗體限於市售、非通量" data-en="Antibody panel limited">panel 限</td></tr>
+<tr><td><strong>Long-read RNA-seq (PacBio Iso-Seq, ONT direct)</strong></td><td data-zh="full-length isoform" data-en="Full-length isoform">isoform</td><td data-zh="無歧義 isoform、native modification" data-en="Unambiguous isoforms, native mods">isoform 解</td><td data-zh="通量低、錯誤率（ONT）" data-en="Lower throughput, ONT error">通量低</td></tr>
+<tr><td><strong>Ribo-seq / TRAP / Slam-seq</strong></td><td data-zh="特殊量測" data-en="Specialty">特殊量</td><td data-zh="翻譯效率、新生 RNA、定位" data-en="TE, nascent RNA, localization">特殊量</td><td data-zh="實驗複雜" data-en="Complex workflows">技術門檻</td></tr>
+</tbody></table>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="標準化" data-en="NORMALIZATION">標準化</div>
+<h2 data-zh="從 raw count 到可比較的表達量" data-en="From Raw Counts to Comparable Expression">從 raw count 到可比較的表達量</h2>
+<div data-lang="zh">
+<p><strong>RPKM / FPKM / TPM：</strong>「每千鹼基每百萬 reads」的衍生量。<strong>TPM 推薦</strong>：先除長度再除總和，每樣本 TPM 加總 = 10⁶，跨樣本比較較可靠。RPKM/FPKM 因為先除總後除長度，加總不一定 = 10⁶，不適合跨樣本比較。</p>
+<p><strong>大多數 DE 分析（DESeq2, edgeR, limma-voom）</strong>使用 raw count + 內建大小因子（median-of-ratios、TMM）——<strong>不要用 TPM/FPKM 做 DE</strong>。</p>
+<p><strong>scRNA-seq 標準化：</strong>LogNormalize（CPM × 1e4 + log1p）為傳統；<strong>SCTransform / Pearson residuals</strong> 改用負二項回歸後的殘差，可消除 depth bias。Scran 在多樣本場景表現好。</p>
+</div>
+<div data-lang="en">
+<p><strong>RPKM / FPKM / TPM:</strong> "per kilobase per million reads" derivatives. <strong>TPM is preferred</strong> — divide by length first, then by total; per-sample TPM sums to 10⁶ allowing cross-sample comparison. RPKM/FPKM totals don't equal 10⁶, so they shouldn't be cross-compared.</p>
+<p><strong>For DE analysis</strong> (DESeq2, edgeR, limma-voom) use <strong>raw counts</strong> with internal size factors (median-of-ratios, TMM) — <strong>never use TPM/FPKM as DE input</strong>.</p>
+<p><strong>scRNA-seq normalization:</strong> LogNormalize (CPM × 1e4 + log1p) traditionally; <strong>SCTransform / Pearson residuals</strong> use NB-regression residuals to remove depth bias. Scran is robust for multi-sample.</p>
+</div>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>
+<span data-lang="zh"><strong>陷阱：</strong>RNA-seq 是「相對量」——若兩個 condition 之間有「全局表達上升」（例如 MYC 過表達使所有 transcript 都增加），標準化會「磨平」這個訊號（compositional bias）。可用 spike-in（ERCC, RUV）校正。</span>
+<span data-lang="en"><strong>Pitfall:</strong> RNA-seq is <strong>relative</strong>. If two conditions differ in global RNA output (e.g., MYC overexpression boosts all transcripts), standard normalization erases this signal (compositional bias). Use spike-ins (ERCC, RUV) to correct.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="差異表達" data-en="DIFFERENTIAL EXPRESSION">差異表達</div>
+<h2 data-zh="DE 分析的統計核心" data-en="Statistical Core of DE Analysis">DE 分析的統計核心</h2>
+<div class="card-grid cols-2">
+<div class="card"><h4>DESeq2 (Love 2014)</h4><div data-lang="zh"><p>負二項回歸（NB GLM）+ 經驗貝氏縮放離散度估計 + LFC shrinkage（apeglm）。最廣用，適合小樣本（2–10）。</p></div><div data-lang="en"><p>Negative binomial GLM + empirical Bayes dispersion shrinkage + LFC shrinkage (apeglm). Most popular, robust at small N (2–10).</p></div></div>
+<div class="card"><h4>edgeR (Robinson 2010)</h4><div data-lang="zh"><p>NB GLM + quasi-likelihood (QLF) + TMM 標準化。在大規模、需要詳細 contrasts 時靈活。</p></div><div data-lang="en"><p>NB GLM + quasi-likelihood + TMM. Flexible for large designs with detailed contrasts.</p></div></div>
+<div class="card"><h4>limma-voom (Law 2014)</h4><div data-lang="zh"><p>將 count 轉為 log-CPM + 估算每個 observation 的權重（voom），再套用 limma 的線性模型。適合大樣本與微陣列風格。</p></div><div data-lang="en"><p>Converts counts to log-CPM with per-observation weights (voom), then limma's linear model. Best for large N or array-style data.</p></div></div>
+<div class="card"><h4>單細胞 DE 工具</h4><div data-lang="zh"><p><strong>Wilcoxon / FindMarkers</strong>（簡單）；<strong>MAST</strong>（hurdle 模型處理 dropout）；<strong>pseudobulk → DESeq2/edgeR</strong>（建議：把細胞依 sample/cluster aggregate 後當 bulk）—Squair 2021 指出 pseudobulk 假陽性最少。</p></div><div data-lang="en"><p><strong>Wilcoxon / FindMarkers</strong> (simple); <strong>MAST</strong> (hurdle for dropout); <strong>pseudobulk → DESeq2/edgeR</strong> — Squair 2021 shows pseudobulk has the fewest false positives.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="互動視覺化" data-en="INTERACTIVE">互動視覺化</div>
+<h2 data-zh="模擬 volcano plot 與 FDR 影響" data-en="Simulate Volcano Plot &amp; FDR Effect">模擬 volcano plot 與 FDR 影響</h2>
+<div class="interactive-panel">
+<div class="slider-group"><label><span data-zh="log2FC 閾值" data-en="log2FC threshold">log2FC</span> <span id="lfcVal">1.0</span></label><input type="range" id="lfcSlider" min="0" max="30" value="10"></div>
+<div class="slider-group"><label><span data-zh="-log10(FDR) 閾值" data-en="-log10(FDR) threshold">-log10(FDR)</span> <span id="fdrVal">1.3</span></label><input type="range" id="fdrSlider" min="0" max="40" value="13"></div>
+<div class="chart-container" style="height:380px"><canvas id="volcChart"></canvas></div>
+<p style="font-size:.82rem;color:var(--c-ink-muted);text-align:center;margin-top:6px" data-lang="zh">模擬 500 個基因；綠＝同時通過 FC + FDR 閾值；橙＝僅符合一項；灰＝無差異。</p>
+<p style="font-size:.82rem;color:var(--c-ink-muted);text-align:center;margin-top:6px" data-lang="en">500 simulated genes; green = passes both thresholds; orange = one only; gray = neither.</p>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">1. 你拿到一個 RNA-seq count matrix，要做 DE 分析，下列哪個輸入最正確？</p>
+<p data-lang="en">1. For DE analysis input, the most correct choice is?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 把 raw count 轉為 TPM 後做 t-test</span><span data-lang="en">A. Convert raw to TPM then t-test</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 用 raw count 餵 DESeq2 / edgeR / limma-voom</span><span data-lang="en">B. Feed raw counts into DESeq2 / edgeR / limma-voom</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 用 z-score 後做 ANOVA</span><span data-lang="en">C. Z-score then ANOVA</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 用 FPKM 後做 ANOVA</span><span data-lang="en">D. FPKM then ANOVA</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">2. scRNA-seq DE 分析推薦 pseudobulk 的主要原因是？</p>
+<p data-lang="en">2. The main reason pseudobulk is recommended for scRNA-seq DE?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 加快運算</span><span data-lang="en">A. Faster</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 直接適用 deep learning</span><span data-lang="en">B. Suitable for deep learning</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 細胞層級 DE 把細胞當獨立 replicate 嚴重低估 sample-level variance，導致假陽性；pseudobulk 修正此問題</span><span data-lang="en">C. Cell-level DE treats cells as replicates and grossly underestimates sample variance, causing false positives; pseudobulk fixes this</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 提升 dropout 率</span><span data-lang="en">D. Increases dropout</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="0">
+<p data-lang="zh">3. Visium 與 Xenium 的關鍵差異是？</p>
+<p data-lang="en">3. The key difference between Visium and Xenium?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. Visium 是 spot 為基礎（多細胞）；Xenium 是 in-situ 次細胞解析、panel-based</span><span data-lang="en">A. Visium is spot-based (multi-cell); Xenium is in-situ subcellular, panel-based</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 兩者完全相同</span><span data-lang="en">B. They are identical</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. Xenium 需要新鮮冷凍切片，Visium 不行</span><span data-lang="en">C. Xenium needs only fresh-frozen</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. Visium 是 in-situ 成像</span><span data-lang="en">D. Visium is in-situ imaging</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="sequencing-genomics.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="定序技術與基因組學" data-en="Sequencing &amp;amp; Genomics">定序技術與基因組學</span></a>
+<a href="proteomics-ptm.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="蛋白質體與翻譯後修飾" data-en="Proteomics &amp;amp; Post-translational Modifications">蛋白質體與翻譯後修飾</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+
+// Volcano sim
+function randn(){let u=0,v=0;while(u===0)u=Math.random();while(v===0)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+const GENES=[];
+for(let i=0;i<500;i++){
+  const r=Math.random(); let lfc,sig;
+  if(r<0.05){ lfc=2.5+randn()*0.5; sig=Math.abs(8+randn()*3); }
+  else if(r<0.10){ lfc=-2.5+randn()*0.5; sig=Math.abs(8+randn()*3); }
+  else if(r<0.20){ lfc=1.0+randn()*0.6; sig=Math.abs(2.5+randn()*1.5); }
+  else { lfc=randn()*0.4; sig=Math.abs(randn()*1.2); }
+  GENES.push({x:lfc,y:sig});
+}
+const volcChart=new Chart(document.getElementById('volcChart'),{type:'scatter',data:{datasets:[
+  {label:'Pass both',data:[],pointRadius:3,backgroundColor:'rgba(4,120,87,0.85)'},
+  {label:'One only',data:[],pointRadius:2.5,backgroundColor:'rgba(234,88,12,0.65)'},
+  {label:'Neither',data:[],pointRadius:2,backgroundColor:'rgba(120,120,120,0.45)'}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{x:{title:{display:true,text:'log2 fold change'},min:-5,max:5},y:{title:{display:true,text:'-log10(FDR)'},beginAtZero:true,max:15}}}});
+function updateVolc(){
+  const lfcT=+document.getElementById('lfcSlider').value/10; const fdrT=+document.getElementById('fdrSlider').value/10;
+  document.getElementById('lfcVal').textContent=lfcT.toFixed(1); document.getElementById('fdrVal').textContent=fdrT.toFixed(1);
+  const a=[],b=[],c=[];
+  GENES.forEach(g=>{const passLFC=Math.abs(g.x)>=lfcT; const passFDR=g.y>=fdrT; if(passLFC&&passFDR)a.push(g); else if(passLFC||passFDR)b.push(g); else c.push(g);});
+  volcChart.data.datasets[0].data=a; volcChart.data.datasets[1].data=b; volcChart.data.datasets[2].data=c; volcChart.update('none');
+}
+['lfcSlider','fdrSlider'].forEach(id=>document.getElementById(id).addEventListener('input',updateVolc));
+updateVolc();
+
+const QF={
+ zh:{q1_y:'DE 工具是基於 raw count 的 NB 模型，TPM/FPKM/z-score 等預處理會破壞統計假設。',q1_n:'正確答案已標示。',
+     q2_y:'pseudobulk 把細胞依樣本/cluster aggregate 後當 bulk，正確估計 sample variance、最低假陽性。',q2_n:'正確答案已標示。',
+     q3_y:'Visium 是 array-based（spot 多細胞），Xenium 是 in-situ 螢光解碼（panel + 次細胞），兩者技術路線不同。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'DE tools build NB models on raw counts; TPM/FPKM/z-score destroy the distributional assumptions.',q1_n:'Correct answer highlighted.',
+     q2_y:'Pseudobulk aggregates cells by sample/cluster — preserves true sample variance with minimal false positives.',q2_n:'Correct answer highlighted.',
+     q3_y:'Visium = array spot (multi-cell); Xenium = in-situ fluorescent decoding (panel-based, subcellular).',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

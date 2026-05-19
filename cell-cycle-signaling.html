@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.13 細胞週期、分裂與訊號傳遞 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html" class="active">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 13 / 18 · BLOCK C</div>
+<h1 data-zh="細胞週期、分裂與訊號傳遞" data-en="Cell Cycle, Division &amp; Signaling">細胞週期、分裂與訊號傳遞</h1>
+<p class="subtitle" data-lang="zh">細胞何時分裂、何時死亡、如何回應外部訊號——這些動態決定了組織恆定、發育、癌症與藥物反應。對應到分析時，是 cell-cycle score、pathway enrichment、藥理基因組學等工具。</p>
+<p class="subtitle" data-lang="en">When cells divide, die, and respond to signals defines tissue homeostasis, development, cancer, and drug response. Analysis-side: cell-cycle scoring, pathway enrichment, pharmacogenomics.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="細胞週期" data-en="CELL CYCLE">細胞週期</div>
+<h2 data-zh="G1 → S → G2 → M：四階段與檢查點" data-en="G1 → S → G2 → M with Checkpoints">G1 → S → G2 → M：四階段與檢查點</h2>
+<div data-lang="zh">
+<p><strong>四階段：</strong>G1（生長、合成準備）→ S（DNA 合成）→ G2（再生長、紡錘體準備）→ M（mitosis：prophase, prometa, meta, ana, telo + cytokinesis）。非分裂細胞進入 <strong>G0</strong>（靜止）。</p>
+<p><strong>核心調控：</strong>cyclin（D, E, A, B）+ CDK（CDK4/6, CDK2, CDK1）週期性活化。Rb 磷酸化釋放 E2F → 轉錄 S phase 基因。</p>
+<p><strong>檢查點：</strong>G1/S（DNA 損傷 → p53 → p21）、G2/M（ATR/ATM → CHK1/2 → CDC25）、Spindle assembly（不正確配對 → MAD2/BUB → 防止 anaphase）。失調是癌症最普遍的特徵。</p>
+</div>
+<div data-lang="en">
+<p><strong>Four phases:</strong> G1 → S (DNA synthesis) → G2 → M (mitosis: prophase, prometaphase, metaphase, anaphase, telophase + cytokinesis). Non-dividing cells enter <strong>G0</strong>.</p>
+<p><strong>Core regulation:</strong> cyclin (D, E, A, B) + CDK (CDK4/6, CDK2, CDK1) phasic activation. Rb phosphorylation releases E2F → transcribes S-phase genes.</p>
+<p><strong>Checkpoints:</strong> G1/S (DNA damage → p53 → p21), G2/M (ATR/ATM → CHK1/2 → CDC25), spindle assembly (improper attachment → MAD2/BUB → prevents anaphase). Disruption is a near-universal cancer hallmark.</p>
+</div>
+<div class="callout tip"><span class="callout-icon">💡</span><div>
+<span data-lang="zh"><strong>scRNA-seq 應用：</strong><code>Seurat::CellCycleScoring</code> 用 Tirosh et al. 2016 的 S/G2M marker 集合估算每個細胞的週期分數，可用 regression out 來避免 cluster 被 cycle 干擾，或直接以週期作為分析變數。</span>
+<span data-lang="en"><strong>scRNA-seq tip:</strong> <code>Seurat::CellCycleScoring</code> uses Tirosh et al. 2016 S/G2M markers to score each cell — regress out to prevent cycle-driven clusters, or use cycle as a covariate.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="細胞死亡" data-en="CELL DEATH">細胞死亡</div>
+<h2 data-zh="多種「死法」對應不同的分析簽名" data-en="Different Death Modes, Different Analysis Signatures">多種「死法」對應不同的分析簽名</h2>
+<div class="card-grid cols-3">
+<div class="card"><h4>Apoptosis</h4><div data-lang="zh"><p>程序性、不引發發炎；caspase-3/8/9，BCL2 家族（pro vs anti-apoptotic）。signature：CASP3, BAX, BAK1, BID 上調；BCL2 下調。</p></div><div data-lang="en"><p>Programmed, non-inflammatory; caspase-3/8/9, BCL2 family. Signature: CASP3, BAX, BAK1, BID up; BCL2 down.</p></div></div>
+<div class="card"><h4>Necroptosis</h4><div data-lang="zh"><p>RIPK1/3-MLKL 介導，引發發炎。signature：MLKL、RIPK3 表達/磷酸化。</p></div><div data-lang="en"><p>RIPK1/3-MLKL-mediated, inflammatory. Signature: MLKL, RIPK3 expression/phosphorylation.</p></div></div>
+<div class="card"><h4>Pyroptosis</h4><div data-lang="zh"><p>caspase-1/11、GSDMD（gasdermin）成孔。signature：NLRP3, AIM2 inflammasome、IL-1β/IL-18 釋放。</p></div><div data-lang="en"><p>Caspase-1/11, GSDMD-mediated pore. Signature: NLRP3, AIM2 inflammasome, IL-1β/IL-18 release.</p></div></div>
+<div class="card"><h4>Ferroptosis</h4><div data-lang="zh"><p>鐵依賴的脂質過氧化引發；signature：GPX4 下調、ACSL4 / PTGS2 上調、lipid ROS。</p></div><div data-lang="en"><p>Iron-dependent lipid peroxidation. Signature: GPX4 down, ACSL4 / PTGS2 up, lipid ROS.</p></div></div>
+<div class="card"><h4>Autophagy</h4><div data-lang="zh"><p>不一定致死；LC3-I → LC3-II、ATG5/7/12 介導。可生存或進入 autosis 死亡。</p></div><div data-lang="en"><p>Not always lethal; LC3-I → LC3-II, ATG5/7/12 mediated. Can promote survival or autosis.</p></div></div>
+<div class="card"><h4>Senescence</h4><div data-lang="zh"><p>持久 G1 停滯、抗 apoptosis。signature：CDKN2A (p16), CDKN1A (p21), SASP 細胞因子 (IL6, IL8, CXCL1...) — 不是死亡但常被誤判。</p></div><div data-lang="en"><p>Permanent G1 arrest, apoptosis-resistant. Signature: CDKN2A (p16), CDKN1A (p21), SASP cytokines (IL6, IL8, CXCL1...) — not death but easy to misread.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="訊號通路" data-en="SIGNALING PATHWAYS">訊號通路</div>
+<h2 data-zh="癌症與發育最常見的訊號通路" data-en="Most Common Pathways in Cancer &amp; Development">癌症與發育最常見的訊號通路</h2>
+<table class="comp-table">
+<thead><tr><th>Pathway</th><th data-zh="主要組件" data-en="Components">主要組件</th><th data-zh="角色 / 失調疾病" data-en="Role / Disease">角色</th></tr></thead>
+<tbody>
+<tr><td><strong>RTK–RAS–MAPK</strong></td><td>EGFR/HER2/MET/FGFR → RAS → RAF → MEK → ERK</td><td data-zh="生長、增殖、分化；癌症中最常活化（KRAS, BRAF V600E）" data-en="Growth, proliferation; commonly activated in cancer (KRAS, BRAF V600E)">癌症</td></tr>
+<tr><td><strong>PI3K–AKT–mTOR</strong></td><td>RTK → PI3K → AKT → mTORC1/2 → S6K, 4EBP1</td><td data-zh="生存、代謝、蛋白合成；PIK3CA mut/PTEN loss 普遍" data-en="Survival, metabolism; common PIK3CA mut / PTEN loss">生存代謝</td></tr>
+<tr><td><strong>WNT–β-catenin</strong></td><td>WNT → Frizzled → DSH → APC/Axin destruction complex 失活 → β-catenin 入核 → TCF/LEF</td><td data-zh="發育、幹細胞；APC mut → 大腸癌" data-en="Development, stem cells; APC mut → CRC">發育/CRC</td></tr>
+<tr><td><strong>Notch</strong></td><td>Ligand DLL/Jagged → Notch (γ-secretase 切割) → NICD → CSL → 轉錄</td><td data-zh="細胞命運決定；T-ALL Notch1 活化突變" data-en="Cell-fate decisions; T-ALL Notch1 activation">分化</td></tr>
+<tr><td><strong>Hedgehog</strong></td><td>SHH → PTCH1 (releases SMO) → GLI</td><td data-zh="發育、基底細胞癌、髓母細胞瘤" data-en="Development, BCC, medulloblastoma">發育/癌</td></tr>
+<tr><td><strong>TGF-β</strong></td><td>TGF-β → TGFBR1/2 → SMAD2/3 + SMAD4 → 轉錄</td><td data-zh="EMT、纖維化、免疫抑制；癌症中雙面角色" data-en="EMT, fibrosis, immune suppression; double-edged in cancer">EMT/纖維化</td></tr>
+<tr><td><strong>JAK–STAT</strong></td><td>Cytokine → JAK → STAT phosphorylation → 入核</td><td data-zh="免疫、造血；MPN JAK2 V617F" data-en="Immunity, hematopoiesis; MPN JAK2 V617F">免疫</td></tr>
+<tr><td><strong>NF-κB</strong></td><td>IKK 磷酸化 IκB → p65/p50 入核</td><td data-zh="發炎、免疫、生存；ABC-DLBCL 持續活化" data-en="Inflammation, survival; constitutive in ABC-DLBCL">免疫/淋巴瘤</td></tr>
+<tr><td><strong>p53</strong></td><td>DNA damage → ATM/ATR/CHK → p53 stabilize → p21, MDM2, BAX</td><td data-zh="腫瘤抑制；&gt;50% 癌症突變" data-en="Tumor suppressor; mutated in &gt;50% cancers">癌症</td></tr>
+</tbody></table>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>
+<span data-lang="zh"><strong>分析提醒：</strong>Pathway enrichment（GSEA, fgsea, clusterProfiler, ReactomePA）使用的「Hallmark」「KEGG」「Reactome」「WikiPathways」資料庫各有偏好——同一資料用不同 DB 結果可能不同；建議多 DB 對照。</span>
+<span data-lang="en"><strong>Analysis caveat:</strong> Pathway enrichment (GSEA, fgsea, clusterProfiler, ReactomePA) databases (Hallmark, KEGG, Reactome, WikiPathways) have different scopes — same data can give different conclusions; always cross-check.</span>
+</div></div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">1. CellCycleScoring 在 scRNA-seq 上的主要功能是？</p>
+<p data-lang="en">1. CellCycleScoring's main purpose in scRNA-seq?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 偵測 doublets</span><span data-lang="en">A. Detect doublets</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 偵測粒線體比例</span><span data-lang="en">B. Detect mitochondrial percentage</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 估算每細胞的 S 與 G2/M 分數，必要時 regress out 避免 cluster 被 cycle 主導</span><span data-lang="en">C. Estimate per-cell S and G2/M scores; regress out to prevent cycle-driven clusters</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 計算 PRS</span><span data-lang="en">D. Compute PRS</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">2. KRAS G12C 突變的腫瘤對下列哪一類藥物近年顯示反應？</p>
+<p data-lang="en">2. KRAS G12C-mutant tumors recently show response to which drug class?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. PARP inhibitors</span><span data-lang="en">A. PARP inhibitors</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. KRAS G12C 共價抑制劑（sotorasib, adagrasib）</span><span data-lang="en">B. Covalent KRAS G12C inhibitors (sotorasib, adagrasib)</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. JAK inhibitors</span><span data-lang="en">C. JAK inhibitors</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. EZH2 inhibitors</span><span data-lang="en">D. EZH2 inhibitors</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="0">
+<p data-lang="zh">3. 老化細胞 (senescent cells) 在 RNA-seq 上的標準簽名包含？</p>
+<p data-lang="en">3. The canonical senescence signature in RNA-seq includes?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. CDKN2A (p16)、CDKN1A (p21)、SASP 細胞因子（IL-6, IL-8, CXCL1...）</span><span data-lang="en">A. CDKN2A (p16), CDKN1A (p21), SASP cytokines (IL-6, IL-8, CXCL1...)</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. CASP3, BAX, BAK1</span><span data-lang="en">B. CASP3, BAX, BAK1</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. GPX4, ACSL4</span><span data-lang="en">C. GPX4, ACSL4</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. NLRP3, GSDMD</span><span data-lang="en">D. NLRP3, GSDMD</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="epigenetics.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="表觀遺傳" data-en="Epigenetics">表觀遺傳</span></a>
+<a href="sequencing-genomics.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="定序技術與基因組學" data-en="Sequencing &amp;amp; Genomics">定序技術與基因組學</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+const QF={
+ zh:{q1_y:'CellCycleScoring 用 Tirosh 2016 marker 估算每細胞 S/G2M 分數，可 regress out 避免 cluster 被 cycle 干擾。',q1_n:'正確答案已標示。',
+     q2_y:'sotorasib / adagrasib 是 KRAS G12C 共價抑制劑——精準醫療的代表性突破之一。',q2_n:'正確答案已標示。',
+     q3_y:'p16/p21 與 SASP 是 senescence 的標誌；不要與 apoptosis 等其他死亡簽名搞混。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'CellCycleScoring uses Tirosh 2016 markers to score S/G2M; regress out to prevent cycle-driven clusters.',q1_n:'Correct answer highlighted.',
+     q2_y:'Sotorasib / adagrasib are covalent KRAS G12C inhibitors — a landmark precision-medicine breakthrough.',q2_n:'Correct answer highlighted.',
+     q3_y:'p16/p21 and SASP define senescence — don\'t confuse with apoptosis or other death modes.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>生物資訊學的生物學基礎概論 · Biological Foundations for Bioinformatics</title>
+<meta name="description" content="從分子到組學，雙語互動式教程：建立做生物資訊所需的生物學底層知識。Bilingual interactive tutorial: build the biology foundations needed for bioinformatics, from molecules to omics.">
+<link rel="stylesheet" href="styles.css"></head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li>
+    <li><a href="cell-organelles.html">Cell</a></li>
+    <li><a href="biomolecules.html">Biomol.</a></li>
+    <li><a href="dna-chromosome.html">DNA</a></li>
+    <li><a href="dna-replication-repair.html">Replic.</a></li>
+    <li><a href="transcription-rna.html">Trans.</a></li>
+    <li><a href="translation-protein.html">Protein</a></li>
+    <li><a href="gene-regulation.html">Reg.</a></li>
+    <li><a href="genome-structure.html">Genome</a></li>
+    <li><a href="mutations-variants.html">Variants</a></li>
+    <li><a href="inheritance-popgen.html">Genetics</a></li>
+    <li><a href="epigenetics.html">Epi.</a></li>
+    <li><a href="cell-cycle-signaling.html">Cycle</a></li>
+    <li><a href="sequencing-genomics.html">Seq.</a></li>
+    <li><a href="transcriptomics.html">Trscr.</a></li>
+    <li><a href="proteomics-ptm.html">Proteo.</a></li>
+    <li><a href="metabolomics-lipidomics.html">Metab.</a></li>
+    <li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+
+<header class="hub-hero"><div style="position:relative;z-index:1;">
+<h1 data-zh="生物資訊學的生物學基礎概論" data-en="Biological Foundations for Bioinformatics">生物資訊學的生物學基礎概論</h1>
+<p data-lang="zh">從分子、細胞到組學系統——18 章雙軌教程，為 CS/統計/工程背景的讀者建立扎實的生物學底子，並引導具備生物背景者銜接到資料分析。</p>
+<p data-lang="en">From molecules to cells to omics — an 18-chapter dual-track tutorial that builds rigorous biology foundations for CS/stats/engineering backgrounds, and bridges traditional biologists to data analysis.</p>
+</div></header>
+
+<h2 class="hub-section-title"><span>A</span> <span data-zh="區塊 A · 生命的基本單位" data-en="Block A · The Units of Life">區塊 A · 生命的基本單位</span></h2>
+<div class="hub-steps-grid">
+  <a href="intro-bioinfo-biology.html" class="hub-card"><div class="hub-emoji">🧭</div><span class="step-num">Ch. 1</span><h3 data-zh="為什麼生物資訊學需要生物學？" data-en="Why Bioinformatics Needs Biology">為什麼生物資訊學需要生物學？</h3><p data-lang="zh">資料是怎麼被生物學「生」出來的——從研究問題、生物樣本、量測技術，到計算分析的全景。</p><p data-lang="en">How biological data is actually generated — from research question to sample to measurement to computation.</p></a>
+  <a href="cell-organelles.html" class="hub-card"><div class="hub-emoji">🦠</div><span class="step-num">Ch. 2</span><h3 data-zh="細胞與胞器" data-en="Cells &amp; Organelles">細胞與胞器</h3><p data-lang="zh">原核 vs 真核、各胞器的職責、細胞種類，以及「為什麼粒線體基因比例」會出現在 scRNA-seq QC。</p><p data-lang="en">Prokaryotes vs eukaryotes, organelle roles, cell types — and why "%mt" appears in scRNA-seq QC.</p></a>
+  <a href="biomolecules.html" class="hub-card"><div class="hub-emoji">🧪</div><span class="step-num">Ch. 3</span><h3 data-zh="四大生物大分子" data-en="The Four Biomolecules">四大生物大分子</h3><p data-lang="zh">蛋白質、核酸、糖、脂的化學構造與生物學功能，並對應到質譜、定序、糖體學的資料形式。</p><p data-lang="en">Proteins, nucleic acids, sugars, lipids — chemistry, function, and what they look like in MS / sequencing / glycomics data.</p></a>
+  <a href="dna-chromosome.html" class="hub-card"><div class="hub-emoji">🧬</div><span class="step-num">Ch. 4</span><h3 data-zh="DNA、染色質與染色體" data-en="DNA, Chromatin &amp; Chromosomes">DNA、染色質與染色體</h3><p data-lang="zh">雙股螺旋、核小體、染色質壓縮層級、染色體核型——對應 Hi-C、ATAC、karyotype 分析的物理基礎。</p><p data-lang="en">Double helix, nucleosome, chromatin packing, karyotype — the physical substrate behind Hi-C, ATAC, and karyotype analyses.</p></a>
+</div>
+
+<h2 class="hub-section-title"><span>B</span> <span data-zh="區塊 B · 中心法則" data-en="Block B · The Central Dogma">區塊 B · 中心法則</span></h2>
+<div class="hub-steps-grid">
+  <a href="dna-replication-repair.html" class="hub-card"><div class="hub-emoji">🔁</div><span class="step-num">Ch. 5</span><h3 data-zh="DNA 複製與修復" data-en="DNA Replication &amp; Repair">DNA 複製與修復</h3><p data-lang="zh">複製叉、引子、Okazaki 片段、修復通路——對應到突變類型分布、tumor mutational burden 的生物來源。</p><p data-lang="en">Replication fork, primers, Okazaki fragments, repair pathways — the biology behind mutation spectra and TMB.</p></a>
+  <a href="transcription-rna.html" class="hub-card"><div class="hub-emoji">📜</div><span class="step-num">Ch. 6</span><h3 data-zh="轉錄與 RNA 加工" data-en="Transcription &amp; RNA Processing">轉錄與 RNA 加工</h3><p data-lang="zh">RNA pol II、啟動子、增強子、5' cap、剪接、polyA——對應 RNA-seq read 分布、剪接事件、isoform 解析。</p><p data-lang="en">RNA pol II, promoters, enhancers, capping, splicing, polyA — the biology behind RNA-seq read distributions and isoforms.</p></a>
+  <a href="translation-protein.html" class="hub-card"><div class="hub-emoji">🏗️</div><span class="step-num">Ch. 7</span><h3 data-zh="轉譯與蛋白質結構" data-en="Translation &amp; Protein Structure">轉譯與蛋白質結構</h3><p data-lang="zh">核糖體、密碼子、tRNA、共轉譯摺疊、四級結構、伴隨蛋白——銜接 Ribo-seq、AlphaFold、結構生物學。</p><p data-lang="en">Ribosome, codons, tRNA, co-translational folding, quaternary structure — connecting to Ribo-seq and AlphaFold.</p></a>
+  <a href="gene-regulation.html" class="hub-card"><div class="hub-emoji">🎛️</div><span class="step-num">Ch. 8</span><h3 data-zh="基因表達調控" data-en="Gene Expression Regulation">基因表達調控</h3><p data-lang="zh">轉錄因子、增強子-啟動子互作、miRNA/lncRNA、RBP——對應 ChIP-seq、CUT&amp;RUN、CLIP、GRN 推斷。</p><p data-lang="en">TFs, enhancer–promoter loops, miRNA/lncRNA, RBPs — connecting to ChIP-seq, CUT&amp;RUN, CLIP, GRN inference.</p></a>
+</div>
+
+<h2 class="hub-section-title"><span>C</span> <span data-zh="區塊 C · 基因組、遺傳與細胞調控" data-en="Block C · Genome, Inheritance &amp; Cell Regulation">區塊 C · 基因組、遺傳與細胞調控</span></h2>
+<div class="hub-steps-grid">
+  <a href="genome-structure.html" class="hub-card"><div class="hub-emoji">🗺️</div><span class="step-num">Ch. 9</span><h3 data-zh="基因組結構與註解" data-en="Genome Structure &amp; Annotation">基因組結構與註解</h3><p data-lang="zh">外顯子/內含子/UTR、重複序列、偽基因、GENCODE/Ensembl 註解——讀懂 GTF/GFF3 的生物學意義。</p><p data-lang="en">Exons/introns/UTRs, repeats, pseudogenes, GENCODE/Ensembl — what GTF/GFF3 really mean.</p></a>
+  <a href="mutations-variants.html" class="hub-card"><div class="hub-emoji">⚡</div><span class="step-num">Ch. 10</span><h3 data-zh="突變與遺傳變異" data-en="Mutations &amp; Genetic Variants">突變與遺傳變異</h3><p data-lang="zh">SNV/indel/CNV/SV/STR、germline vs somatic、功能效應、HGVS 命名——對應 VCF 欄位與 variant calling。</p><p data-lang="en">SNV/indel/CNV/SV/STR, germline vs somatic, functional impact, HGVS — what VCF fields actually represent.</p></a>
+  <a href="inheritance-popgen.html" class="hub-card"><div class="hub-emoji">🌱</div><span class="step-num">Ch. 11</span><h3 data-zh="遺傳與群體遺傳" data-en="Inheritance &amp; Population Genetics">遺傳與群體遺傳</h3><p data-lang="zh">孟德爾、減數分裂、Hardy-Weinberg、LD、Fst、選汰——奠定 GWAS、PRS、群體結構分析的觀念。</p><p data-lang="en">Mendelian, meiosis, Hardy-Weinberg, LD, Fst, selection — the basis of GWAS, PRS, and structure analyses.</p></a>
+  <a href="epigenetics.html" class="hub-card"><div class="hub-emoji">🎭</div><span class="step-num">Ch. 12</span><h3 data-zh="表觀遺傳" data-en="Epigenetics">表觀遺傳</h3><p data-lang="zh">DNA 甲基化、組蛋白修飾、染色質可及性、非編碼 RNA、X-inactivation、印記——對應 WGBS/ATAC/ChIP 解讀。</p><p data-lang="en">DNA methylation, histone marks, chromatin accessibility, ncRNA, XCI, imprinting — what WGBS/ATAC/ChIP actually measure.</p></a>
+  <a href="cell-cycle-signaling.html" class="hub-card"><div class="hub-emoji">📡</div><span class="step-num">Ch. 13</span><h3 data-zh="細胞週期、分裂與訊號傳遞" data-en="Cell Cycle, Division &amp; Signaling">細胞週期、分裂與訊號</h3><p data-lang="zh">G1/S/G2/M、檢查點、apoptosis、訊號通路（RTK/MAPK/PI3K-AKT/WNT/Notch）——銜接 pathway analysis 與藥理基因組學。</p><p data-lang="en">G1/S/G2/M, checkpoints, apoptosis, signaling pathways — connecting to pathway analysis and pharmacogenomics.</p></a>
+</div>
+
+<h2 class="hub-section-title"><span>D</span> <span data-zh="區塊 D · 組學與系統" data-en="Block D · Omics &amp; Systems">區塊 D · 組學與系統</span></h2>
+<div class="hub-steps-grid">
+  <a href="sequencing-genomics.html" class="hub-card"><div class="hub-emoji">🔬</div><span class="step-num">Ch. 14</span><h3 data-zh="定序技術與基因組學" data-en="Sequencing &amp; Genomics">定序技術與基因組學</h3><p data-lang="zh">Sanger → NGS（Illumina、Element AVITI）→ long-read（PacBio HiFi、ONT）→ single-cell——比較通量、長度、錯誤模式。</p><p data-lang="en">Sanger → NGS (Illumina, Element AVITI) → long-read (PacBio HiFi, ONT) → single-cell — throughput, length, error modes.</p></a>
+  <a href="transcriptomics.html" class="hub-card"><div class="hub-emoji">📊</div><span class="step-num">Ch. 15</span><h3 data-zh="轉錄體學" data-en="Transcriptomics">轉錄體學</h3><p data-lang="zh">bulk vs scRNA-seq vs spatial、polyA vs total RNA、isoform/alt-splicing、smFISH/MERFISH——選對技術才能回答對問題。</p><p data-lang="en">Bulk vs scRNA-seq vs spatial, polyA vs total RNA, isoforms, smFISH/MERFISH — match the technology to the question.</p></a>
+  <a href="proteomics-ptm.html" class="hub-card"><div class="hub-emoji">⚖️</div><span class="step-num">Ch. 16</span><h3 data-zh="蛋白質體與翻譯後修飾" data-en="Proteomics &amp; PTMs">蛋白質體與翻譯後修飾</h3><p data-lang="zh">LC-MS/MS、DDA vs DIA、TMT/iTRAQ、磷酸化/乙醯化/泛素化、結構蛋白體學、affinity-MS——資料層形態完全不同於 RNA-seq。</p><p data-lang="en">LC-MS/MS, DDA vs DIA, TMT/iTRAQ, phospho/acetyl/ubiquityl, structural proteomics, affinity-MS — data shape differs entirely from RNA-seq.</p></a>
+  <a href="metabolomics-lipidomics.html" class="hub-card"><div class="hub-emoji">🌡️</div><span class="step-num">Ch. 17</span><h3 data-zh="代謝體與脂質體" data-en="Metabolomics &amp; Lipidomics">代謝體與脂質體</h3><p data-lang="zh">targeted vs untargeted、HMDB/LIPID MAPS、annotation 信心等級（MSI levels）、通路富集——理解小分子數據的生物學脈絡。</p><p data-lang="en">Targeted vs untargeted, HMDB/LIPID MAPS, MSI confidence levels, pathway enrichment — biology behind small-molecule data.</p></a>
+  <a href="systems-multiomics-clinical.html" class="hub-card"><div class="hub-emoji">🌐</div><span class="step-num">Ch. 18</span><h3 data-zh="系統生物學、多組學與臨床" data-en="Systems Biology, Multi-omics &amp; Clinic">系統生物學、多組學與臨床</h3><p data-lang="zh">基因型→分子→細胞→組織→疾病的多層級整合、藥物基因組學、精準醫療、FAIR 與倫理——通往應用的最後一哩。</p><p data-lang="en">Genotype → molecule → cell → tissue → disease integration, pharmacogenomics, precision medicine, FAIR & ethics — the last mile to application.</p></a>
+</div>
+
+<h2 class="hub-section-title"><span>05</span> <span data-zh="延伸學習" data-en="Further Learning">延伸學習</span></h2>
+<div class="hub-steps-grid">
+  <a href="references/index.html" class="hub-card"><div class="hub-emoji">📚</div><span class="step-num">References</span><h3 data-zh="參考資料與佐證" data-en="References &amp; Citations">參考資料與佐證</h3><p data-lang="zh">18 章對應的教科書、權威論文、官方資料庫與最佳實踐文獻，含 DOI 連結與疑義注記。</p><p data-lang="en">Textbooks, landmark papers, official databases and best-practice reviews for all 18 chapters — with DOIs and errata.</p></a>
+  <a href="bio-foundations-quiz/index.html" class="hub-card" target="_blank" rel="noopener"><div class="hub-emoji">📝</div><span class="step-num">Quiz</span><h3 data-zh="互動式考題" data-en="Interactive Quiz">互動式考題</h3><p data-lang="zh">涵蓋 18 章的單選/多選/是非題，含詳解、多使用者進度、錯題複習與考試模式。</p><p data-lang="en">Single, multi-select, and true/false questions across all 18 chapters with explanations, multi-profile progress, error review, and exam mode.</p></a>
+</div>
+<div style="height:60px"></div>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics · 2026</footer>
+<script src="i18n.js"></script>
+</body></html>

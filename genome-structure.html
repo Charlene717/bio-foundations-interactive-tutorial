@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.9 基因組結構與註解 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html" class="active">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 9 / 18 · BLOCK C</div>
+<h1 data-zh="基因組結構與註解" data-en="Genome Structure &amp; Annotation">基因組結構與註解</h1>
+<p class="subtitle" data-lang="zh">人類基因組 3.1 Gb 中只有 ~1.5% 是蛋白編碼——剩下 98.5% 並非「垃圾 DNA」。GENCODE / Ensembl / RefSeq 等註解資料庫定義了基因組裡每個位置代表什麼。</p>
+<p class="subtitle" data-lang="en">Only ~1.5% of the 3.1 Gb human genome is protein-coding — the other 98.5% is not "junk." GENCODE / Ensembl / RefSeq annotations define what each genomic position represents.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="基因結構" data-en="GENE STRUCTURE">基因結構</div>
+<h2 data-zh="一個真核基因的解剖" data-en="Anatomy of a Eukaryotic Gene">一個真核基因的解剖</h2>
+<div data-lang="zh"><p>典型基因結構：<strong>啟動子 → 5'UTR → exon 1 → intron 1 → exon 2 → ... → 3'UTR → polyA site</strong>。CDS（編碼區）通常從 5'UTR 後第一個 AUG 開始，到 stop codon 為止。Exon 1 中常見 cap、intron 中可有 enhancer、3'UTR 包含 miRNA 結合位點。</p></div>
+<div data-lang="en"><p>Typical structure: <strong>promoter → 5'UTR → exon 1 → intron 1 → exon 2 → ... → 3'UTR → polyA site</strong>. CDS starts at the first AUG after the 5'UTR and ends at the stop codon. Exon 1 often contains the cap; introns can carry enhancers; 3'UTR holds miRNA binding sites.</p></div>
+<table class="comp-table">
+<thead><tr><th data-zh="區段" data-en="Region">區段</th><th data-zh="角色" data-en="Role">角色</th><th data-zh="GTF feature type" data-en="GTF feature">GTF</th></tr></thead>
+<tbody>
+<tr><td><strong>Promoter</strong></td><td data-zh="招募 PIC、TSS 上游" data-en="Recruits PIC; upstream of TSS">招募 PIC</td><td>非標準 feature（透過 TSS 推斷）</td></tr>
+<tr><td><strong>5'UTR</strong></td><td data-zh="從 TSS 到第一個 AUG；含 uORF、IRES、TOP motif" data-en="TSS to first AUG; uORF, IRES, TOP motifs">含 uORF / IRES / TOP</td><td><code>five_prime_utr</code></td></tr>
+<tr><td><strong>CDS</strong></td><td data-zh="編碼蛋白序列" data-en="Encodes protein">編碼蛋白</td><td><code>CDS</code></td></tr>
+<tr><td><strong>Intron</strong></td><td data-zh="會被剪除；但可含 enhancer、snoRNA host" data-en="Spliced out; may host enhancers/snoRNAs">被剪除</td><td data-zh="無顯式 entry（exon 之間）" data-en="No explicit entry">無 entry</td></tr>
+<tr><td><strong>3'UTR</strong></td><td data-zh="從 stop codon 到 polyA site；miRNA 結合、穩定性訊號" data-en="Stop codon to polyA site; miRNA sites, stability signals">miRNA / 穩定性</td><td><code>three_prime_utr</code></td></tr>
+<tr><td><strong>polyA signal</strong></td><td>AAUAAA / 變體</td><td data-zh="多在 transcript 標註" data-en="In transcript record">transcript</td></tr>
+</tbody></table>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="基因組組成" data-en="GENOME COMPOSITION">基因組組成</div>
+<h2 data-zh="人類基因組 3.1 Gb 怎麼分配？" data-en="How is the 3.1 Gb Human Genome Distributed?">人類基因組 3.1 Gb 怎麼分配？</h2>
+<div class="interactive-panel">
+<div class="chart-container"><canvas id="gnChart"></canvas></div>
+<p style="font-size:.82rem;color:var(--c-ink-muted);text-align:center;margin-top:8px" data-lang="zh">蛋白編碼基因占 ~1.5%；其他包括重複序列（~50%）、調控元素、ncRNA、未註解區。</p>
+<p style="font-size:.82rem;color:var(--c-ink-muted);text-align:center;margin-top:8px" data-lang="en">Protein-coding ~1.5%; the rest: repeats (~50%), regulatory elements, ncRNAs, unannotated.</p>
+</div>
+<div class="card-grid cols-2">
+<div class="card"><h4 data-zh="🧬 蛋白編碼基因 (~20,000)" data-en="🧬 Protein-coding (~20,000)">🧬 蛋白編碼基因</h4>
+<div data-lang="zh"><p>GENCODE v45 標註約 19,432 個蛋白編碼基因；平均含 ~10 個 exons。意外地少——比線蟲多不了多少。複雜度來自 isoforms、PTM、調控。</p></div>
+<div data-lang="en"><p>GENCODE v45 lists ~19,432 protein-coding genes, avg ~10 exons. Surprisingly few — not much more than C. elegans. Complexity comes from isoforms, PTMs, regulation.</p></div></div>
+<div class="card"><h4 data-zh="🪢 非編碼 RNA (~35,000)" data-en="🪢 Non-coding RNA (~35,000)">🪢 ncRNA</h4>
+<div data-lang="zh"><p>lncRNA、miRNA、snoRNA、snRNA、piRNA、tRNA、rRNA、circRNA——數量遠超蛋白編碼基因。</p></div>
+<div data-lang="en"><p>lncRNA, miRNA, snoRNA, snRNA, piRNA, tRNA, rRNA, circRNA — far outnumber coding genes.</p></div></div>
+<div class="card"><h4 data-zh="🔁 重複元素（~50%）" data-en="🔁 Repetitive elements (~50%)">🔁 重複元素</h4>
+<div data-lang="zh"><p>LINE-1 (~17%)、SINE/Alu (~11%)、LTR/ERV (~8%)、衛星 DNA、簡單重複。其中 transposable elements 可被重新活化（如 LINE-1 在癌症）。</p></div>
+<div data-lang="en"><p>LINE-1 (~17%), SINE/Alu (~11%), LTR/ERV (~8%), satellite DNA, simple repeats. Transposable elements can reactivate (e.g. LINE-1 in cancer).</p></div></div>
+<div class="card"><h4 data-zh="🎛️ 調控元素 (Enhancers, CTCF, ...)" data-en="🎛️ Regulatory elements">🎛️ 調控元素</h4>
+<div data-lang="zh"><p>ENCODE / Roadmap / cCRE 標註約 ~1M 候選順式調控元件（包含 enhancers, promoters, CTCF sites, silencers）。是 GWAS 變異功能解讀的關鍵。</p></div>
+<div data-lang="en"><p>ENCODE / Roadmap / cCRE annotate ~1M candidate cis-regulatory elements (enhancers, promoters, CTCF sites, silencers) — key to interpreting GWAS variants.</p></div></div>
+<div class="card"><h4 data-zh="👻 偽基因 (~15,000)" data-en="👻 Pseudogenes (~15,000)">👻 偽基因</h4>
+<div data-lang="zh"><p>類似真基因但通常失去功能。RNA-seq 上 reads 可能比對到 paralog 偽基因，造成定量誤差。某些 pseudogenes 仍有調控功能（如 PTENP1 海綿 miRNA）。</p></div>
+<div data-lang="en"><p>Resemble real genes but typically nonfunctional. RNA-seq reads may map to paralogous pseudogenes — a quantification trap. Some (e.g. PTENP1) still regulate (miRNA sponging).</p></div></div>
+<div class="card"><h4 data-zh="❓ 未註解 / dark matter" data-en="❓ Unannotated / dark matter">❓ 未註解</h4>
+<div data-lang="zh"><p>每年新註解 RNA、enhancer、small ORFs（smORFs / micropeptides）持續更新。T2T-CHM13（2022）首次提供完整 telomere-to-telomere 組裝，填補 8% 缺口。</p></div>
+<div data-lang="en"><p>New RNAs, enhancers, small ORFs (smORFs / micropeptides) added yearly. T2T-CHM13 (2022) closed the remaining 8% gap with a complete telomere-to-telomere assembly.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="參考基因組" data-en="REFERENCE GENOMES">參考基因組</div>
+<h2 data-zh="GRCh38 / T2T-CHM13 / pangenome" data-en="GRCh38 / T2T-CHM13 / Pangenome">GRCh38 / T2T-CHM13 / pangenome</h2>
+<table class="comp-table">
+<thead><tr><th>Version</th><th>Year</th><th data-zh="特色" data-en="Highlights">特色</th><th data-zh="使用情境" data-en="Use">使用</th></tr></thead>
+<tbody>
+<tr><td>GRCh37 (hg19)</td><td>2009</td><td data-zh="多數舊資料、ClinVar/HGMD 等仍用" data-en="Most legacy data, ClinVar/HGMD still use">舊資料</td><td data-zh="生產環境逐步遷移" data-en="Migrating">遷移中</td></tr>
+<tr><td>GRCh38 (hg38)</td><td>2013–</td><td data-zh="包含 alternate haplotypes、修補 hg19 錯誤" data-en="Alternate haplotypes, fixes hg19 errors">主流</td><td data-zh="目前最廣使用" data-en="Most widely used">廣泛使用</td></tr>
+<tr><td><strong>T2T-CHM13</strong></td><td>2022</td><td data-zh="完整 telomere-to-telomere、含 centromere / acrocentric 短臂" data-en="Telomere-to-telomere, centromere/acrocentric arms complete">完整組裝</td><td data-zh="參考品質最高；遷移成本仍大" data-en="Highest reference quality; migration cost">逐步採用</td></tr>
+<tr><td><strong>HPRC v1.1 pangenome</strong></td><td>2023+</td><td data-zh="47 多倍體個體 + graph 結構，捕捉群體變異" data-en="47 diploid individuals + graph structure, captures population variation">圖譜</td><td data-zh="rare-variant、SV 研究" data-en="Rare variants, SV studies">前沿</td></tr>
+</tbody></table>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>
+<span data-lang="zh"><strong>常見陷阱：</strong>染色體命名前綴 <code>chr</code> 在 UCSC / Ensembl 之間不一致（UCSC 用 chr1, Ensembl 早期版用 1）。混用會導致比對失敗，請統一一個風格並用 <code>seqlevelsStyle()</code>（R）或自訂腳本轉換。</span>
+<span data-lang="en"><strong>Common pitfall:</strong> The <code>chr</code> prefix differs between UCSC (chr1) and earlier Ensembl (1). Mixing causes alignment failures — pick one style and normalize with <code>seqlevelsStyle()</code> (R) or scripts.</span>
+</div></div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">1. GENCODE / Ensembl GTF 中沒有顯式 entry，需從 exon 間隔推斷的是？</p>
+<p data-lang="en">1. Which is NOT an explicit GTF entry but must be inferred from exon gaps?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. exon</span><span data-lang="en">A. exon</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. CDS</span><span data-lang="en">B. CDS</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. intron</span><span data-lang="en">C. intron</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. transcript</span><span data-lang="en">D. transcript</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">2. 為什麼 RNA-seq 對偽基因定量需特別注意？</p>
+<p data-lang="en">2. Why do pseudogenes need special care in RNA-seq quantification?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 偽基因都是高表達</span><span data-lang="en">A. Pseudogenes are highly expressed</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. Reads 容易在偽基因與真基因 paralogs 之間 multi-map，造成定量誤差</span><span data-lang="en">B. Reads multi-map between pseudogenes and their real paralogs, biasing quantification</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 偽基因不會被轉錄</span><span data-lang="en">C. Pseudogenes are never transcribed</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 偽基因不在 GTF 內</span><span data-lang="en">D. Pseudogenes are not in GTF</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">3. T2T-CHM13 與 GRCh38 的主要差別是？</p>
+<p data-lang="en">3. The main difference between T2T-CHM13 and GRCh38?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. T2T 只含 X 染色體</span><span data-lang="en">A. T2T only has X chromosome</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. T2T 是 mouse 版</span><span data-lang="en">B. T2T is a mouse version</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. T2T 完整含 telomere、centromere、acrocentric 短臂；GRCh38 仍有 ~8% gap</span><span data-lang="en">C. T2T includes telomeres/centromeres/acrocentric arms; GRCh38 still has ~8% gaps</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 沒有差別</span><span data-lang="en">D. No difference</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="gene-regulation.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="基因表達調控" data-en="Gene Expression Regulation">基因表達調控</span></a>
+<a href="mutations-variants.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="突變與遺傳變異" data-en="Mutations &amp;amp; Genetic Variants">突變與遺傳變異</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+new Chart(document.getElementById('gnChart'),{type:'doughnut',data:{labels:['Repetitive (~50%)','Introns of coding genes (~25%)','Intergenic regulatory & ncRNA (~22%)','Protein-coding exons (~1.5%)','Other'],datasets:[{data:[50,25,22,1.5,1.5],backgroundColor:['#475569','#0d9488','#ea580c','#047857','#cbd5e1']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right'}}}});
+const QF={
+ zh:{q1_y:'GTF/GFF 沒有 intron entry；intron 是 exon 之間的「縫」，需推斷。',q1_n:'正確答案已標示。',
+     q2_y:'偽基因序列與真基因高度相似，reads multi-map 造成計數錯位。',q2_n:'正確答案已標示。',
+     q3_y:'T2T-CHM13 完整覆蓋過去 GRCh38 的 gap 區（telomere/centromere/acrocentric arms）。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'GTF/GFF has no intron entry — it is the gap between exons and must be inferred.',q1_n:'Correct answer highlighted.',
+     q2_y:'Pseudogenes share high identity with parent genes; multi-mapping reads bias counts.',q2_n:'Correct answer highlighted.',
+     q3_y:'T2T-CHM13 closes GRCh38\'s remaining gap regions (telomeres/centromeres/acrocentric arms).',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

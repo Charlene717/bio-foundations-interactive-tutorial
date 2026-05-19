@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Biology Foundations · References</title>
+<meta name="description" content="18 章生物資訊學生物學基礎概論的教科書、權威論文、資料庫與最佳實踐文獻彙整，含 DOI 與疑義注記。">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.ref-list{list-style:none;padding:0;margin:14px 0 0}
+.ref-list li{padding:14px 16px;background:var(--c-surface-alt);border:1px solid var(--c-border-light);border-radius:var(--radius);margin-bottom:10px;font-size:.92rem;line-height:1.65}
+.ref-list li:hover{background:var(--c-surface);border-color:var(--c-border)}
+.ref-tag{display:inline-block;font-family:var(--font-mono);font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:6px;margin-right:8px;letter-spacing:.5px}
+.ref-tag.paper{background:var(--c-accent-light);color:var(--c-accent-dark)}
+.ref-tag.doc{background:#e3f2fd;color:#1565c0}
+.ref-tag.bench{background:#fff3e0;color:#e65100}
+.ref-tag.db{background:#fce4ec;color:#ad1457}
+.ref-tag.book{background:#f3e5f5;color:#6a1b9a}
+.ref-tag.bestp{background:var(--c-highlight-light);color:#9a3412;border:1px solid var(--c-highlight)}
+.ref-tag.policy{background:#e0e7ff;color:#4338ca}
+.ref-author{color:var(--c-ink);font-weight:600}
+.ref-title{color:var(--c-ink);font-weight:500}
+.ref-meta{color:var(--c-ink-muted);font-size:.85rem;margin-top:4px;display:block}
+.ref-list a{color:var(--c-accent);text-decoration:none;border-bottom:1px dotted var(--c-accent)}
+.ref-list a:hover{color:var(--c-accent-dark);border-bottom-style:solid}
+.errata{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 var(--radius-lg) var(--radius-lg) 0;padding:18px 22px;margin:18px 0;font-size:.9rem}
+.errata h4{margin:0 0 8px;color:#92400e;font-family:var(--font-display);font-size:1.05rem}
+.errata p{color:#78350f;margin-bottom:8px}
+.errata p:last-child{margin-bottom:0}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:18px 0}
+.toc-grid a{padding:10px 14px;background:var(--c-surface);border:1px solid var(--c-border-light);border-radius:var(--radius);text-decoration:none;color:var(--c-ink);font-size:.88rem;transition:var(--transition);display:flex;align-items:center;gap:8px}
+.toc-grid a:hover{border-color:var(--c-accent);background:var(--c-accent-light);color:var(--c-accent-dark)}
+.toc-grid a .step-tag{font-family:var(--font-mono);font-size:.72rem;color:var(--c-accent);font-weight:600}
+.section-anchor{scroll-margin-top:80px}
+</style>
+</head>
+<body>
+
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="../index.html" class="top-nav-brand"><span>🌿</span> Biology Foundations</a>
+  <ul class="top-nav-links">
+    <li><a href="../intro-bioinfo-biology.html">Intro</a></li>
+    <li><a href="../cell-organelles.html">Cell</a></li>
+    <li><a href="../biomolecules.html">Biomol.</a></li>
+    <li><a href="../dna-chromosome.html">DNA</a></li>
+    <li><a href="../dna-replication-repair.html">Replic.</a></li>
+    <li><a href="../transcription-rna.html">Trans.</a></li>
+    <li><a href="../translation-protein.html">Protein</a></li>
+    <li><a href="../gene-regulation.html">Reg.</a></li>
+    <li><a href="../genome-structure.html">Genome</a></li>
+    <li><a href="../mutations-variants.html">Variants</a></li>
+    <li><a href="../inheritance-popgen.html">Genetics</a></li>
+    <li><a href="../epigenetics.html">Epi.</a></li>
+    <li><a href="../cell-cycle-signaling.html">Cycle</a></li>
+    <li><a href="../sequencing-genomics.html">Seq.</a></li>
+    <li><a href="../transcriptomics.html">Trscr.</a></li>
+    <li><a href="../proteomics-ptm.html">Proteo.</a></li>
+    <li><a href="../metabolomics-lipidomics.html">Metab.</a></li>
+    <li><a href="../systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="index.html" class="active" style="font-weight:700" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+
+<header class="page-hero">
+<div class="step-badge" data-zh="參考資料 · REFERENCES" data-en="REFERENCES">REFERENCES</div>
+<h1 data-zh="Textbooks, Landmark Papers &amp; Databases" data-en="Biology Foundations References Index">Biology Foundations References Index</h1>
+<p class="subtitle" data-lang="zh">為「生物資訊學的生物學基礎概論」18 章提供教科書、原始論文、官方資料庫與最佳實踐綜述的完整佐證。所有條目附 DOI 連結。</p>
+<p class="subtitle" data-lang="en">References, citations, and sources for the Biology Foundations Interactive Tutorial — papers, official documents, and benchmarks with DOI / URL links.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="概覽" data-en="OVERVIEW">概覽</div>
+<h2 data-zh="引用標籤含義" data-en="Citation tag meanings">引用標籤含義</h2>
+<div class="card-grid cols-3">
+  <div class="card"><div class="card-icon" style="background:var(--c-accent-light)">📄</div><h4>Paper</h4><p data-lang="zh">原始論文 · 含 DOI / PubMed</p><p data-lang="en">Primary research papers with DOI / PubMed</p></div>
+  <div class="card"><div class="card-icon" style="background:#e3f2fd">📘</div><h4>Doc</h4><p data-lang="zh">官方文件、vignette、tutorial</p><p data-lang="en">Official documentation, vignettes, tutorials</p></div>
+  <div class="card"><div class="card-icon" style="background:var(--c-highlight-light)">⭐</div><h4>Best Practice</h4><p data-lang="zh">系統性綜述或 community 推薦</p><p data-lang="en">Systematic reviews or community-recommended practices</p></div>
+  <div class="card"><div class="card-icon" style="background:#fff3e0">📊</div><h4>Benchmark</h4><p data-lang="zh">方法評比 / 獨立 benchmarking</p><p data-lang="en">Method comparisons and independent benchmarking</p></div>
+  <div class="card"><div class="card-icon" style="background:#fce4ec">🗄️</div><h4>Database</h4><p data-lang="zh">序列、變異、註解、修飾資料庫</p><p data-lang="en">Sequence, variant, annotation, and modification databases</p></div>
+  <div class="card"><div class="card-icon" style="background:#f3e5f5">📚</div><h4>Book</h4><p data-lang="zh">線上免費書籍與經典教科書</p><p data-lang="en">Free online books and classic textbooks</p></div>
+</div>
+
+<h3 style="margin-top:32px" data-zh="章節目錄" data-en="Table of contents">章節目錄</h3>
+<div class="toc-grid">
+<a href="#ch01"><span class="step-tag">Ch.1</span>Why Biology</a>
+<a href="#ch02"><span class="step-tag">Ch.2</span>Cell &amp; Organelles</a>
+<a href="#ch03"><span class="step-tag">Ch.3</span>Biomolecules</a>
+<a href="#ch04"><span class="step-tag">Ch.4</span>DNA &amp; Chromosome</a>
+<a href="#ch05"><span class="step-tag">Ch.5</span>Replication &amp; Repair</a>
+<a href="#ch06"><span class="step-tag">Ch.6</span>Transcription &amp; RNA</a>
+<a href="#ch07"><span class="step-tag">Ch.7</span>Translation &amp; Protein</a>
+<a href="#ch08"><span class="step-tag">Ch.8</span>Gene Regulation</a>
+<a href="#ch09"><span class="step-tag">Ch.9</span>Genome Structure</a>
+<a href="#ch10"><span class="step-tag">Ch.10</span>Mutations &amp; Variants</a>
+<a href="#ch11"><span class="step-tag">Ch.11</span>Inheritance &amp; PopGen</a>
+<a href="#ch12"><span class="step-tag">Ch.12</span>Epigenetics</a>
+<a href="#ch13"><span class="step-tag">Ch.13</span>Cell Cycle &amp; Signaling</a>
+<a href="#ch14"><span class="step-tag">Ch.14</span>Sequencing</a>
+<a href="#ch15"><span class="step-tag">Ch.15</span>Transcriptomics</a>
+<a href="#ch16"><span class="step-tag">Ch.16</span>Proteomics &amp; PTM</a>
+<a href="#ch17"><span class="step-tag">Ch.17</span>Metabolomics</a>
+<a href="#ch18"><span class="step-tag">Ch.18</span>Systems / Clinical</a>
+</div>
+</section>
+
+<section class="section section-anchor" id="ch01">
+<div class="section-label" data-zh="Ch.1" data-en="Ch.1">Ch.1</div>
+<h2 data-zh="Why Bioinformatics Needs Biology" data-en="Why Bioinformatics Needs Biology">Why Bioinformatics Needs Biology</h2>
+<ul class="ref-list">
+<li><span class="ref-tag book">BOOK</span><span class="ref-author">Alberts B et al.</span> <span class="ref-title">Molecular Biology of the Cell, 7th ed.</span> <span class="ref-meta"><span data-lang="zh">Garland Science / W. W. Norton, 2022. ISBN 9780393884821.</span><span data-lang="en">Garland Science / W. W. Norton, 2022. ISBN 9780393884821.</span></span></li>
+<li><span class="ref-tag book">BOOK</span><span class="ref-author">Pevzner P, Compeau P.</span> <span class="ref-title">Bioinformatics Algorithms: An Active Learning Approach (3rd ed.).</span> <span class="ref-meta"><span data-lang="zh">Active Learning Publishers, 2020.</span><span data-lang="en">Active Learning Publishers, 2020.</span></span></li>
+<li><span class="ref-tag doc">DOC</span><a href="https://samtools.github.io/hts-specs/" target="_blank">SAM / BAM / CRAM / VCF / BCF / SAM file format specifications</a> · <span class="ref-meta"><span data-lang="zh">HTSlib org, 持續更新。</span><span data-lang="en">HTSlib org, continuously updated.</span></span></li>
+<li><span class="ref-tag doc">DOC</span><a href="https://genome.ucsc.edu/FAQ/FAQformat.html" target="_blank">UCSC FAQ — File Formats</a> · <span class="ref-meta"><span data-lang="zh">BED 0-based half-open；GTF/GFF/VCF 1-based closed 的權威說明。</span><span data-lang="en">Authoritative reference for BED 0-based half-open and GTF/GFF/VCF 1-based closed coordinates.</span></span></li>
+<li><span class="ref-tag bestp">⭐</span><span class="ref-author">Wilkinson MD et al. (2016).</span> <span class="ref-title">The FAIR Guiding Principles for scientific data management and stewardship.</span> <span class="ref-meta"><span data-lang="zh">Scientific Data, 3:160018. <a href="https://doi.org/10.1038/sdata.2016.18" target="_blank">doi:10.1038/sdata.2016.18</a>.</span><span data-lang="en">Scientific Data, 3:160018. <a href="https://doi.org/10.1038/sdata.2016.18" target="_blank">doi:10.1038/sdata.2016.18</a>.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch02">
+<div class="section-label" data-zh="Ch.2" data-en="Ch.2">Ch.2</div>
+<h2 data-zh="Cells &amp; Organelles" data-en="Cells &amp; Organelles">Cells &amp; Organelles</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Tabula Sapiens Consortium (2022).</span> <span class="ref-title">The Tabula Sapiens: a single-cell transcriptomic atlas of multiple organs from individual human donors.</span> <span class="ref-meta"><span data-lang="zh">Science 376(6594):eabl4896. <a href="https://doi.org/10.1126/science.abl4896" target="_blank">doi:10.1126/science.abl4896</a>.</span><span data-lang="en">Science 376(6594):eabl4896. <a href="https://doi.org/10.1126/science.abl4896" target="_blank">doi:10.1126/science.abl4896</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">van den Brink SC et al. (2017).</span> <span class="ref-title">Single-cell sequencing reveals dissociation-induced gene expression in tissue subpopulations.</span> <span class="ref-meta"><span data-lang="zh">Nature Methods 14:935–936. <a href="https://doi.org/10.1038/nmeth.4437" target="_blank">doi:10.1038/nmeth.4437</a>.</span><span data-lang="en">Nature Methods 14:935–936. <a href="https://doi.org/10.1038/nmeth.4437" target="_blank">doi:10.1038/nmeth.4437</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Bakken TE et al. (2018).</span> <span class="ref-title">Single-nucleus and single-cell transcriptomes compared in matched cortical cell types.</span> <span class="ref-meta"><span data-lang="zh">PLOS ONE 13(12):e0209648. <a href="https://doi.org/10.1371/journal.pone.0209648" target="_blank">doi:10.1371/journal.pone.0209648</a>.</span><span data-lang="en">PLOS ONE 13(12):e0209648. <a href="https://doi.org/10.1371/journal.pone.0209648" target="_blank">doi:10.1371/journal.pone.0209648</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.proteinatlas.org/" target="_blank">Human Protein Atlas</a> · <span class="ref-meta"><span data-lang="zh">細胞層級蛋白表達定位、組織分布、亞細胞定位。</span><span data-lang="en">Cell-level protein expression, tissue distribution, and subcellular localization.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch03">
+<div class="section-label" data-zh="Ch.3" data-en="Ch.3">Ch.3</div>
+<h2 data-zh="Biomolecules" data-en="Biomolecules">Biomolecules</h2>
+<ul class="ref-list">
+<li><span class="ref-tag book">BOOK</span><span class="ref-author">Nelson DL, Cox MM.</span> <span class="ref-title">Lehninger Principles of Biochemistry, 8th ed.</span> <span class="ref-meta"><span data-lang="zh">W. H. Freeman, 2021. ISBN 9781319228002.</span><span data-lang="en">W. H. Freeman, 2021. ISBN 9781319228002.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Kyte J, Doolittle RF (1982).</span> <span class="ref-title">A simple method for displaying the hydropathic character of a protein.</span> <span class="ref-meta"><span data-lang="zh">J Mol Biol 157(1):105–132. <a href="https://doi.org/10.1016/0022-2836(82)90515-0" target="_blank">doi:10.1016/0022-2836(82)90515-0</a>.</span><span data-lang="en">J Mol Biol 157(1):105–132. <a href="https://doi.org/10.1016/0022-2836(82)90515-0" target="_blank">doi:10.1016/0022-2836(82)90515-0</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.lipidmaps.org/" target="_blank">LIPID MAPS</a> · <span class="ref-meta"><span data-lang="zh">脂質分類、結構、質譜資料庫。</span><span data-lang="en">Lipid classification, structures, and mass-spectrometry database.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.hmdb.ca/" target="_blank">Human Metabolome Database (HMDB)</a> · <span class="ref-meta"><span data-lang="zh">代謝物、生物化學、藥物資料整合。</span><span data-lang="en">Integrated metabolite, biochemistry, and drug data.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch04">
+<div class="section-label" data-zh="Ch.4" data-en="Ch.4">Ch.4</div>
+<h2 data-zh="DNA, Chromatin &amp; Chromosomes" data-en="DNA, Chromatin &amp; Chromosomes">DNA, Chromatin &amp; Chromosomes</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Watson JD, Crick FH (1953).</span> <span class="ref-title">Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic Acid.</span> <span class="ref-meta"><span data-lang="zh">Nature 171:737–738. <a href="https://doi.org/10.1038/171737a0" target="_blank">doi:10.1038/171737a0</a>.</span><span data-lang="en">Nature 171:737–738. <a href="https://doi.org/10.1038/171737a0" target="_blank">doi:10.1038/171737a0</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Nurk S et al. (2022).</span> <span class="ref-title">The complete sequence of a human genome (T2T-CHM13).</span> <span class="ref-meta"><span data-lang="zh">Science 376(6588):44–53. <a href="https://doi.org/10.1126/science.abj6987" target="_blank">doi:10.1126/science.abj6987</a>.</span><span data-lang="en">Science 376(6588):44–53. <a href="https://doi.org/10.1126/science.abj6987" target="_blank">doi:10.1126/science.abj6987</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Dixon JR et al. (2012).</span> <span class="ref-title">Topological domains in mammalian genomes identified by analysis of chromatin interactions.</span> <span class="ref-meta"><span data-lang="zh">Nature 485:376–380. <a href="https://doi.org/10.1038/nature11082" target="_blank">doi:10.1038/nature11082</a>.</span><span data-lang="en">Nature 485:376–380. <a href="https://doi.org/10.1038/nature11082" target="_blank">doi:10.1038/nature11082</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Fudenberg G et al. (2016).</span> <span class="ref-title">Formation of chromosomal domains by loop extrusion.</span> <span class="ref-meta"><span data-lang="zh">Cell Reports 15(9):2038–2049. <a href="https://doi.org/10.1016/j.celrep.2016.04.085" target="_blank">doi:10.1016/j.celrep.2016.04.085</a>.</span><span data-lang="en">Cell Reports 15(9):2038–2049. <a href="https://doi.org/10.1016/j.celrep.2016.04.085" target="_blank">doi:10.1016/j.celrep.2016.04.085</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://genome.ucsc.edu/" target="_blank">UCSC Genome Browser</a> · <span class="ref-meta"><span data-lang="zh">基因組瀏覽、tracks、共享 hub。</span><span data-lang="en">Genome browser with tracks and shared track hubs.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch05">
+<div class="section-label" data-zh="Ch.5" data-en="Ch.5">Ch.5</div>
+<h2 data-zh="DNA Replication &amp; Repair" data-en="DNA Replication &amp; Repair">DNA Replication &amp; Repair</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Meselson M, Stahl FW (1958).</span> <span class="ref-title">The replication of DNA in Escherichia coli.</span> <span class="ref-meta"><span data-lang="zh">PNAS 44(7):671–682. <a href="https://doi.org/10.1073/pnas.44.7.671" target="_blank">doi:10.1073/pnas.44.7.671</a>.</span><span data-lang="en">PNAS 44(7):671–682. <a href="https://doi.org/10.1073/pnas.44.7.671" target="_blank">doi:10.1073/pnas.44.7.671</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Alexandrov LB et al. (2013).</span> <span class="ref-title">Signatures of mutational processes in human cancer.</span> <span class="ref-meta"><span data-lang="zh">Nature 500:415–421. <a href="https://doi.org/10.1038/nature12477" target="_blank">doi:10.1038/nature12477</a>.</span><span data-lang="en">Nature 500:415–421. <a href="https://doi.org/10.1038/nature12477" target="_blank">doi:10.1038/nature12477</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Alexandrov LB et al. (2020).</span> <span class="ref-title">The repertoire of mutational signatures in human cancer.</span> <span class="ref-meta"><span data-lang="zh">Nature 578:94–101. <a href="https://doi.org/10.1038/s41586-020-1943-3" target="_blank">doi:10.1038/s41586-020-1943-3</a>.</span><span data-lang="en">Nature 578:94–101. <a href="https://doi.org/10.1038/s41586-020-1943-3" target="_blank">doi:10.1038/s41586-020-1943-3</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://cancer.sanger.ac.uk/signatures/" target="_blank">COSMIC Mutational Signatures v3</a> · <span class="ref-meta"><span data-lang="zh">SBS / DBS / ID signatures 與 etiology 對照表。</span><span data-lang="en">SBS / DBS / ID signatures cross-referenced with etiology.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Bryant HE et al. (2005).</span> <span class="ref-title">Specific killing of BRCA2-deficient tumours with inhibitors of poly(ADP-ribose) polymerase.</span> <span class="ref-meta"><span data-lang="zh">Nature 434:913–917. <a href="https://doi.org/10.1038/nature03443" target="_blank">doi:10.1038/nature03443</a>.</span><span data-lang="en">Nature 434:913–917. <a href="https://doi.org/10.1038/nature03443" target="_blank">doi:10.1038/nature03443</a>.</span></span></li>
+</ul>
+<div class="errata"><h4 data-zh="⚠ Errata / 注意" data-en="⚠ Errata / Note">⚠ Errata / 注意</h4>
+<p data-lang="zh">COSMIC v3 → v3.4 多次更新；舊論文引用的 SBS 編號偶有沿用差異，請對照當前 v3.4 表。</p>
+<p data-lang="en">COSMIC has been updated multiple times from v3 to v3.4; SBS numbering in older papers occasionally diverges, so cross-reference against the current v3.4 table.</p></div>
+</section>
+
+<section class="section section-anchor" id="ch06">
+<div class="section-label" data-zh="Ch.6" data-en="Ch.6">Ch.6</div>
+<h2 data-zh="Transcription &amp; RNA Processing" data-en="Transcription &amp; RNA Processing">Transcription &amp; RNA Processing</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Adelman K, Lis JT (2012).</span> <span class="ref-title">Promoter-proximal pausing of RNA polymerase II: emerging roles in metazoans.</span> <span class="ref-meta"><span data-lang="zh">Nat Rev Genet 13:720–731. <a href="https://doi.org/10.1038/nrg3293" target="_blank">doi:10.1038/nrg3293</a>.</span><span data-lang="en">Nat Rev Genet 13:720–731. <a href="https://doi.org/10.1038/nrg3293" target="_blank">doi:10.1038/nrg3293</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Pan Q et al. (2008).</span> <span class="ref-title">Deep surveying of alternative splicing complexity in the human transcriptome.</span> <span class="ref-meta"><span data-lang="zh">Nat Genet 40:1413–1415. <a href="https://doi.org/10.1038/ng.259" target="_blank">doi:10.1038/ng.259</a>.</span><span data-lang="en">Nat Genet 40:1413–1415. <a href="https://doi.org/10.1038/ng.259" target="_blank">doi:10.1038/ng.259</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Shen S et al. (2014).</span> <span class="ref-title">rMATS: Robust and flexible detection of differential alternative splicing from RNA-Seq data.</span> <span class="ref-meta"><span data-lang="zh">PNAS 111(51):E5593–E5601. <a href="https://doi.org/10.1073/pnas.1419161111" target="_blank">doi:10.1073/pnas.1419161111</a>.</span><span data-lang="en">PNAS 111(51):E5593–E5601. <a href="https://doi.org/10.1073/pnas.1419161111" target="_blank">doi:10.1073/pnas.1419161111</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Jaganathan K et al. (2019).</span> <span class="ref-title">Predicting splicing from primary sequence with deep learning (SpliceAI).</span> <span class="ref-meta"><span data-lang="zh">Cell 176(3):535–548. <a href="https://doi.org/10.1016/j.cell.2018.12.015" target="_blank">doi:10.1016/j.cell.2018.12.015</a>.</span><span data-lang="en">Cell 176(3):535–548. <a href="https://doi.org/10.1016/j.cell.2018.12.015" target="_blank">doi:10.1016/j.cell.2018.12.015</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.gencodegenes.org/" target="_blank">GENCODE</a> · <span class="ref-meta"><span data-lang="zh">人/鼠基因註解（v45 / vM34 為 2024 版）。</span><span data-lang="en">Human/mouse gene annotation (v45 / vM34 are the 2024 releases).</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch07">
+<div class="section-label" data-zh="Ch.7" data-en="Ch.7">Ch.7</div>
+<h2 data-zh="Translation &amp; Protein Structure" data-en="Translation &amp; Protein Structure">Translation &amp; Protein Structure</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Anfinsen CB (1973).</span> <span class="ref-title">Principles that govern the folding of protein chains.</span> <span class="ref-meta"><span data-lang="zh">Science 181(4096):223–230. <a href="https://doi.org/10.1126/science.181.4096.223" target="_blank">doi:10.1126/science.181.4096.223</a>.</span><span data-lang="en">Science 181(4096):223–230. <a href="https://doi.org/10.1126/science.181.4096.223" target="_blank">doi:10.1126/science.181.4096.223</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Ingolia NT et al. (2009).</span> <span class="ref-title">Genome-wide analysis in vivo of translation with nucleotide resolution using ribosome profiling.</span> <span class="ref-meta"><span data-lang="zh">Science 324(5924):218–223. <a href="https://doi.org/10.1126/science.1168978" target="_blank">doi:10.1126/science.1168978</a>.</span><span data-lang="en">Science 324(5924):218–223. <a href="https://doi.org/10.1126/science.1168978" target="_blank">doi:10.1126/science.1168978</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Jumper J et al. (2021).</span> <span class="ref-title">Highly accurate protein structure prediction with AlphaFold.</span> <span class="ref-meta"><span data-lang="zh">Nature 596:583–589. <a href="https://doi.org/10.1038/s41586-021-03819-2" target="_blank">doi:10.1038/s41586-021-03819-2</a>.</span><span data-lang="en">Nature 596:583–589. <a href="https://doi.org/10.1038/s41586-021-03819-2" target="_blank">doi:10.1038/s41586-021-03819-2</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Abramson J et al. (2024).</span> <span class="ref-title">Accurate structure prediction of biomolecular interactions with AlphaFold 3.</span> <span class="ref-meta"><span data-lang="zh">Nature 630:493–500. <a href="https://doi.org/10.1038/s41586-024-07487-w" target="_blank">doi:10.1038/s41586-024-07487-w</a>.</span><span data-lang="en">Nature 630:493–500. <a href="https://doi.org/10.1038/s41586-024-07487-w" target="_blank">doi:10.1038/s41586-024-07487-w</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Lin Z et al. (2023).</span> <span class="ref-title">Evolutionary-scale prediction of atomic-level protein structure (ESMFold).</span> <span class="ref-meta"><span data-lang="zh">Science 379(6637):1123–1130. <a href="https://doi.org/10.1126/science.ade2574" target="_blank">doi:10.1126/science.ade2574</a>.</span><span data-lang="en">Science 379(6637):1123–1130. <a href="https://doi.org/10.1126/science.ade2574" target="_blank">doi:10.1126/science.ade2574</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://alphafold.ebi.ac.uk/" target="_blank">AlphaFold Protein Structure Database</a> · <span class="ref-meta"><span data-lang="zh">2 億+ 預測結構，含 pLDDT / PAE。</span><span data-lang="en">Over 200 million predicted structures, with pLDDT / PAE confidence scores.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch08">
+<div class="section-label" data-zh="Ch.8" data-en="Ch.8">Ch.8</div>
+<h2 data-zh="Gene Expression Regulation" data-en="Gene Expression Regulation">Gene Expression Regulation</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Buenrostro JD et al. (2013).</span> <span class="ref-title">Transposition of native chromatin for fast and sensitive epigenomic profiling (ATAC-seq).</span> <span class="ref-meta"><span data-lang="zh">Nat Methods 10:1213–1218. <a href="https://doi.org/10.1038/nmeth.2688" target="_blank">doi:10.1038/nmeth.2688</a>.</span><span data-lang="en">Nat Methods 10:1213–1218. <a href="https://doi.org/10.1038/nmeth.2688" target="_blank">doi:10.1038/nmeth.2688</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Skene PJ, Henikoff S (2017).</span> <span class="ref-title">An efficient targeted nuclease strategy for high-resolution mapping of DNA binding sites (CUT&amp;RUN).</span> <span class="ref-meta"><span data-lang="zh">eLife 6:e21856. <a href="https://doi.org/10.7554/eLife.21856" target="_blank">doi:10.7554/eLife.21856</a>.</span><span data-lang="en">eLife 6:e21856. <a href="https://doi.org/10.7554/eLife.21856" target="_blank">doi:10.7554/eLife.21856</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Aibar S et al. (2017).</span> <span class="ref-title">SCENIC: single-cell regulatory network inference and clustering.</span> <span class="ref-meta"><span data-lang="zh">Nat Methods 14:1083–1086. <a href="https://doi.org/10.1038/nmeth.4463" target="_blank">doi:10.1038/nmeth.4463</a>.</span><span data-lang="en">Nat Methods 14:1083–1086. <a href="https://doi.org/10.1038/nmeth.4463" target="_blank">doi:10.1038/nmeth.4463</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Kamimoto K et al. (2023).</span> <span class="ref-title">Dissecting cell identity via network inference and in silico gene perturbation (CellOracle).</span> <span class="ref-meta"><span data-lang="zh">Nature 614:742–751. <a href="https://doi.org/10.1038/s41586-022-05688-9" target="_blank">doi:10.1038/s41586-022-05688-9</a>.</span><span data-lang="en">Nature 614:742–751. <a href="https://doi.org/10.1038/s41586-022-05688-9" target="_blank">doi:10.1038/s41586-022-05688-9</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://jaspar.genereg.net/" target="_blank">JASPAR</a> · <span class="ref-meta"><span data-lang="zh">TF binding motif 資料庫（CORE collection 多物種）。</span><span data-lang="en">Transcription-factor binding motif database (CORE collection covers multiple species).</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.encodeproject.org/" target="_blank">ENCODE Project / cCREs</a> · <span class="ref-meta"><span data-lang="zh">~1M candidate cis-regulatory elements (v4)。</span><span data-lang="en">~1M candidate cis-regulatory elements (v4).</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch09">
+<div class="section-label" data-zh="Ch.9" data-en="Ch.9">Ch.9</div>
+<h2 data-zh="Genome Structure &amp; Annotation" data-en="Genome Structure &amp; Annotation">Genome Structure &amp; Annotation</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">International Human Genome Sequencing Consortium (2001).</span> <span class="ref-title">Initial sequencing and analysis of the human genome.</span> <span class="ref-meta"><span data-lang="zh">Nature 409:860–921. <a href="https://doi.org/10.1038/35057062" target="_blank">doi:10.1038/35057062</a>.</span><span data-lang="en">Nature 409:860–921. <a href="https://doi.org/10.1038/35057062" target="_blank">doi:10.1038/35057062</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Liao WW et al. (2023).</span> <span class="ref-title">A draft human pangenome reference (HPRC v1).</span> <span class="ref-meta"><span data-lang="zh">Nature 617:312–324. <a href="https://doi.org/10.1038/s41586-023-05896-x" target="_blank">doi:10.1038/s41586-023-05896-x</a>.</span><span data-lang="en">Nature 617:312–324. <a href="https://doi.org/10.1038/s41586-023-05896-x" target="_blank">doi:10.1038/s41586-023-05896-x</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.ensembl.org/" target="_blank">Ensembl</a> / <a href="https://www.ncbi.nlm.nih.gov/refseq/" target="_blank">RefSeq</a> · <span class="ref-meta"><span data-lang="zh">基因註解、轉錄本、跨物種對齊。</span><span data-lang="en">Gene annotation, transcripts, and cross-species alignment.</span></span></li>
+<li><span class="ref-tag bestp">⭐</span><span class="ref-author">Sayers EW et al. (2024).</span> <span class="ref-title">Database resources of the National Center for Biotechnology Information.</span> <span class="ref-meta"><span data-lang="zh">Nucleic Acids Res 52(D1):D33–D43. <a href="https://doi.org/10.1093/nar/gkad1044" target="_blank">doi:10.1093/nar/gkad1044</a>.</span><span data-lang="en">Nucleic Acids Res 52(D1):D33–D43. <a href="https://doi.org/10.1093/nar/gkad1044" target="_blank">doi:10.1093/nar/gkad1044</a>.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch10">
+<div class="section-label" data-zh="Ch.10" data-en="Ch.10">Ch.10</div>
+<h2 data-zh="Mutations &amp; Variants" data-en="Mutations &amp; Variants">Mutations &amp; Variants</h2>
+<ul class="ref-list">
+<li><span class="ref-tag bestp">⭐</span><span class="ref-author">Richards S et al. (2015).</span> <span class="ref-title">Standards and guidelines for the interpretation of sequence variants (ACMG/AMP 2015).</span> <span class="ref-meta"><span data-lang="zh">Genet Med 17:405–424. <a href="https://doi.org/10.1038/gim.2015.30" target="_blank">doi:10.1038/gim.2015.30</a>.</span><span data-lang="en">Genet Med 17:405–424. <a href="https://doi.org/10.1038/gim.2015.30" target="_blank">doi:10.1038/gim.2015.30</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Karczewski KJ et al. (2020).</span> <span class="ref-title">The mutational constraint spectrum quantified from variation in 141,456 humans (gnomAD v2).</span> <span class="ref-meta"><span data-lang="zh">Nature 581:434–443. <a href="https://doi.org/10.1038/s41586-020-2308-7" target="_blank">doi:10.1038/s41586-020-2308-7</a>.</span><span data-lang="en">Nature 581:434–443. <a href="https://doi.org/10.1038/s41586-020-2308-7" target="_blank">doi:10.1038/s41586-020-2308-7</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Cheng J et al. (2023).</span> <span class="ref-title">Accurate proteome-wide missense variant effect prediction with AlphaMissense.</span> <span class="ref-meta"><span data-lang="zh">Science 381(6664):eadg7492. <a href="https://doi.org/10.1126/science.adg7492" target="_blank">doi:10.1126/science.adg7492</a>.</span><span data-lang="en">Science 381(6664):eadg7492. <a href="https://doi.org/10.1126/science.adg7492" target="_blank">doi:10.1126/science.adg7492</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.ncbi.nlm.nih.gov/clinvar/" target="_blank">ClinVar</a> · <span class="ref-meta"><span data-lang="zh">致病變異與臨床解讀的開放資料庫。</span><span data-lang="en">Open database of pathogenic variants and clinical interpretations.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://gnomad.broadinstitute.org/" target="_blank">gnomAD</a> · <span class="ref-meta"><span data-lang="zh">族群等位頻率、constraint scores（pLI, LOEUF, missense Z）。</span><span data-lang="en">Population allele frequencies and constraint scores (pLI, LOEUF, missense Z).</span></span></li>
+<li><span class="ref-tag doc">DOC</span><a href="https://www.hgvs.org/mutnomen/" target="_blank">HGVS Nomenclature</a> · <span class="ref-meta"><span data-lang="zh">序列變異命名規範。</span><span data-lang="en">Standardized nomenclature for sequence variants.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch11">
+<div class="section-label" data-zh="Ch.11" data-en="Ch.11">Ch.11</div>
+<h2 data-zh="Inheritance &amp; Population Genetics" data-en="Inheritance &amp; Population Genetics">Inheritance &amp; Population Genetics</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Bulik-Sullivan BK et al. (2015).</span> <span class="ref-title">LD Score regression distinguishes confounding from polygenicity in genome-wide association studies.</span> <span class="ref-meta"><span data-lang="zh">Nat Genet 47:291–295. <a href="https://doi.org/10.1038/ng.3211" target="_blank">doi:10.1038/ng.3211</a>.</span><span data-lang="en">Nat Genet 47:291–295. <a href="https://doi.org/10.1038/ng.3211" target="_blank">doi:10.1038/ng.3211</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Ge T et al. (2019).</span> <span class="ref-title">Polygenic prediction via Bayesian regression and continuous shrinkage priors (PRS-CS).</span> <span class="ref-meta"><span data-lang="zh">Nat Commun 10:1776. <a href="https://doi.org/10.1038/s41467-019-09718-5" target="_blank">doi:10.1038/s41467-019-09718-5</a>.</span><span data-lang="en">Nat Commun 10:1776. <a href="https://doi.org/10.1038/s41467-019-09718-5" target="_blank">doi:10.1038/s41467-019-09718-5</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Martin AR et al. (2019).</span> <span class="ref-title">Clinical use of current polygenic risk scores may exacerbate health disparities.</span> <span class="ref-meta"><span data-lang="zh">Nat Genet 51:584–591. <a href="https://doi.org/10.1038/s41588-019-0379-x" target="_blank">doi:10.1038/s41588-019-0379-x</a>.</span><span data-lang="en">Nat Genet 51:584–591. <a href="https://doi.org/10.1038/s41588-019-0379-x" target="_blank">doi:10.1038/s41588-019-0379-x</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Mbatchou J et al. (2021).</span> <span class="ref-title">Computationally efficient whole-genome regression for quantitative and binary traits (REGENIE).</span> <span class="ref-meta"><span data-lang="zh">Nat Genet 53:1097–1103. <a href="https://doi.org/10.1038/s41588-021-00870-7" target="_blank">doi:10.1038/s41588-021-00870-7</a>.</span><span data-lang="en">Nat Genet 53:1097–1103. <a href="https://doi.org/10.1038/s41588-021-00870-7" target="_blank">doi:10.1038/s41588-021-00870-7</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.internationalgenome.org/" target="_blank">1000 Genomes Project</a> / <a href="https://www.ukbiobank.ac.uk/" target="_blank">UK Biobank</a> · <span class="ref-meta"><span data-lang="zh">人類遺傳變異參考族群。</span><span data-lang="en">Reference population datasets for human genetic variation.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch12">
+<div class="section-label" data-zh="Ch.12" data-en="Ch.12">Ch.12</div>
+<h2 data-zh="Epigenetics" data-en="Epigenetics">Epigenetics</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Horvath S (2013).</span> <span class="ref-title">DNA methylation age of human tissues and cell types.</span> <span class="ref-meta"><span data-lang="zh">Genome Biol 14:R115. <a href="https://doi.org/10.1186/gb-2013-14-10-r115" target="_blank">doi:10.1186/gb-2013-14-10-r115</a>.</span><span data-lang="en">Genome Biol 14:R115. <a href="https://doi.org/10.1186/gb-2013-14-10-r115" target="_blank">doi:10.1186/gb-2013-14-10-r115</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Roadmap Epigenomics Consortium (2015).</span> <span class="ref-title">Integrative analysis of 111 reference human epigenomes.</span> <span class="ref-meta"><span data-lang="zh">Nature 518:317–330. <a href="https://doi.org/10.1038/nature14248" target="_blank">doi:10.1038/nature14248</a>.</span><span data-lang="en">Nature 518:317–330. <a href="https://doi.org/10.1038/nature14248" target="_blank">doi:10.1038/nature14248</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Krueger F, Andrews SR (2011).</span> <span class="ref-title">Bismark: a flexible aligner and methylation caller for bisulfite-seq applications.</span> <span class="ref-meta"><span data-lang="zh">Bioinformatics 27(11):1571–1572. <a href="https://doi.org/10.1093/bioinformatics/btr167" target="_blank">doi:10.1093/bioinformatics/btr167</a>.</span><span data-lang="en">Bioinformatics 27(11):1571–1572. <a href="https://doi.org/10.1093/bioinformatics/btr167" target="_blank">doi:10.1093/bioinformatics/btr167</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Simpson JT et al. (2017).</span> <span class="ref-title">Detecting DNA cytosine methylation using nanopore sequencing.</span> <span class="ref-meta"><span data-lang="zh">Nat Methods 14:407–410. <a href="https://doi.org/10.1038/nmeth.4184" target="_blank">doi:10.1038/nmeth.4184</a>.</span><span data-lang="en">Nat Methods 14:407–410. <a href="https://doi.org/10.1038/nmeth.4184" target="_blank">doi:10.1038/nmeth.4184</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.encodeproject.org/" target="_blank">ENCODE Histone &amp; Chromatin Modifications</a> · <span class="ref-meta"><span data-lang="zh">ChIP-seq、ATAC-seq 整合資源。</span><span data-lang="en">Integrated ChIP-seq and ATAC-seq resources.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch13">
+<div class="section-label" data-zh="Ch.13" data-en="Ch.13">Ch.13</div>
+<h2 data-zh="Cell Cycle, Division &amp; Signaling" data-en="Cell Cycle, Division &amp; Signaling">Cell Cycle, Division &amp; Signaling</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Tirosh I et al. (2016).</span> <span class="ref-title">Dissecting the multicellular ecosystem of metastatic melanoma by single-cell RNA-seq.</span> <span class="ref-meta"><span data-lang="zh">Science 352(6282):189–196. <a href="https://doi.org/10.1126/science.aad0501" target="_blank">doi:10.1126/science.aad0501</a> · <span class="ref-meta">含 CellCycleScoring 的 S/G2M marker 起源。</span></span><span data-lang="en">Science 352(6282):189–196. <a href="https://doi.org/10.1126/science.aad0501" target="_blank">doi:10.1126/science.aad0501</a> · <span class="ref-meta">Origin of the S/G2M markers used in CellCycleScoring.</span></span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Canon J et al. (2019).</span> <span class="ref-title">The clinical KRAS(G12C) inhibitor AMG 510 drives anti-tumour immunity.</span> <span class="ref-meta"><span data-lang="zh">Nature 575:217–223. <a href="https://doi.org/10.1038/s41586-019-1694-1" target="_blank">doi:10.1038/s41586-019-1694-1</a>.</span><span data-lang="en">Nature 575:217–223. <a href="https://doi.org/10.1038/s41586-019-1694-1" target="_blank">doi:10.1038/s41586-019-1694-1</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Galluzzi L et al. (2018).</span> <span class="ref-title">Molecular mechanisms of cell death: recommendations of the Nomenclature Committee on Cell Death 2018.</span> <span class="ref-meta"><span data-lang="zh">Cell Death Differ 25:486–541. <a href="https://doi.org/10.1038/s41418-017-0012-4" target="_blank">doi:10.1038/s41418-017-0012-4</a>.</span><span data-lang="en">Cell Death Differ 25:486–541. <a href="https://doi.org/10.1038/s41418-017-0012-4" target="_blank">doi:10.1038/s41418-017-0012-4</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://reactome.org/" target="_blank">Reactome</a> / <a href="https://www.genome.jp/kegg/" target="_blank">KEGG</a> · <span class="ref-meta"><span data-lang="zh">通路資料庫。</span><span data-lang="en">Pathway databases.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch14">
+<div class="section-label" data-zh="Ch.14" data-en="Ch.14">Ch.14</div>
+<h2 data-zh="Sequencing &amp; Genomics" data-en="Sequencing &amp; Genomics">Sequencing &amp; Genomics</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Li H (2018).</span> <span class="ref-title">Minimap2: pairwise alignment for nucleotide sequences.</span> <span class="ref-meta"><span data-lang="zh">Bioinformatics 34(18):3094–3100. <a href="https://doi.org/10.1093/bioinformatics/bty191" target="_blank">doi:10.1093/bioinformatics/bty191</a>.</span><span data-lang="en">Bioinformatics 34(18):3094–3100. <a href="https://doi.org/10.1093/bioinformatics/bty191" target="_blank">doi:10.1093/bioinformatics/bty191</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Poplin R et al. (2018).</span> <span class="ref-title">A universal SNP and small-indel variant caller using deep neural networks (DeepVariant).</span> <span class="ref-meta"><span data-lang="zh">Nat Biotechnol 36:983–987. <a href="https://doi.org/10.1038/nbt.4235" target="_blank">doi:10.1038/nbt.4235</a>.</span><span data-lang="en">Nat Biotechnol 36:983–987. <a href="https://doi.org/10.1038/nbt.4235" target="_blank">doi:10.1038/nbt.4235</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">McKenna A et al. (2010).</span> <span class="ref-title">The Genome Analysis Toolkit (GATK).</span> <span class="ref-meta"><span data-lang="zh">Genome Res 20:1297–1303. <a href="https://doi.org/10.1101/gr.107524.110" target="_blank">doi:10.1101/gr.107524.110</a>.</span><span data-lang="en">Genome Res 20:1297–1303. <a href="https://doi.org/10.1101/gr.107524.110" target="_blank">doi:10.1101/gr.107524.110</a>.</span></span></li>
+<li><span class="ref-tag bench">BENCH</span><span class="ref-author">Krusche P et al. (2019).</span> <span class="ref-title">Best practices for benchmarking germline small-variant calls in human genomes.</span> <span class="ref-meta"><span data-lang="zh">Nat Biotechnol 37:555–560. <a href="https://doi.org/10.1038/s41587-019-0054-x" target="_blank">doi:10.1038/s41587-019-0054-x</a>.</span><span data-lang="en">Nat Biotechnol 37:555–560. <a href="https://doi.org/10.1038/s41587-019-0054-x" target="_blank">doi:10.1038/s41587-019-0054-x</a>.</span></span></li>
+<li><span class="ref-tag doc">DOC</span><a href="https://gatk.broadinstitute.org/hc/en-us/articles/360035890811" target="_blank">GATK Best Practices Workflows</a> · <span class="ref-meta"><span data-lang="zh">germline / somatic / RNA-seq variant calling 全流程。</span><span data-lang="en">End-to-end pipelines for germline, somatic, and RNA-seq variant calling.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch15">
+<div class="section-label" data-zh="Ch.15" data-en="Ch.15">Ch.15</div>
+<h2 data-zh="Transcriptomics" data-en="Transcriptomics">Transcriptomics</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Love MI, Huber W, Anders S (2014).</span> <span class="ref-title">Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2.</span> <span class="ref-meta"><span data-lang="zh">Genome Biol 15:550. <a href="https://doi.org/10.1186/s13059-014-0550-8" target="_blank">doi:10.1186/s13059-014-0550-8</a>.</span><span data-lang="en">Genome Biol 15:550. <a href="https://doi.org/10.1186/s13059-014-0550-8" target="_blank">doi:10.1186/s13059-014-0550-8</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Robinson MD, McCarthy DJ, Smyth GK (2010).</span> <span class="ref-title">edgeR: a Bioconductor package for differential expression analysis of digital gene expression data.</span> <span class="ref-meta"><span data-lang="zh">Bioinformatics 26(1):139–140. <a href="https://doi.org/10.1093/bioinformatics/btp616" target="_blank">doi:10.1093/bioinformatics/btp616</a>.</span><span data-lang="en">Bioinformatics 26(1):139–140. <a href="https://doi.org/10.1093/bioinformatics/btp616" target="_blank">doi:10.1093/bioinformatics/btp616</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Law CW et al. (2014).</span> <span class="ref-title">voom: precision weights unlock linear model analysis tools for RNA-seq read counts.</span> <span class="ref-meta"><span data-lang="zh">Genome Biol 15:R29. <a href="https://doi.org/10.1186/gb-2014-15-2-r29" target="_blank">doi:10.1186/gb-2014-15-2-r29</a>.</span><span data-lang="en">Genome Biol 15:R29. <a href="https://doi.org/10.1186/gb-2014-15-2-r29" target="_blank">doi:10.1186/gb-2014-15-2-r29</a>.</span></span></li>
+<li><span class="ref-tag bestp">⭐</span><span class="ref-author">Squair JW et al. (2021).</span> <span class="ref-title">Confronting false discoveries in single-cell differential expression.</span> <span class="ref-meta"><span data-lang="zh">Nat Commun 12:5692. <a href="https://doi.org/10.1038/s41467-021-25960-2" target="_blank">doi:10.1038/s41467-021-25960-2</a>.</span><span data-lang="en">Nat Commun 12:5692. <a href="https://doi.org/10.1038/s41467-021-25960-2" target="_blank">doi:10.1038/s41467-021-25960-2</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Hao Y et al. (2024).</span> <span class="ref-title">Dictionary learning for integrative, multimodal and scalable single-cell analysis (Seurat v5).</span> <span class="ref-meta"><span data-lang="zh">Nat Biotechnol 42:293–304. <a href="https://doi.org/10.1038/s41587-023-01767-y" target="_blank">doi:10.1038/s41587-023-01767-y</a>.</span><span data-lang="en">Nat Biotechnol 42:293–304. <a href="https://doi.org/10.1038/s41587-023-01767-y" target="_blank">doi:10.1038/s41587-023-01767-y</a>.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch16">
+<div class="section-label" data-zh="Ch.16" data-en="Ch.16">Ch.16</div>
+<h2 data-zh="Proteomics &amp; PTMs" data-en="Proteomics &amp; PTMs">Proteomics &amp; PTMs</h2>
+<ul class="ref-list">
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Cox J, Mann M (2008).</span> <span class="ref-title">MaxQuant enables high peptide identification rates, individualized p.p.b.-range mass accuracies and proteome-wide protein quantification.</span> <span class="ref-meta"><span data-lang="zh">Nat Biotechnol 26:1367–1372. <a href="https://doi.org/10.1038/nbt.1511" target="_blank">doi:10.1038/nbt.1511</a>.</span><span data-lang="en">Nat Biotechnol 26:1367–1372. <a href="https://doi.org/10.1038/nbt.1511" target="_blank">doi:10.1038/nbt.1511</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Demichev V et al. (2020).</span> <span class="ref-title">DIA-NN: neural networks and interference correction enable deep proteome coverage in high throughput.</span> <span class="ref-meta"><span data-lang="zh">Nat Methods 17:41–44. <a href="https://doi.org/10.1038/s41592-019-0638-x" target="_blank">doi:10.1038/s41592-019-0638-x</a>.</span><span data-lang="en">Nat Methods 17:41–44. <a href="https://doi.org/10.1038/s41592-019-0638-x" target="_blank">doi:10.1038/s41592-019-0638-x</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Kong AT et al. (2017).</span> <span class="ref-title">MSFragger: ultrafast and comprehensive peptide identification in mass spectrometry–based proteomics.</span> <span class="ref-meta"><span data-lang="zh">Nat Methods 14:513–520. <a href="https://doi.org/10.1038/nmeth.4256" target="_blank">doi:10.1038/nmeth.4256</a>.</span><span data-lang="en">Nat Methods 14:513–520. <a href="https://doi.org/10.1038/nmeth.4256" target="_blank">doi:10.1038/nmeth.4256</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.phosphosite.org/" target="_blank">PhosphoSitePlus</a> · <span class="ref-meta"><span data-lang="zh">PTM 整合資料庫。</span><span data-lang="en">Integrated PTM database.</span></span></li>
+<li><span class="ref-tag bestp">⭐</span><span class="ref-author">Kustatscher G et al. (2022).</span> <span class="ref-title">Understudied proteins: opportunities and challenges for functional proteomics.</span> <span class="ref-meta"><span data-lang="zh">Nat Methods 19:774–779. <a href="https://doi.org/10.1038/s41592-022-01454-x" target="_blank">doi:10.1038/s41592-022-01454-x</a>.</span><span data-lang="en">Nat Methods 19:774–779. <a href="https://doi.org/10.1038/s41592-022-01454-x" target="_blank">doi:10.1038/s41592-022-01454-x</a>.</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch17">
+<div class="section-label" data-zh="Ch.17" data-en="Ch.17">Ch.17</div>
+<h2 data-zh="Metabolomics &amp; Lipidomics" data-en="Metabolomics &amp; Lipidomics">Metabolomics &amp; Lipidomics</h2>
+<ul class="ref-list">
+<li><span class="ref-tag bestp">⭐</span><span class="ref-author">Sumner LW et al. (2007).</span> <span class="ref-title">Proposed minimum reporting standards for chemical analysis (MSI levels).</span> <span class="ref-meta"><span data-lang="zh">Metabolomics 3:211–221. <a href="https://doi.org/10.1007/s11306-007-0082-2" target="_blank">doi:10.1007/s11306-007-0082-2</a>.</span><span data-lang="en">Metabolomics 3:211–221. <a href="https://doi.org/10.1007/s11306-007-0082-2" target="_blank">doi:10.1007/s11306-007-0082-2</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Tsugawa H et al. (2020).</span> <span class="ref-title">A lipidome atlas in MS-DIAL 4.</span> <span class="ref-meta"><span data-lang="zh">Nat Biotechnol 38:1159–1163. <a href="https://doi.org/10.1038/s41587-020-0531-2" target="_blank">doi:10.1038/s41587-020-0531-2</a>.</span><span data-lang="en">Nat Biotechnol 38:1159–1163. <a href="https://doi.org/10.1038/s41587-020-0531-2" target="_blank">doi:10.1038/s41587-020-0531-2</a>.</span></span></li>
+<li><span class="ref-tag paper">PAPER</span><span class="ref-author">Pang Z et al. (2021).</span> <span class="ref-title">MetaboAnalyst 5.0: narrowing the gap between raw spectra and functional insights.</span> <span class="ref-meta"><span data-lang="zh">Nucleic Acids Res 49(W1):W388–W396. <a href="https://doi.org/10.1093/nar/gkab382" target="_blank">doi:10.1093/nar/gkab382</a>.</span><span data-lang="en">Nucleic Acids Res 49(W1):W388–W396. <a href="https://doi.org/10.1093/nar/gkab382" target="_blank">doi:10.1093/nar/gkab382</a>.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.lipidmaps.org/" target="_blank">LIPID MAPS Structure Database</a> · <span class="ref-meta"><span data-lang="zh">脂質結構、分類、命名標準。</span><span data-lang="en">Lipid structures, classification, and nomenclature standards.</span></span></li>
+<li><span class="ref-tag db">DB</span><a href="https://www.metaboanalyst.ca/" target="_blank">MetaboAnalyst</a> · <span class="ref-meta"><span data-lang="zh">代謝體分析平台（含 pathway, 統計, biomarker）。</span><span data-lang="en">Metabolomics analysis platform (covers pathway, statistics, and biomarker analysis).</span></span></li>
+</ul>
+</section>
+
+<section class="section section-anchor" id="ch18">
+<div class="section-label" data-zh="Ch.18" data-en="Ch.18">Ch.18</div>
+<h2 data-zh="Systems, Multi-omics &amp; Clinical Translation" data-en="Systems, Multi-omics &amp; Clinical Translation">Systems, Multi-omics &amp; Clinical Translation</h2>
+<ul class="ref-list">
+</ul>
+</section>
+
+<!-- ===================== Footnote ===================== -->
+<section class="section">
+<div class="callout tip">
+<span class="callout-icon">📖</span>
+<div>
+<strong data-zh="查找指南：" data-en="How to find a paper:">查找指南：</strong>
+<span data-zh="所有 DOI 連結指向出版社頁面。若需下載 PDF，可搭配 " data-en="DOI links point to publisher pages. For free PDFs, try ">所有 DOI 連結指向出版社頁面。若需下載 PDF，可搭配 </span>
+<a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">PubMed</a>、
+<a href="https://www.ncbi.nlm.nih.gov/pmc/" target="_blank" rel="noopener">PMC</a>、
+<a href="https://arxiv.org/" target="_blank" rel="noopener">arXiv</a>、
+<a href="https://www.biorxiv.org/" target="_blank" rel="noopener">bioRxiv</a>
+<span data-zh=" 找開放近用版本。" data-en=" for open-access versions."> 找開放近用版本。</span>
+</div>
+</div>
+</section><!-- ===================== Errata ===================== -->
+<section class="section section-anchor" id="errata">
+<div class="section-label" data-zh="教學註記" data-en="TUTORIAL NOTES">教學註記</div>
+<h2 data-zh="📌 教學註記與細節" data-en="📌 Tutorial Notes & Details">📌 教學註記與細節</h2>
+<p data-lang="zh">下方為閱讀「生物資訊學的生物學基礎概論」18 章與本 reference 比對後，整理出的易誤解、近年共識更新與需特別澄清之處。原章節 Ch.5 已有 COSMIC v3.x 版本注記；以下為延伸主題。<strong>原教學檔案不修改，僅在此說明以利讀者參照。</strong></p>
+<p data-lang="en">The notes below collect points across the 18 chapters of the Biology Foundations Interactive Tutorial where the literature has moved on, where common misreadings recur, or where teaching shortcuts hide important nuance. Ch.5 already carries a COSMIC v3.x version note inline; the topics below extend that errata. <strong>The original tutorial files are not modified; the clarifications live here for cross-reference.</strong></p>
+
+<div class="errata">
+  <span class="errata-label" data-zh="補充說明" data-en="Notes" style="display:inline-block;background:#e0e7ff;color:#3730a3;padding:2px 10px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:8px">補充說明 · Notes</span>
+  <h4 data-zh="Ch.1, 2 · 三域 vs 兩域生命樹（Williams 2020）" data-en="Ch.1, 2 · Three-domain vs two-domain tree of life (Williams 2020)">Ch.1, 2 · 三域 vs 兩域生命樹（Williams 2020）</h4>
+  <p data-lang="zh">原教學沿用 Woese 1977 / 1990 的<strong>三域樹</strong>（Bacteria、Archaea、Eukarya 為三個並列分支；Woese et al. <em>PNAS</em> 87:4576, 1990, <a href="https://doi.org/10.1073/pnas.87.12.4576">DOI</a>）。但 2010 年代後系統發生學新證據強烈支持 <strong>“two-domain tree” / Eocyte 假說</strong>：真核生物並非與古菌並列，而是<strong>從古菌 Asgard 超門內演化而來</strong>（特別是 Heimdallarchaeota / Lokiarchaeota；Spang et al., <em>Nature</em> 521:173, 2015, <a href="https://doi.org/10.1038/nature14447">DOI</a>；Williams et al., <em>Nat Ecol Evol</em> 4:138, 2020, <a href="https://doi.org/10.1038/s41559-019-1040-x">DOI</a>；Imachi et al., <em>Nature</em> 577:519, 2020 — 首次培養 Asgard 古菌 <em>Prometheoarchaeum</em>, <a href="https://doi.org/10.1038/s41586-019-1916-6">DOI</a>）。教學中可保留 Woese 三域作為歷史里程碑，但<strong>應同時呈現 2020 後的兩域共識</strong>，並指出粒線體源自 α-變形菌（endosymbiosis）獨立於宿主古菌譜系。</p>
+  <p data-lang="en">The tutorial uses the Woese 1977/1990 <strong>three-domain tree</strong> (Bacteria, Archaea, Eukarya as three sister branches; Woese et al. <em>PNAS</em> 87:4576, 1990, <a href="https://doi.org/10.1073/pnas.87.12.4576">DOI</a>). Post-2010 phylogenomic evidence strongly supports a <strong>two-domain tree / eocyte hypothesis</strong>: eukaryotes are not a sister to Archaea but <strong>arose from within the archaeal Asgard superphylum</strong> (especially Heimdallarchaeota / Lokiarchaeota; Spang et al., <em>Nature</em> 521:173, 2015, <a href="https://doi.org/10.1038/nature14447">DOI</a>; Williams et al., <em>Nat Ecol Evol</em> 4:138, 2020, <a href="https://doi.org/10.1038/s41559-019-1040-x">DOI</a>; Imachi et al., <em>Nature</em> 577:519, 2020 — first cultured Asgard archaeon <em>Prometheoarchaeum</em>, <a href="https://doi.org/10.1038/s41586-019-1916-6">DOI</a>). Keep Woese as a historical milestone but <strong>also present the post-2020 two-domain consensus</strong>, noting that mitochondria came from an α-proteobacterial endosymbiosis independent of the host archaeal lineage.</p>
+</div>
+
+<div class="errata">
+  <span class="errata-label" data-zh="補充說明" data-en="Notes" style="display:inline-block;background:#e0e7ff;color:#3730a3;padding:2px 10px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:8px">補充說明 · Notes</span>
+  <h4 data-zh="Ch.9 · 「Junk DNA」與 ENCODE 2012 爭議（Doolittle 2013）" data-en="Ch.9 · 'Junk DNA' and the ENCODE 2012 controversy (Doolittle 2013)">Ch.9 · 「Junk DNA」與 ENCODE 2012 爭議（Doolittle 2013）</h4>
+  <p data-lang="zh">原教學引用 ENCODE 2012 的著名結論「人類基因組 80% 具有<strong>功能</strong>」（ENCODE Project Consortium, <em>Nature</em> 489:57, 2012, <a href="https://doi.org/10.1038/nature11247">DOI</a>），但<strong>該結論在學界引發強烈爭議至今未平息</strong>，學生不應將 80% 視為共識。批評主要集中在「功能」(function) 的定義過寬：(1) Graur et al. <em>Genome Biol Evol</em> 5:578, 2013（<a href="https://doi.org/10.1093/gbe/evt028">DOI</a>，標題為 "On the immortality of television sets"）論證 ENCODE 採用「causal-role 功能」(任何被轉錄、結合 TF 或 modified histone 的位置皆視為功能) 而非「selected-effect 功能」(在演化上承受選擇壓力者)；(2) Doolittle 2013, <em>PNAS</em> 110:5294（<a href="https://doi.org/10.1073/pnas.1221376110">DOI</a>）強調比較基因組學顯示<strong>僅約 8–10% 的人類基因組顯示選擇保守訊號</strong>，與 80% 數字差距巨大；(3) Rands et al. <em>PLOS Genet</em> 10:e1004525, 2014（<a href="https://doi.org/10.1371/journal.pgen.1004525">DOI</a>）給出 ~8.2% 的限制性 (constrained) 估計。共識：「junk DNA」一詞雖過於簡化（許多重複序列、ERV、enhancer 有功能），但<strong>用「80% functional」描述整個基因組仍是錯誤</strong>。教學中應同時呈現 ENCODE 的生化活動圖譜與演化保守度兩個正交軸。</p>
+  <p data-lang="en">The tutorial cites the well-known ENCODE 2012 claim that "80% of the human genome is <strong>functional</strong>" (ENCODE Project Consortium, <em>Nature</em> 489:57, 2012, <a href="https://doi.org/10.1038/nature11247">DOI</a>), but <strong>this claim remains contested</strong> and students should not treat 80% as consensus. Criticisms target ENCODE's overly broad definition of "function": (1) Graur et al. <em>Genome Biol Evol</em> 5:578, 2013 (<a href="https://doi.org/10.1093/gbe/evt028">DOI</a>, titled "On the immortality of television sets") argue ENCODE used a "causal-role function" (any site that is transcribed, TF-bound, or has modified histones counts) rather than a "selected-effect function" (positions under purifying selection); (2) Doolittle 2013, <em>PNAS</em> 110:5294 (<a href="https://doi.org/10.1073/pnas.1221376110">DOI</a>) emphasises comparative genomics showing <strong>only ~8–10% of the human genome carries a signal of evolutionary constraint</strong>, far below 80%; (3) Rands et al. <em>PLOS Genet</em> 10:e1004525, 2014 (<a href="https://doi.org/10.1371/journal.pgen.1004525">DOI</a>) give ~8.2% as the constrained fraction. Consensus: "junk DNA" is an oversimplification (many repeats, ERVs, and enhancers are functional), but <strong>describing the whole genome as "80% functional" is still wrong</strong>. Present ENCODE's biochemical-activity map and evolutionary conservation as two orthogonal axes.</p>
+</div>
+
+<div class="errata">
+  <span class="errata-label" data-zh="補充說明" data-en="Notes" style="display:inline-block;background:#e0e7ff;color:#3730a3;padding:2px 10px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:8px">補充說明 · Notes</span>
+  <h4 data-zh="Ch.11, 12 · Lamarck 透過表觀遺傳的「部分平反」（Heard & Martienssen 2014）" data-en="Ch.11, 12 · Lamarck partially rehabilitated via epigenetics (Heard & Martienssen 2014)">Ch.11, 12 · Lamarck 透過表觀遺傳的「部分平反」（Heard & Martienssen 2014）</h4>
+  <p data-lang="zh">原教學在遺傳學章節將 Lamarck 的「獲得性性狀遺傳」描述為已被達爾文 / Weismann 屏障（germline / soma separation, Weismann 1893）徹底駁倒。這在<strong>個體獲得的形態變化不傳給後代</strong>這點上仍正確，但<strong>表觀遺傳學在過去 20 年提供了 Lamarck 部分平反的證據</strong>。Heard & Martienssen 2014, <em>Cell</em> 157:95（<a href="https://doi.org/10.1016/j.cell.2014.02.045">DOI</a>，題為 "Transgenerational epigenetic inheritance: myths and mechanisms"）系統性審查了哺乳動物與植物的跨代表觀遺傳：(1) 在 <strong>線蟲</strong>（C. elegans，piRNA-mediated）與<strong>植物</strong>（DNA methylation, paramutation）跨代傳遞證據強；(2) 在<strong>哺乳動物</strong>證據較弱但存在 — 荷蘭飢餓冬（Dutch Hunger Winter 1944-45）的孫代代謝表型研究（Heijmans et al., <em>PNAS</em> 105:17046, 2008, <a href="https://doi.org/10.1073/pnas.0806560105">DOI</a>），以及小鼠應激後 sperm tsRNA 傳遞代謝 / 行為表型（Chen et al., <em>Science</em> 351:397, 2016, <a href="https://doi.org/10.1126/science.aad7977">DOI</a>）；(3) 但哺乳動物受精後的<strong>表觀重編程（global demethylation）強烈削弱大多數標記</strong>，所以宣稱完整 Lamarckian inheritance 仍須謹慎。教學中應同時呈現 Weismann 屏障的主流地位與表觀遺傳的「窗口」現象。</p>
+  <p data-lang="en">The genetics chapter portrays Lamarck's inheritance of acquired traits as definitively refuted by Darwin / the Weismann barrier (germline–soma separation, Weismann 1893). This remains correct in the sense that <strong>individually acquired morphological changes are not transmitted</strong>, but <strong>epigenetics has partially rehabilitated Lamarck over the last 20 years</strong>. Heard & Martienssen 2014, <em>Cell</em> 157:95 (<a href="https://doi.org/10.1016/j.cell.2014.02.045">DOI</a>, "Transgenerational epigenetic inheritance: myths and mechanisms") systematically reviewed mammalian and plant transgenerational epigenetics: (1) evidence is strong in <strong>C. elegans</strong> (piRNA-mediated) and <strong>plants</strong> (DNA methylation, paramutation); (2) evidence in <strong>mammals</strong> is weaker but real — grand-offspring metabolic phenotypes in the Dutch Hunger Winter cohort (Heijmans et al., <em>PNAS</em> 105:17046, 2008, <a href="https://doi.org/10.1073/pnas.0806560105">DOI</a>), and stress-induced sperm tsRNA transmitting metabolic/behavioural traits in mice (Chen et al., <em>Science</em> 351:397, 2016, <a href="https://doi.org/10.1126/science.aad7977">DOI</a>); (3) but mammalian post-fertilisation <strong>global demethylation strongly erases most marks</strong>, so claims of full Lamarckian inheritance need caution. Present both the dominant Weismann barrier and the narrow "epigenetic window" together.</p>
+</div>
+
+<div class="errata">
+  <span class="errata-label" data-zh="補充說明" data-en="Notes" style="display:inline-block;background:#e0e7ff;color:#3730a3;padding:2px 10px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:8px">補充說明 · Notes</span>
+  <h4 data-zh="Ch.7 · IRES 與 cap-independent translation（Pelletier & Sonenberg 1988）" data-en="Ch.7 · IRES / cap-independent translation (Pelletier & Sonenberg 1988)">Ch.7 · IRES 與 cap-independent translation（Pelletier & Sonenberg 1988）</h4>
+  <p data-lang="zh">原教學在 translation 章節描述真核生物轉譯為「<strong>cap-dependent scanning</strong>」，從 5′ m7G cap → 40S 招募 → AUG 啟動。這在管家基因下確實佔絕大多數，但<strong>遺漏了 cap-independent translation 的重要機制</strong>。Pelletier & Sonenberg 1988, <em>Nature</em> 334:320（<a href="https://doi.org/10.1038/334320a0">DOI</a>）首次在小兒麻痺病毒 RNA 上鑑定 <strong>IRES (Internal Ribosome Entry Site)</strong>，使核糖體可直接內部結合 RNA 結構而不需 cap。後續發現：(1) <strong>許多病毒</strong>（picornavirus、HCV、SARS-CoV-2 的 sgRNA）仰賴 IRES；(2) <strong>細胞 IRES</strong> 在 cap-dependent 翻譯受抑制條件下（應激、凋亡、有絲分裂）驅動關鍵基因表達，例如 XIAP、c-Myc、Bcl-xL、HIF1α、VEGF（Komar & Hatzoglou, <em>Cell Cycle</em> 10:229, 2011, <a href="https://doi.org/10.4161/cc.10.2.14472">DOI</a>）；(3) <strong>m6A-mediated cap-independent translation</strong> 是另一條路徑（Meyer et al., <em>Cell</em> 163:999, 2015, <a href="https://doi.org/10.1016/j.cell.2015.10.012">DOI</a>），m6A 在 5′UTR 可招募 eIF3 直接啟動翻譯。教學中應指出 cap-dependent 是常態，但 IRES / m6A-driven 翻譯在應激、發育與病毒感染時極為關鍵。</p>
+  <p data-lang="en">The translation chapter describes eukaryotic initiation as <strong>cap-dependent scanning</strong>: 5′ m7G cap → 40S recruitment → AUG start. This is the housekeeping default but <strong>omits cap-independent translation</strong>. Pelletier & Sonenberg 1988, <em>Nature</em> 334:320 (<a href="https://doi.org/10.1038/334320a0">DOI</a>) first identified the <strong>IRES (Internal Ribosome Entry Site)</strong> in poliovirus RNA, allowing direct ribosome binding to an internal RNA structure without a cap. Since then: (1) <strong>many viruses</strong> (picornaviruses, HCV, SARS-CoV-2 sgRNAs) depend on IRES elements; (2) <strong>cellular IRESes</strong> drive expression of key genes when cap-dependent translation is suppressed (stress, apoptosis, mitosis) — e.g., XIAP, c-Myc, Bcl-xL, HIF1α, VEGF (Komar & Hatzoglou, <em>Cell Cycle</em> 10:229, 2011, <a href="https://doi.org/10.4161/cc.10.2.14472">DOI</a>); (3) <strong>m6A-mediated cap-independent translation</strong> is another route (Meyer et al., <em>Cell</em> 163:999, 2015, <a href="https://doi.org/10.1016/j.cell.2015.10.012">DOI</a>), where 5′UTR m6A recruits eIF3 directly. Teach cap-dependent scanning as the default, but flag IRES / m6A-driven translation as critical during stress, development, and viral infection.</p>
+</div>
+
+<div class="errata">
+  <span class="errata-label" data-zh="補充說明" data-en="Notes" style="display:inline-block;background:#e0e7ff;color:#3730a3;padding:2px 10px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:8px">補充說明 · Notes</span>
+  <h4 data-zh="Ch.13 · 細胞死亡：apoptosis vs necroptosis（Galluzzi 2018 NCCD）" data-en="Ch.13 · Cell death: apoptosis vs necroptosis (Galluzzi 2018 NCCD)">Ch.13 · 細胞死亡：apoptosis vs necroptosis（Galluzzi 2018 NCCD）</h4>
+  <p data-lang="zh">原教學在細胞週期 / 訊息章節主要介紹兩種細胞死亡：<strong>apoptosis</strong>（程序性、caspase-依賴、無發炎）與 <strong>necrosis</strong>（被動、發炎性）。這個 1980 年代的二分法<strong>已被 NCCD 2018 全面更新</strong>。Galluzzi et al.（Nomenclature Committee on Cell Death）2018, <em>Cell Death Differ</em> 25:486（<a href="https://doi.org/10.1038/s41418-017-0012-4">DOI</a>）定義 13 種以上 regulated cell death 類型，其中與教學相關的關鍵增補：(1) <strong>Necroptosis</strong> = 程序性壞死，由 RIPK1 / RIPK3 / MLKL 介導，雖如壞死般造成膜破裂與發炎，但<strong>是受嚴格調控的</strong>（Sun et al., <em>Cell</em> 148:213, 2012, <a href="https://doi.org/10.1016/j.cell.2011.11.031">DOI</a>）；(2) <strong>Pyroptosis</strong>（gasdermin-mediated，inflammasome 下游）；(3) <strong>Ferroptosis</strong>（鐵依賴性脂質過氧化，GPX4 喪失誘導，Dixon et al., <em>Cell</em> 149:1060, 2012, <a href="https://doi.org/10.1016/j.cell.2012.03.042">DOI</a>）；(4) <strong>NETosis</strong>（嗜中性球外網釋放）。臨床意義：抗腫瘤免疫療法積極利用 immunogenic cell death（pyroptosis、necroptosis、ferroptosis）刺激抗腫瘤反應，而不是傳統 apoptosis（後者本意是「沉默」死亡）。教學中應以 NCCD 2018 取代過時的「apoptosis vs necrosis」二分法。</p>
+  <p data-lang="en">The cell-cycle / signalling chapter mainly contrasts <strong>apoptosis</strong> (programmed, caspase-dependent, non-inflammatory) with <strong>necrosis</strong> (passive, inflammatory). This 1980s dichotomy has been <strong>thoroughly updated by NCCD 2018</strong>. Galluzzi et al. (Nomenclature Committee on Cell Death) 2018, <em>Cell Death Differ</em> 25:486 (<a href="https://doi.org/10.1038/s41418-017-0012-4">DOI</a>) defines 13+ regulated cell death modalities; the key additions for teaching are: (1) <strong>Necroptosis</strong> = programmed necrosis, mediated by RIPK1 / RIPK3 / MLKL, ruptures membranes and triggers inflammation like necrosis but <strong>is tightly regulated</strong> (Sun et al., <em>Cell</em> 148:213, 2012, <a href="https://doi.org/10.1016/j.cell.2011.11.031">DOI</a>); (2) <strong>Pyroptosis</strong> (gasdermin-mediated, downstream of inflammasomes); (3) <strong>Ferroptosis</strong> (iron-dependent lipid peroxidation, induced by GPX4 loss, Dixon et al., <em>Cell</em> 149:1060, 2012, <a href="https://doi.org/10.1016/j.cell.2012.03.042">DOI</a>); (4) <strong>NETosis</strong> (neutrophil extracellular trap release). Clinical relevance: anti-tumour immunotherapy actively exploits immunogenic cell death (pyroptosis, necroptosis, ferroptosis) to drive anti-tumour responses, whereas classical apoptosis was designed to be "silent." Replace the obsolete apoptosis-vs-necrosis dichotomy with NCCD 2018.</p>
+</div>
+
+<div class="errata">
+  <span class="errata-label" data-zh="補充說明" data-en="Notes" style="display:inline-block;background:#e0e7ff;color:#3730a3;padding:2px 10px;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.5px;margin-bottom:8px">補充說明 · Notes</span>
+  <h4 data-zh="Ch.11 · mtDNA 父系滲漏（paternal leakage）— Luo 2018 PNAS 的爭議與重新評估" data-en="Ch.11 · Paternal mtDNA leakage — the Luo 2018 PNAS controversy and reassessment">Ch.11 · mtDNA 父系滲漏（paternal leakage）— Luo 2018 PNAS 的爭議與重新評估</h4>
+  <p data-lang="zh">原教學在遺傳學章節述及「<strong>粒線體 DNA 嚴格母系遺傳</strong>」並以此作為人類粒線體 Eve 與母系族譜研究的基礎。這在絕大多數情況下成立，但<strong>並非絕對</strong>。Luo et al. 2018, <em>PNAS</em> 115:13039（<a href="https://doi.org/10.1073/pnas.1810946115">DOI</a>，題為 "Biparental inheritance of mitochondrial DNA in humans"）報告三個無關家族在多代中表現出 <strong>biparental mtDNA inheritance</strong>，即父系 mtDNA 顯著貢獻於後代（heteroplasmy 高達 ~24–76%）。論文引發強烈爭議：(1) <strong>支持方</strong> 認為部分家族可能帶有未知的 mtDNA 父系排除機制突變；(2) <strong>批評方</strong>（Lutz-Bonengel & Parson, <em>PNAS</em> 116:1821, 2019, <a href="https://doi.org/10.1073/pnas.1820533116">DOI</a>；Salas et al., <em>BMJ Open</em> 10:e037467, 2020）指出更可能的解釋是核-粒線體假基因（NUMTs，整合至核基因組的 mtDNA 片段）在 NGS 上產生人為的「父系 mtDNA」訊號；(3) 後續研究（Vissing 2019, <em>Annu Rev Genomics Hum Genet</em> 20:451, <a href="https://doi.org/10.1146/annurev-genom-083118-015014">DOI</a>）認為真實的人類父系滲漏即使存在也<strong>極為罕見</strong>。教學中應保留「母系遺傳是法則」，但補充：父系排除涉及精子粒線體標記 ubiquitin → autophagy（Sutovsky et al., <em>Nature</em> 402:371, 1999），偶有失效；NUMT 是 mtDNA 分析的重大陷阱。</p>
+  <p data-lang="en">The genetics chapter teaches <strong>strict maternal inheritance of mitochondrial DNA</strong>, which underpins mitochondrial Eve and maternal-lineage studies. This holds overwhelmingly but <strong>not absolutely</strong>. Luo et al. 2018, <em>PNAS</em> 115:13039 (<a href="https://doi.org/10.1073/pnas.1810946115">DOI</a>, "Biparental inheritance of mitochondrial DNA in humans") reported three unrelated families with multi-generational <strong>biparental mtDNA inheritance</strong> (paternal heteroplasmy reaching ~24–76%). The paper triggered strong debate: (1) <strong>proponents</strong> suggest these families may carry undiscovered mutations in the paternal-mtDNA-exclusion machinery; (2) <strong>critics</strong> (Lutz-Bonengel & Parson, <em>PNAS</em> 116:1821, 2019, <a href="https://doi.org/10.1073/pnas.1820533116">DOI</a>; Salas et al., <em>BMJ Open</em> 10:e037467, 2020) argue the more parsimonious explanation is nuclear-mitochondrial pseudogenes (NUMTs, mtDNA fragments integrated into the nuclear genome) producing artefactual "paternal mtDNA" reads in NGS; (3) follow-up work (Vissing 2019, <em>Annu Rev Genomics Hum Genet</em> 20:451, <a href="https://doi.org/10.1146/annurev-genom-083118-015014">DOI</a>) concludes that genuine human paternal leakage, if it exists, is <strong>vanishingly rare</strong>. Keep maternal inheritance as the rule but add: paternal exclusion involves sperm-mitochondrial ubiquitination → autophagy (Sutovsky et al., <em>Nature</em> 402:371, 1999) and can occasionally fail, and NUMTs are a major pitfall in any mtDNA analysis.</p>
+</div>
+
+<div class="errata">
+<h4 data-zh="端粒長度 ≠ 老化生物標記 (Boonekamp 2013 Aging Cell)" data-en="Telomere length ≠ aging biomarker (Boonekamp 2013 Aging Cell)">端粒長度 ≠ 老化生物標記 (Boonekamp 2013 Aging Cell)</h4>
+<p data-lang="zh">教學在 chromatin / cell-cycle 章節提到 Hayflick limit 與 telomere 縮短時，常以「端粒長度 = 老化速率」的線性敘述帶過，需補充批判：<strong>Boonekamp et al. 2013 Aging Cell</strong>「Telomere length behaves as biomarker of somatic redundancy rather than biological age」對 124 篇人類研究做 meta-analysis，發現 telomere length 與 chronological age 的 within-individual 相關性 r ≈ −0.3，但與 mortality / disease risk 的關聯僅在<strong>調整 baseline length</strong>後才出現。<strong>Sanders &amp; Newman 2013 Epidemiol Rev</strong> 進一步指出 leukocyte telomere length 的測量精度（qPCR vs TRF）足以解釋多數研究分歧。實務原則：(1) 引用端粒研究時必須註明測量方法（qPCR / TRF / STELA / TeSLA）；(2) 不可由單次測量推斷 biological age；(3) 縱貫 (longitudinal) 設計才能評估端粒縮短速率。</p>
+<p data-lang="en">When the chromatin / cell-cycle chapter introduces Hayflick limit and telomere shortening, it often presents the linear claim that 'telomere length = aging rate'. Add criticism: <strong>Boonekamp et al. 2013 Aging Cell</strong> ('Telomere length behaves as biomarker of somatic redundancy rather than biological age') meta-analyses 124 human studies and finds telomere length correlates with chronological age within-individual at r ≈ −0.3, but its association with mortality/disease only emerges after <strong>adjusting for baseline length</strong>. <strong>Sanders &amp; Newman 2013 Epidemiol Rev</strong> further shows measurement-platform precision (qPCR vs TRF) explains most cross-study disagreement. Rules: (1) always state the measurement method (qPCR / TRF / STELA / TeSLA); (2) a single timepoint cannot infer biological age; (3) longitudinal designs are required to estimate shortening rate.</p>
+</div>
+
+<div class="errata">
+<h4 data-zh="CRISPR 編輯效率隨基因組位置變異 (Doench 2016 Nat Biotechnol)" data-en="CRISPR editing efficiency varies by genomic context (Doench 2016 Nat Biotechnol)">CRISPR 編輯效率隨基因組位置變異 (Doench 2016 Nat Biotechnol)</h4>
+<p data-lang="zh">教學在分子生物學工具章節介紹 CRISPR-Cas9 時，常以「指定 20-nt sgRNA 即可精準編輯」概述，需補充：<strong>Doench et al. 2016 Nat Biotechnol</strong>「Optimized sgRNA design to maximize activity and minimize off-target effects of CRISPR-Cas9」對 ~1 000 sgRNAs 的 saturation screen 顯示，編輯效率受 (a) chromatin accessibility (open chromatin > 5× 高效於 closed)、(b) GC content 40-60% 最佳、(c) seed region (PAM-proximal 12 nt) 序列匹配嚴格度等多因子調控。<strong>Hsu et al. 2013 Nat Biotechnol</strong> 同步指出 off-target 主要由 seed region mismatch 數量決定 (≤ 3 mismatches 高風險)。實務原則：(1) 設計 sgRNA 必須以 Rule Set 2 (Doench) 或 DeepCRISPR 等模型預測效率；(2) 至少設計 3-4 條 sgRNA 並驗證；(3) 預測 off-target 用 Cas-OFFinder / CRISPOR (Concordet 2018 NAR) 並 Sanger 確認 top-10。</p>
+<p data-lang="en">When the molecular-biology tools chapter introduces CRISPR-Cas9 as 'specify a 20-nt sgRNA for precise editing', add nuance: <strong>Doench et al. 2016 Nat Biotechnol</strong> ('Optimized sgRNA design to maximize activity and minimize off-target effects of CRISPR-Cas9') saturation-screened ~1,000 sgRNAs and showed editing efficiency depends on (a) chromatin accessibility (open chromatin >5× more efficient than closed), (b) GC content 40-60% optimal, (c) strict seed-region (12 nt PAM-proximal) sequence match. <strong>Hsu et al. 2013 Nat Biotechnol</strong> further showed off-targets are dominated by seed-region mismatch count (≤3 mismatches = high risk). Rules: (1) score sgRNAs with Rule Set 2 (Doench) or DeepCRISPR; (2) design and validate ≥3-4 sgRNAs; (3) predict off-targets with Cas-OFFinder / CRISPOR (Concordet 2018 NAR) and Sanger-confirm the top-10.</p>
+</div>
+</section>
+
+<nav class="page-nav">
+  <a href="../index.html"><span class="nav-dir" data-zh="← 教學首頁" data-en="← Tutorial home">← 教學首頁</span><span class="nav-title" data-zh="回到主教學頁" data-en="Back to tutorial hub">回到主教學頁</span></a>
+  <a href="../bio-foundations-quiz/index.html" target="_blank" rel="noopener"><span class="nav-dir" data-zh="互動考題 →" data-en="Interactive quiz →">互動考題 →</span><span class="nav-title" data-zh="互動式考題" data-en="Interactive Quiz">互動式考題</span></a>
+</nav>
+
+
+
+</main>
+
+<footer class="site-footer" style="text-align:center;color:var(--c-ink-muted);padding:20px;font-size:.85rem;border-top:1px solid var(--c-border-light);margin-top:40px">
+  © Charlene · Biological Foundations for Bioinformatics — References<br>
+  <span data-zh="學術論文、官方文件與工具連結 · 最後更新 2026-05" data-en="Papers, official docs and tool links · Last updated 2026-05">學術論文、官方文件與工具連結 · 最後更新 2026-05</span>
+</footer>
+
+<script src="../i18n.js"></script>
+</body>
+</html>

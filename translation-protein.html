@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.7 轉譯與蛋白質結構 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html" class="active">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 7 / 18 · BLOCK B</div>
+<h1 data-zh="轉譯與蛋白質結構" data-en="Translation &amp; Protein Structure">轉譯與蛋白質結構</h1>
+<p class="subtitle" data-lang="zh">mRNA 不是蛋白——從 codon 解讀、ribosome 工作、共轉譯摺疊、到 PTM 與亞細胞定位，每一步都會讓「相同 transcript 結果不同」。這也是 proteomics 與 RNA-seq 永遠對不上的原因。</p>
+<p class="subtitle" data-lang="en">mRNA isn't protein — codon decoding, ribosome action, co-translational folding, PTMs, and localization all make "same transcript, different outcome." Why proteomics and RNA-seq never fully agree.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="轉譯機制" data-en="TRANSLATION">轉譯機制</div>
+<h2 data-zh="ribosome、tRNA 與密碼子" data-en="Ribosomes, tRNAs &amp; Codons">ribosome、tRNA 與密碼子</h2>
+<div data-lang="zh">
+<p><strong>核糖體 (ribosome)</strong> 是 ribozyme（催化由 rRNA 主導），由大亞單位（60S，含 28S/5.8S/5S rRNA + 蛋白）與小亞單位（40S，含 18S rRNA）組成。小亞單位先結合 mRNA 並掃描 5'UTR 找 AUG（Kozak context）；大亞單位接合後形成 A、P、E 三個 tRNA 槽。</p>
+<p><strong>遺傳密碼 (genetic code)</strong>：64 個 codon = 61 個編碼 + 3 個終止 (UAA, UAG, UGA)；起始永遠是 AUG = Met。密碼有<strong>簡並性 (degeneracy)</strong>：同一胺基酸可由多個 codon 編碼，但生物對 codon 偏好不一（<strong>codon usage bias</strong>）→ 影響翻譯效率與蛋白摺疊。</p>
+<p>三階段：initiation（eIF1-6 + cap binding → 40S 掃描 → 60S 結合）→ elongation（aminoacyl-tRNA 進 A site、peptide bond 形成、translocation）→ termination（release factor eRF1/3 辨識 stop codon）。每個 codon 約 60 ms，平均蛋白 50–100 殘基/秒。</p>
+</div>
+<div data-lang="en">
+<p>The <strong>ribosome</strong> is a ribozyme (catalysis by rRNA), made of 60S (28S/5.8S/5S rRNA + proteins) and 40S (18S rRNA). The 40S binds mRNA, scans 5'UTR for AUG (Kozak); 60S joins to form A, P, E tRNA sites.</p>
+<p><strong>Genetic code:</strong> 64 codons = 61 sense + 3 stop (UAA, UAG, UGA); always starts at AUG = Met. The code is <strong>degenerate</strong>: synonymous codons exist, but organisms have <strong>codon usage bias</strong> affecting translation rate and folding.</p>
+<p>Three phases: initiation (eIF1-6 + cap → 40S scanning → 60S joining) → elongation (aminoacyl-tRNA entry, peptide bond, translocation) → termination (release factor eRF1/3 at stop). ~60 ms per codon, ~50–100 aa/sec.</p>
+</div>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>快速回顧：</strong>tRNA 一端攜帶胺基酸，另一端 anticodon 與 mRNA codon 配對。aminoacyl-tRNA synthetase 負責把對的胺基酸接到對的 tRNA——這是遺傳密碼真正「物理實作」的環節。</span>
+<span data-lang="en"><strong>Quick review:</strong> tRNAs carry an amino acid at one end and an anticodon at the other to pair with mRNA codons. Aminoacyl-tRNA synthetases attach the correct amino acid to the correct tRNA — the actual physical implementation of the genetic code.</span>
+</div></div>
+<div class="callout advanced"><span class="callout-icon">🚀</span><div>
+<span data-lang="zh"><strong>進階補充：</strong>Ribo-seq（ribosome profiling）量到「ribosome 保護下的 28-32 nt mRNA 片段」，能定位每個 codon 的翻譯速率與 ribosome stalling、檢測 uORFs、評估 translation efficiency = ribosome density / mRNA。這是補足 RNA-seq → 蛋白豐度 的關鍵層。</span>
+<span data-lang="en"><strong>Deep dive:</strong> Ribo-seq (ribosome profiling) captures 28–32 nt mRNA fragments protected by ribosomes — codon-level translation rate, stalling, uORF detection, translation efficiency = ribosome density / mRNA. The missing link between RNA-seq and protein abundance.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="蛋白質摺疊" data-en="FOLDING">蛋白質摺疊</div>
+<h2 data-zh="從一級序列到三維結構：摺疊與品管" data-en="From Sequence to 3D Structure: Folding &amp; QC">從一級序列到三維結構：摺疊與品管</h2>
+<div data-lang="zh">
+<p><strong>Anfinsen 假說</strong>：原始序列含有摺疊所需的全部訊息（給定生理環境）。實際上摺疊由<strong>疏水核心崩塌、二級結構形成、域間裝配</strong>多階段並行，常伴隨<strong>分子伴侶 (chaperone)</strong>。</p>
+<p>主要伴侶系統：Hsp70（單體摺疊）、Hsp60/GroEL（封閉空間摺疊）、Hsp90（受體、激酶成熟）、Hsp100（解聚集）、prefoldin（細胞骨架伴侶）。</p>
+<p>品管失敗的後果：</p>
+<ul>
+<li><strong>ER stress / Unfolded Protein Response (UPR)</strong>：misfolded protein 聚積 → IRE1、PERK、ATF6 啟動 → 表達轉錄因子簽名（HSPA5/BiP, DDIT3/CHOP, ATF4, XBP1s）。</li>
+<li><strong>聚集相關疾病</strong>：阿茲海默（Aβ、tau）、帕金森（α-synuclein）、亨丁頓（poly-Q）、ALS（TDP-43、SOD1）。</li>
+<li><strong>蛋白質降解</strong>：ubiquitin-proteasome（K48-polyUb）或 lysosome/autophagy（K63-polyUb）。</li>
+</ul>
+</div>
+<div data-lang="en">
+<p><strong>Anfinsen's hypothesis:</strong> the native sequence carries all folding information (given physiological conditions). In practice, folding proceeds via <strong>hydrophobic core collapse, secondary structure formation, and domain assembly</strong>, assisted by <strong>chaperones</strong>.</p>
+<p>Major chaperone families: Hsp70 (monomeric folding), Hsp60/GroEL (enclosed chamber), Hsp90 (receptor/kinase maturation), Hsp100 (disaggregation), prefoldin (cytoskeleton).</p>
+<p>Failure consequences:</p>
+<ul>
+<li><strong>ER stress / UPR:</strong> misfolded protein accumulation → IRE1, PERK, ATF6 → signature TFs (HSPA5/BiP, DDIT3/CHOP, ATF4, XBP1s).</li>
+<li><strong>Aggregation diseases:</strong> Alzheimer's (Aβ, tau), Parkinson's (α-syn), Huntington's (poly-Q), ALS (TDP-43, SOD1).</li>
+<li><strong>Degradation:</strong> ubiquitin-proteasome (K48-polyUb) or lysosome/autophagy (K63-polyUb).</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="結構預測" data-en="STRUCTURE PREDICTION">結構預測</div>
+<h2 data-zh="AlphaFold 與結構生物學的革命" data-en="AlphaFold and the Structural Biology Revolution">AlphaFold 與結構生物學的革命</h2>
+<table class="comp-table">
+<thead><tr><th data-zh="方法 / 模型" data-en="Method / Model">方法 / 模型</th><th data-zh="輸入" data-en="Input">輸入</th><th data-zh="特長 / 限制" data-en="Strength / Limitation">特長 / 限制</th></tr></thead>
+<tbody>
+<tr><td><strong>AlphaFold 2</strong> (2021)</td><td data-zh="序列 + MSA" data-en="Sequence + MSA">序列 + MSA</td><td data-zh="GDT-TS &gt; 90，單體結構接近實驗；無法預測 ligand 結合構象。" data-en="GDT-TS &gt; 90; near-experimental monomer accuracy; no ligand pose.">GDT-TS &gt; 90，單體結構接近實驗</td></tr>
+<tr><td><strong>AlphaFold-Multimer / AF3</strong> (2024)</td><td data-zh="多鏈、核酸、ligand" data-en="Multi-chain, NA, ligands">多鏈 + 核酸 + ligand</td><td data-zh="複合物預測；核酸-蛋白介面尚不完美。" data-en="Complex prediction; NA-protein interfaces still imperfect.">複合物預測</td></tr>
+<tr><td><strong>ESMFold</strong> (2022)</td><td data-zh="單序列（無 MSA）" data-en="Single sequence (no MSA)">單序列</td><td data-zh="極快、metagenome 大規模結構；準確度略低於 AF2。" data-en="Very fast for metagenomes; slightly lower accuracy than AF2.">快速大規模</td></tr>
+<tr><td><strong>RoseTTAFold All-Atom</strong> (2023)</td><td data-zh="蛋白 + 核酸 + ligand" data-en="Protein + NA + ligand">多型</td><td data-zh="開源、可微分；訓練資源較少。" data-en="Open-source, differentiable; less training data.">開源</td></tr>
+<tr><td><strong>RFdiffusion / Chroma</strong></td><td data-zh="拓撲約束 / 目標" data-en="Topology / constraint">設計目標</td><td data-zh="從零設計新蛋白（binders、酶）。" data-en="De novo protein design (binders, enzymes).">蛋白設計</td></tr>
+</tbody></table>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>
+<span data-lang="zh"><strong>使用 AlphaFold 結構的注意：</strong>(1) 每個殘基有 <strong>pLDDT</strong> 信心分數（&lt;50 視為 disordered/不可信）；(2) 多域之間相對位置不可信（PAE matrix 必看）；(3) 結合的 ligand / cofactor / 動態構象 不會出現；(4) 突變對結構的影響不可直接從 AF2 預測。</span>
+<span data-lang="en"><strong>Tips when using AlphaFold:</strong> (1) Each residue has a <strong>pLDDT</strong> confidence (&lt;50 = disordered/unreliable); (2) inter-domain orientations are unreliable (always check the PAE matrix); (3) ligands, cofactors, dynamics not shown; (4) mutational effects can't be directly read from AF2.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="實作銜接" data-en="CODE BRIDGE">實作銜接</div>
+<h2 data-zh="從序列翻譯出蛋白並查 codon usage" data-en="Translate Sequence and Inspect Codon Usage">從序列翻譯出蛋白並查 codon usage</h2>
+<div class="code-tabs"><div class="code-tab-btns"><button class="code-tab-btn active" onclick="switchTab(this,'r-tr')">R / Biostrings</button><button class="code-tab-btn" onclick="switchTab(this,'py-tr')">Python / Biopython</button></div>
+<div class="code-tab-content active" id="r-tr"><pre><span class="func">library</span>(Biostrings)
+cds &lt;- <span class="func">DNAString</span>(<span class="str">"ATGGCCAAGTAA"</span>)
+prot &lt;- <span class="func">translate</span>(cds)   <span class="comment"># "MAK*"</span>
+<span class="comment"># 計算 codon usage</span>
+codons &lt;- <span class="func">codons</span>(cds)
+<span class="func">codonFrequency</span>(codons)</pre></div>
+<div class="code-tab-content" id="py-tr"><pre><span class="kw">from</span> Bio.Seq <span class="kw">import</span> Seq
+<span class="kw">from</span> collections <span class="kw">import</span> Counter
+cds = Seq(<span class="str">"ATGGCCAAGTAA"</span>)
+<span class="func">print</span>(cds.translate())              <span class="comment"># MAK*</span>
+codons = [<span class="func">str</span>(cds[i:i+<span class="num">3</span>]) <span class="kw">for</span> i <span class="kw">in</span> <span class="func">range</span>(<span class="num">0</span>,<span class="func">len</span>(cds)-<span class="num">2</span>,<span class="num">3</span>)]
+<span class="func">print</span>(Counter(codons))</pre></div>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">1. 為什麼 mRNA 表達量與蛋白豐度相關性常僅 0.4–0.6？</p>
+<p data-lang="en">1. Why is mRNA-protein correlation often only 0.4–0.6?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. mRNA 測序錯誤太多</span><span data-lang="en">A. mRNA sequencing errors</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 蛋白沒有被表達</span><span data-lang="en">B. Proteins not expressed</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 轉譯效率、mRNA/蛋白半衰期、PTM、定位、降解 等多層調控造成解耦</span><span data-lang="en">C. Translation efficiency, half-lives, PTMs, localization, degradation decouple the two</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. RNA-seq 算到了 intron</span><span data-lang="en">D. RNA-seq counts introns</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">2. 使用 AlphaFold 結構，最需要檢查的信心分數是？</p>
+<p data-lang="en">2. When using AlphaFold predictions, the most important confidence metric is?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. RMSD</span><span data-lang="en">A. RMSD</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. pLDDT（每殘基）+ PAE（域間相對位置）</span><span data-lang="en">B. pLDDT (per-residue) + PAE (inter-domain orientation)</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. p-value</span><span data-lang="en">C. p-value</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. BLAST e-value</span><span data-lang="en">D. BLAST e-value</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="0">
+<p data-lang="zh">3. Ribo-seq 的主要用途是？</p>
+<p data-lang="en">3. The main purpose of Ribo-seq is?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 量到 ribosome 保護下的 28-32 nt mRNA 片段，得知何處正在被翻譯</span><span data-lang="en">A. Capture 28–32 nt mRNA fragments protected by ribosomes — what is actively translated</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 測量 DNA 甲基化</span><span data-lang="en">B. Measure DNA methylation</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 測量蛋白濃度</span><span data-lang="en">C. Measure protein concentration</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 測量染色質結構</span><span data-lang="en">D. Probe chromatin structure</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="transcription-rna.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="轉錄與 RNA 加工" data-en="Transcription &amp;amp; RNA Processing">轉錄與 RNA 加工</span></a>
+<a href="gene-regulation.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="基因表達調控" data-en="Gene Expression Regulation">基因表達調控</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+const QF={
+ zh:{q1_y:'mRNA 與蛋白被多層調控解耦：翻譯效率、半衰期、PTM、定位、降解。',q1_n:'正確答案已標示。',
+     q2_y:'pLDDT 衡量單殘基；PAE 衡量域間相對位置——AlphaFold 模型「能不能信」的兩大指標。',q2_n:'正確答案已標示。',
+     q3_y:'Ribo-seq 直接量到 ribosome 在 mRNA 上的位置與密度，補足 RNA-seq 無法回答的「翻譯效率」問題。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'mRNA and protein are decoupled by translation efficiency, half-lives, PTMs, localization, and degradation.',q1_n:'Correct answer highlighted.',
+     q2_y:'pLDDT scores per-residue; PAE measures inter-domain placement — the two key trust metrics for AlphaFold.',q2_n:'Correct answer highlighted.',
+     q3_y:'Ribo-seq directly captures ribosome density on mRNA — answering the "translation efficiency" question RNA-seq can\'t.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

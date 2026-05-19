@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.2 細胞與胞器 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html" class="active">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 2 / 18 · BLOCK A</div>
+<h1 data-zh="細胞與胞器" data-en="Cells &amp; Organelles">細胞與胞器</h1>
+<p class="subtitle" data-lang="zh">細胞是生命的基本單位，也是大多數 bioinformatics 量測的基本單位。理解胞器的職責，能解釋 scRNA-seq 為何要算 %mt、為何 ER stress 會留下特定基因簽名、為何 nucleus-only sequencing 與整細胞測序結果不同。</p>
+<p class="subtitle" data-lang="en">Cells are the unit of life — and the unit of most bioinformatics measurements. Knowing what organelles do explains why scRNA-seq computes %mt, why ER stress leaves a signature, and why nucleus-only sequencing differs from whole-cell sequencing.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="概覽" data-en="OVERVIEW">概覽</div>
+<h2 data-zh="原核 vs 真核：兩種根本不同的細胞" data-en="Prokaryotes vs Eukaryotes: Two Fundamentally Different Cells">原核 vs 真核：兩種根本不同的細胞</h2>
+<div data-lang="zh">
+<p><strong>細胞 (cell)</strong> 是所有生命的基本單位。分為兩大類：<strong>原核 (prokaryote)</strong> 與 <strong>真核 (eukaryote)</strong>。原核（細菌、古菌）無細胞核、DNA 直接懸浮在細胞質；真核（動植物、真菌、原生生物）有膜結構包覆的核以及多種胞器。</p>
+<p>這個區別不只是「細菌簡單一點」——它直接決定了 RNA-seq、ChIP-seq、scRNA-seq 等技術的設計與分析假設。例如，<strong>原核轉錄與轉譯耦合</strong>（mRNA 還在被合成時 ribosome 已上去翻譯），這意味著原核 RNA-seq 不會有 splicing、5'cap、polyA tail，建庫策略也完全不同（如 RiboZero 移除 rRNA 而非 polyA 富集）。</p>
+</div>
+<div data-lang="en">
+<p>The <strong>cell</strong> is the basic unit of life, in two classes: <strong>prokaryotes</strong> (bacteria, archaea — no nucleus, DNA free in cytoplasm) and <strong>eukaryotes</strong> (animals, plants, fungi, protists — membrane-bound nucleus and organelles).</p>
+<p>This is not just "bacteria are simpler." It dictates how RNA-seq, ChIP-seq, scRNA-seq are designed. For example, <strong>prokaryotic transcription and translation are coupled</strong> — ribosomes attach while mRNA is still being synthesized. There is no splicing, 5' cap, or polyA tail, so library prep uses rRNA depletion (RiboZero) rather than polyA enrichment.</p>
+</div>
+<table class="comp-table">
+<thead><tr><th data-zh="特徵" data-en="Feature">特徵</th><th data-zh="原核" data-en="Prokaryote">原核</th><th data-zh="真核" data-en="Eukaryote">真核</th></tr></thead>
+<tbody>
+<tr><td data-zh="細胞核" data-en="Nucleus"><strong>核</strong></td><td data-lang="zh">無</td><td data-lang="en">No</td><td data-lang="zh">有（雙層膜）</td><td data-lang="en">Yes (double membrane)</td></tr>
+<tr><td><strong>DNA</strong></td><td data-lang="zh">環狀單條 + plasmids</td><td data-lang="en">Circular + plasmids</td><td data-lang="zh">線性多條染色體 + mtDNA / cpDNA</td><td data-lang="en">Linear chromosomes + mtDNA / cpDNA</td></tr>
+<tr><td data-zh="轉錄與轉譯" data-en="Transcription &amp; translation"><strong>轉錄/轉譯</strong></td><td data-lang="zh">耦合（同地同時）</td><td data-lang="en">Coupled (same place &amp; time)</td><td data-lang="zh">分隔（核內轉錄、胞質轉譯）</td><td data-lang="en">Separated (nucleus vs cytoplasm)</td></tr>
+<tr><td data-zh="mRNA 處理" data-en="mRNA processing"><strong>mRNA 處理</strong></td><td data-lang="zh">幾乎沒有</td><td data-lang="en">Minimal</td><td data-lang="zh">5'cap、splicing、polyA tail</td><td data-lang="en">5' cap, splicing, polyA tail</td></tr>
+<tr><td data-zh="大小（典型）" data-en="Size (typical)"><strong>大小</strong></td><td>1–10 μm</td><td>10–100 μm</td></tr>
+<tr><td data-zh="基因組大小（典型）" data-en="Genome size (typical)"><strong>基因組</strong></td><td>0.5–10 Mb</td><td>10 Mb – 100 Gb</td></tr>
+<tr><td data-zh="建庫策略" data-en="Library prep"><strong>建庫</strong></td><td data-lang="zh">rRNA 去除（RiboZero）</td><td data-lang="en">rRNA depletion (RiboZero)</td><td data-lang="zh">polyA 富集 or rRNA 去除</td><td data-lang="en">polyA enrichment or rRNA depletion</td></tr>
+</tbody></table>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>快速回顧：</strong>真核細胞有「分區管理」——DNA 在核內、合成蛋白在 ER、能量在粒線體。這些區隔讓真核細胞能執行更複雜的調控，但也讓量測技術變得複雜（例如核漿與胞質的 RNA 分布是不同的）。</span>
+<span data-lang="en"><strong>Quick review:</strong> Eukaryotes have spatial compartmentalization — DNA in nucleus, protein synthesis in ER, energy in mitochondria. This enables complex regulation but complicates measurement (e.g., nuclear vs cytoplasmic RNA pools differ).</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="胞器導覽" data-en="ORGANELLE TOUR">胞器導覽</div>
+<h2 data-zh="真核細胞的核心胞器與其資料學意涵" data-en="Core Eukaryotic Organelles &amp; Data Implications">真核細胞的核心胞器與其資料學意涵</h2>
+<div class="card-grid cols-2">
+<div class="card"><h4>🧠 <span data-zh="細胞核 (Nucleus)" data-en="Nucleus">細胞核 (Nucleus)</span></h4>
+<div data-lang="zh"><p><strong>功能：</strong>容納染色體、執行轉錄、執行剪接、做染色質調控。<br><strong>資料學意義：</strong>snRNA-seq（單核 RNA-seq）只測核內 RNA，缺少胞質與粒線體 mRNA，與全細胞 scRNA-seq 在 marker 表達上會有系統差異。ATAC-seq、ChIP-seq、Hi-C 都針對核內染色質。</p></div>
+<div data-lang="en"><p><strong>Role:</strong> Houses chromosomes, transcribes, splices, regulates chromatin.<br><strong>Data:</strong> snRNA-seq (single-nucleus RNA-seq) misses cytoplasmic and mitochondrial mRNA — markers differ systematically from whole-cell scRNA-seq. ATAC, ChIP, Hi-C all target nuclear chromatin.</p></div></div>
+
+<div class="card"><h4>🔋 <span data-zh="粒線體 (Mitochondria)" data-en="Mitochondria">粒線體 (Mitochondria)</span></h4>
+<div data-lang="zh"><p><strong>功能：</strong>氧化磷酸化、產生 ATP、控制細胞凋亡。擁有自己的 mtDNA（環狀，16.6 kb in human），編碼 13 個 OXPHOS 亞單位 + 2 個 rRNA + 22 個 tRNA。<br><strong>資料學意義：</strong>每細胞數百到上千個 mtDNA，scRNA-seq 的 <strong>%mt</strong> 來自此。細胞破裂時胞質 mRNA 流失而 mtRNA 仍保留 → 高 %mt 是死細胞訊號（但心肌、肝、肌肉等高代謝組織例外）。</p></div>
+<div data-lang="en"><p><strong>Role:</strong> Oxidative phosphorylation, ATP, apoptosis. Own mtDNA (circular, 16.6 kb human) encoding 13 OXPHOS subunits + 2 rRNAs + 22 tRNAs.<br><strong>Data:</strong> Hundreds–thousands of mtDNA per cell. <strong>%mt</strong> in scRNA-seq comes from here. Ruptured cells lose cytoplasmic mRNA but retain mtRNA → high %mt signals dead cells (except in cardiomyocytes, hepatocytes, muscle).</p></div></div>
+
+<div class="card"><h4>🏭 <span data-zh="內質網 (ER) 與 Golgi" data-en="ER &amp; Golgi">內質網 (ER) 與 Golgi</span></h4>
+<div data-lang="zh"><p><strong>功能：</strong>rough ER 上的 ribosomes 合成分泌型/膜蛋白；smooth ER 合成脂質、解毒。Golgi 加工糖基化、分選蛋白到不同胞器或分泌出去。<br><strong>資料學意義：</strong>分泌型/膜蛋白在 proteomics 的偵測較低（疏水性、tryptic peptides 少），需 surface proteomics / O-glycoproteomics 特殊富集。ER stress → HSPA5/DDIT3/ATF4 基因簽名。</p></div>
+<div data-lang="en"><p><strong>Role:</strong> Rough ER synthesizes secreted/membrane proteins; smooth ER makes lipids and detoxifies. Golgi handles glycosylation and sorts proteins.<br><strong>Data:</strong> Secretory/membrane proteins are under-detected in MS (hydrophobic, few tryptic peptides) — needs surface or O-glycoproteomics enrichment. ER stress → HSPA5/DDIT3/ATF4 signature.</p></div></div>
+
+<div class="card"><h4>♻️ <span data-zh="溶酶體 / 自噬體 (Lysosome / Autophagosome)" data-en="Lysosome / Autophagosome">溶酶體 / 自噬體</span></h4>
+<div data-lang="zh"><p><strong>功能：</strong>分解蛋白、脂質、核酸；自噬清除受損胞器。<br><strong>資料學意義：</strong>溶酶體儲積病（如 Gaucher）有特定基因簽名；mTOR-autophagy 通路與癌症、神經退化相關（檢驗 LC3、ATG 基因家族表達）。</p></div>
+<div data-lang="en"><p><strong>Role:</strong> Degrade proteins, lipids, nucleic acids; autophagy clears damaged organelles.<br><strong>Data:</strong> Lysosomal storage diseases have specific signatures (e.g., Gaucher); mTOR-autophagy is central in cancer and neurodegeneration (check LC3, ATG family expression).</p></div></div>
+
+<div class="card"><h4>🦴 <span data-zh="細胞骨架 (Cytoskeleton)" data-en="Cytoskeleton">細胞骨架 (Cytoskeleton)</span></h4>
+<div data-lang="zh"><p><strong>功能：</strong>actin / microtubule / intermediate filament，提供形狀、運動、有絲分裂分離染色體。<br><strong>資料學意義：</strong>細胞解離 (dissociation) 損傷 actin → 應激基因 (FOS, JUN, HSPs) 上調 → scRNA-seq 出現「dissociation-induced gene signature」假象，需要在分析時校正。</p></div>
+<div data-lang="en"><p><strong>Role:</strong> Actin / microtubules / intermediate filaments — shape, motility, chromosome segregation.<br><strong>Data:</strong> Dissociation damages actin → stress genes (FOS, JUN, HSPs) upregulate → "dissociation-induced signature" artifact in scRNA-seq, must be corrected.</p></div></div>
+
+<div class="card"><h4>🟢 <span data-zh="葉綠體 (Chloroplast, 僅植物)" data-en="Chloroplast (plants only)">葉綠體</span></h4>
+<div data-lang="zh"><p><strong>功能：</strong>光合作用、固碳。擁有環狀 cpDNA（~130–160 kb），編碼光系統蛋白。<br><strong>資料學意義：</strong>植物 RNA-seq 中葉綠體 RNA 比例（%cp）是品質指標，類似動物的 %mt。</p></div>
+<div data-lang="en"><p><strong>Role:</strong> Photosynthesis, carbon fixation. Circular cpDNA (~130–160 kb) encodes photosystem proteins.<br><strong>Data:</strong> In plant RNA-seq, %cp serves a similar QC role as %mt in animals.</p></div></div>
+</div>
+<div class="callout advanced"><span class="callout-icon">🚀</span><div>
+<span data-lang="zh"><strong>進階補充：</strong>「胞器」對應到 cell biology 的概念抽象，但對資料分析者最直接的影響是「不同 RNA pool 的取樣偏差」。例如 polyA 富集 RNA-seq 偏好胞質成熟 mRNA、漏掉 nuclear-retained intronic transcripts；rRNA depletion 保留 pre-mRNA。snRNA-seq 偏向核 RNA、與 scRNA-seq 對 mitochondrial 基因檢測差異懸殊。在實驗設計階段就要決定。</span>
+<span data-lang="en"><strong>Deep dive:</strong> "Organelle" maps to compartment-specific RNA pools that bias what your assay sees. PolyA-selected RNA-seq enriches mature cytoplasmic mRNA and misses nuclear-retained intronic transcripts; rRNA depletion keeps pre-mRNA. snRNA-seq sees the nuclear pool — mitochondrial gene detection diverges enormously from scRNA-seq. Decide at experimental-design time.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="互動視覺化" data-en="INTERACTIVE">互動視覺化</div>
+<h2 data-zh="細胞型態與基因表達特徵" data-en="Cell Types &amp; Their Expression Signatures">細胞型態與基因表達特徵</h2>
+<div data-lang="zh"><p>人類體內有 200+ 種細胞型態，每種有獨特的功能與 marker 基因。選擇細胞型態，觀察其關鍵 marker 與「為什麼這類細胞會出現特定 QC 特徵」。</p></div>
+<div data-lang="en"><p>The human body has 200+ cell types, each with unique functions and marker genes. Select a cell type to see its key markers and "why this cell shows specific QC characteristics."</p></div>
+<div class="interactive-panel">
+<div class="toggle-row" id="ctToggle">
+<button class="toggle-btn active" data-c="0" data-zh="T 細胞" data-en="T cell">T 細胞</button>
+<button class="toggle-btn" data-c="1" data-zh="心肌細胞" data-en="Cardiomyocyte">心肌細胞</button>
+<button class="toggle-btn" data-c="2" data-zh="肝細胞" data-en="Hepatocyte">肝細胞</button>
+<button class="toggle-btn" data-c="3" data-zh="紅血球" data-en="Erythrocyte">紅血球</button>
+<button class="toggle-btn" data-c="4" data-zh="神經元" data-en="Neuron">神經元</button>
+</div>
+<div id="ctContent" style="background:var(--c-surface-alt);padding:18px 22px;border-radius:var(--radius);font-size:.92rem;line-height:1.7"></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="決策引導" data-en="DECISION GUIDE">決策引導</div>
+<h2 data-zh="scRNA-seq vs snRNA-seq vs spatial：怎麼選？" data-en="scRNA-seq vs snRNA-seq vs spatial: How to Choose?">scRNA-seq vs snRNA-seq vs spatial：怎麼選？</h2>
+<div class="decision-tree">
+<h4>🌳 <span data-zh="細胞層級量測決策" data-en="Cell-level Assay Decision">細胞層級量測決策</span></h4>
+<div data-lang="zh">
+<div class="dt-node"><span class="dt-q">Q1:</span><div>樣本可以新鮮解離成單細胞嗎？<span class="dt-arrow">→ 是 →</span> scRNA-seq（解析度最高、捕獲胞質+核 RNA）。</div></div>
+<div class="dt-node"><span class="dt-q">Q2:</span><div>樣本是 FFPE 或難解離（如成人腦、心、骨骼肌）？<span class="dt-arrow">→ 是 →</span> <strong>snRNA-seq</strong>（單核），可避開解離損傷與細胞型態偏差。</div></div>
+<div class="dt-node"><span class="dt-q">Q3:</span><div>需要保留空間位置（病灶 microenvironment）？<span class="dt-arrow">→ 是 →</span> Visium / Slide-seq（barcoded array）或 Xenium / MERFISH（in-situ imaging）。</div></div>
+<div class="dt-node"><span class="dt-q">Q4:</span><div>要同時量蛋白？<span class="dt-arrow">→ 是 →</span> CITE-seq、TotalSeq 抗體偶聯 DNA barcode。</div></div>
+</div>
+<div data-lang="en">
+<div class="dt-node"><span class="dt-q">Q1:</span><div>Can sample be freshly dissociated? <span class="dt-arrow">→ Yes →</span> scRNA-seq (highest resolution; cytoplasmic + nuclear RNA).</div></div>
+<div class="dt-node"><span class="dt-q">Q2:</span><div>FFPE or hard to dissociate (adult brain, heart, skeletal muscle)? <span class="dt-arrow">→ Yes →</span> <strong>snRNA-seq</strong> — avoids dissociation damage and cell-type bias.</div></div>
+<div class="dt-node"><span class="dt-q">Q3:</span><div>Need spatial context (microenvironment)? <span class="dt-arrow">→ Yes →</span> Visium / Slide-seq (barcoded array) or Xenium / MERFISH (in-situ imaging).</div></div>
+<div class="dt-node"><span class="dt-q">Q4:</span><div>Want protein too? <span class="dt-arrow">→ Yes →</span> CITE-seq, TotalSeq antibody-DNA conjugates.</div></div>
+</div>
+</div>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>
+<span data-lang="zh"><strong>常見陷阱：</strong>把 snRNA-seq 與 scRNA-seq 直接合併分析會造成 batch-like 偏差——核 RNA 富含未剪接 (intronic) reads、mitochondrial reads 極少。合併前需 batch correction，且某些 marker（如線粒體基因）不能比較。</span>
+<span data-lang="en"><strong>Common pitfall:</strong> Naively merging snRNA-seq with scRNA-seq creates batch-like bias — nuclear RNA is enriched for unspliced (intronic) reads with minimal mitochondrial reads. Batch-correct first, and some markers (mt-genes) can't be compared.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="實作銜接" data-en="CODE BRIDGE">實作銜接</div>
+<h2 data-zh="從生物學到 scRNA-seq 的 %mt" data-en="From Biology to scRNA-seq %mt">從生物學到 scRNA-seq 的 %mt</h2>
+<div class="code-tabs"><div class="code-tab-btns"><button class="code-tab-btn active" onclick="switchTab(this,'r-mt')">R / Seurat</button><button class="code-tab-btn" onclick="switchTab(this,'py-mt')">Python / Scanpy</button></div>
+<div class="code-tab-content active" id="r-mt"><pre><span class="comment"># 為什麼 ^MT- ?</span>
+<span class="comment"># Human mtDNA 編碼 13 個蛋白基因（命名如 MT-ND1, MT-CO1, MT-CYB...），</span>
+<span class="comment"># 所有以 "MT-" 開頭。鼠類用 "^mt-"。植物葉綠體常用 "^cp-" 或 "^ChrC-"。</span>
+<span class="func">library</span>(Seurat)
+obj[[<span class="str">"percent.mt"</span>]] &lt;- <span class="func">PercentageFeatureSet</span>(obj, pattern = <span class="str">"^MT-"</span>)
+obj[[<span class="str">"percent.ribo"</span>]] &lt;- <span class="func">PercentageFeatureSet</span>(obj, pattern = <span class="str">"^RP[SL]"</span>)
+obj[[<span class="str">"percent.hb"</span>]]   &lt;- <span class="func">PercentageFeatureSet</span>(obj, pattern = <span class="str">"^HB[AB]"</span>)
+<span class="comment"># Apoptosis/stress signature score</span>
+obj &lt;- <span class="func">AddModuleScore</span>(obj, features = <span class="func">list</span>(<span class="func">c</span>(<span class="str">"FOS"</span>,<span class="str">"JUN"</span>,<span class="str">"HSPA1A"</span>,<span class="str">"HSP90AA1"</span>)), name=<span class="str">"diss_stress"</span>)</pre></div>
+<div class="code-tab-content" id="py-mt"><pre><span class="kw">import</span> scanpy <span class="kw">as</span> sc
+adata.var[<span class="str">"mt"</span>]    = adata.var_names.str.startswith(<span class="str">"MT-"</span>)
+adata.var[<span class="str">"ribo"</span>]  = adata.var_names.str.match(<span class="str">"^RP[SL]"</span>)
+adata.var[<span class="str">"hb"</span>]    = adata.var_names.str.match(<span class="str">"^HB[AB]"</span>)
+sc.pp.calculate_qc_metrics(adata, qc_vars=[<span class="str">"mt"</span>,<span class="str">"ribo"</span>,<span class="str">"hb"</span>], inplace=<span class="kw">True</span>)
+sc.tl.score_genes(adata, gene_list=[<span class="str">"FOS"</span>,<span class="str">"JUN"</span>,<span class="str">"HSPA1A"</span>,<span class="str">"HSP90AA1"</span>], score_name=<span class="str">"diss_stress"</span>)</pre></div>
+</div>
+<div class="callout tip"><span class="callout-icon">💡</span><div>
+<span data-lang="zh"><strong>記住：</strong>QC 閾值不是隨意設的——它源自於「胞器特性 + 細胞死亡的生物學」。心肌細胞 %mt 自然 20–40%，套用通用 5% 會把所有心肌過濾掉。</span>
+<span data-lang="en"><strong>Remember:</strong> QC thresholds aren't arbitrary — they come from organelle biology and cell-death physics. Cardiomyocytes naturally have 20–40% mt; applying a 5% cutoff filters out all of them.</span>
+</div></div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">1. 心肌細胞 scRNA-seq 中 %mt 高，原因是？</p>
+<p data-lang="en">1. In cardiomyocyte scRNA-seq, high %mt is because?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 細胞普遍處於死亡狀態</span><span data-lang="en">A. Cells are uniformly dying</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. mtDNA 突變使粒線體基因過度表達</span><span data-lang="en">B. mtDNA mutations cause overexpression</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 心肌耗能極高，正常情況下粒線體數量本就遠多於一般細胞</span><span data-lang="en">C. Cardiomyocytes are energy-intensive and have far more mitochondria than typical cells</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 解離試劑特異性破壞了非粒線體 RNA</span><span data-lang="en">D. Dissociation reagent specifically destroys non-mitochondrial RNA</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">2. snRNA-seq 與 scRNA-seq 比較，下列哪一項最正確？</p>
+<p data-lang="en">2. Which statement comparing snRNA-seq with scRNA-seq is most correct?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. snRNA-seq 偵測到的 mitochondrial 基因通常較多</span><span data-lang="en">A. snRNA-seq detects more mitochondrial genes</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. snRNA-seq 富含未剪接（intronic）reads、mitochondrial reads 極少</span><span data-lang="en">B. snRNA-seq enriches intronic (unspliced) reads with minimal mt reads</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. snRNA-seq 和 scRNA-seq 的 marker 表達完全一致</span><span data-lang="en">C. Markers are identical between snRNA-seq and scRNA-seq</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. snRNA-seq 不能用於 FFPE 樣本</span><span data-lang="en">D. snRNA-seq cannot be used on FFPE</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="0">
+<p data-lang="zh">3. 細胞解離過程造成 FOS/JUN/HSPA1A 上調，這是？</p>
+<p data-lang="en">3. Upregulation of FOS/JUN/HSPA1A during dissociation reflects?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 解離應激基因簽名，分析時需識別並校正</span><span data-lang="en">A. Dissociation-induced stress signature — must be identified and corrected</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 真正的細胞型態</span><span data-lang="en">B. A real cell type</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 定序儀錯誤</span><span data-lang="en">C. Sequencer error</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. PCR amplification bias</span><span data-lang="en">D. PCR amplification bias</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="intro-bioinfo-biology.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="為什麼生物資訊學需要生物學？" data-en="Why Does Bioinformatics Need Biology?">為什麼生物資訊學需要生物學？</span></a>
+<a href="biomolecules.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="四大生物大分子" data-en="The Four Biomolecules">四大生物大分子</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+
+const CT=[
+ {zh:"<strong>T 細胞</strong><br>Markers：CD3D/E/G、CD8A（毒殺）、CD4（輔助）、IL7R、CCR7（naive）、PRF1/GZMB（effector）。<br>QC：小細胞、UMI/feature 偏低（不要錯誤過濾）；活化時轉錄爆發、IFN response 簽名強。",
+  en:"<strong>T cell</strong><br>Markers: CD3D/E/G, CD8A (cytotoxic), CD4 (helper), IL7R, CCR7 (naive), PRF1/GZMB (effector).<br>QC: Small cell, low UMI/feature — don't over-filter; activation drives transcriptional burst and strong IFN signature."},
+ {zh:"<strong>心肌細胞</strong><br>Markers：TNNT2、MYH7、ACTC1、NPPA。<br>QC：%mt 天然 15–40%（高代謝），通用 5% 閾值會誤殺。難解離 → 常用 snRNA-seq。",
+  en:"<strong>Cardiomyocyte</strong><br>Markers: TNNT2, MYH7, ACTC1, NPPA.<br>QC: %mt naturally 15–40% (high metabolism); generic 5% cutoff filters them out. Hard to dissociate → use snRNA-seq."},
+ {zh:"<strong>肝細胞 (Hepatocyte)</strong><br>Markers：ALB、TTR、HNF4A、CYP3A4。<br>QC：分泌活性高 → ER stress 容易被誘發；MT 含量中高；ALB ambient RNA 容易污染其他細胞（SoupX 校正）。",
+  en:"<strong>Hepatocyte</strong><br>Markers: ALB, TTR, HNF4A, CYP3A4.<br>QC: High secretory activity → ER stress prone; moderate-high mt; ALB ambient RNA contaminates other cells (SoupX-correct)."},
+ {zh:"<strong>紅血球 (Erythrocyte)</strong><br>Markers：HBA1/HBA2/HBB；無核（成熟）。<br>QC：成熟 RBC 沒有 RNA，scRNA-seq 中常見的 HB 訊號來自網織紅血球或污染。若非研究紅血球，常從 PBMC 中過濾。",
+  en:"<strong>Erythrocyte</strong><br>Markers: HBA1/HBA2/HBB; mature RBCs are anucleate.<br>QC: Mature RBCs have no RNA — HB signal in scRNA-seq often from reticulocytes or contamination. Usually filtered from PBMC unless studying RBCs."},
+ {zh:"<strong>神經元</strong><br>Markers：RBFOX3 (NeuN)、SYP、MAP2；亞型：SLC17A7 (excitatory)、GAD1/2 (inhibitory)、TH (dopaminergic)。<br>QC：成人腦難解離 → snRNA-seq 為主；長軸突 mRNA 含量高、轉錄組複雜。",
+  en:"<strong>Neuron</strong><br>Markers: RBFOX3 (NeuN), SYP, MAP2; subtypes: SLC17A7 (excitatory), GAD1/2 (inhibitory), TH (dopaminergic).<br>QC: Adult brain is hard to dissociate → snRNA-seq dominant; long axons with high mRNA content, complex transcriptome."}
+];
+function renderCT(){const L=I18n.get();const i=+document.querySelector('#ctToggle .toggle-btn.active').dataset.c;document.getElementById('ctContent').innerHTML=CT[i][L];}
+document.querySelectorAll('#ctToggle .toggle-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#ctToggle .toggle-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderCT();}));
+document.addEventListener('langchange',renderCT);renderCT();
+
+const QF={
+ zh:{q1_y:'心肌細胞耗能高，粒線體本就多，%mt 自然偏高，需用組織特異閾值。',q1_n:'正確答案已標示。',
+     q2_y:'snRNA-seq 取的是核 RNA，含大量未剪接 intronic reads、mt reads 極少。',q2_n:'正確答案已標示。',
+     q3_y:'解離應激會誘發 FOS/JUN/HSPA1A，是技術假象，需在分析時識別並校正。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'Cardiomyocytes have many mitochondria due to high energy demand — apply tissue-specific thresholds.',q1_n:'Correct answer highlighted.',
+     q2_y:'snRNA-seq samples nuclear RNA — many intronic reads, very few mt reads.',q2_n:'Correct answer highlighted.',
+     q3_y:'Dissociation stress induces FOS/JUN/HSPA1A — a technical artifact requiring correction.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

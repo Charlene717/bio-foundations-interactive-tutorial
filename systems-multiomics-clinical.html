@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.18 系統生物學、多組學整合與臨床轉譯 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html" class="active">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 18 / 18 · BLOCK D</div>
+<h1 data-zh="系統生物學、多組學與臨床轉譯" data-en="Systems Biology, Multi-omics &amp; Clinic">系統生物學、多組學與臨床轉譯</h1>
+<p class="subtitle" data-lang="zh">前 17 章建立了從分子到組學的全景。本章把這些層級「綁」在一起：多組學整合、基因型→表型、藥物基因組學、FAIR 與倫理——把生物學知識轉化為實際的醫療與科學影響。</p>
+<p class="subtitle" data-lang="en">Chapters 1–17 built the molecular-to-omics landscape. This chapter ties them together: multi-omics integration, genotype-to-phenotype, pharmacogenomics, FAIR & ethics — turning biology into clinical and scientific impact.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="系統觀" data-en="SYSTEMS VIEW">系統觀</div>
+<h2 data-zh="從還原論到系統觀" data-en="From Reductionism to Systems View">從還原論到系統觀</h2>
+<div data-lang="zh">
+<p>20 世紀分子生物學是「逐個基因」的還原論——一個基因一個功能一篇論文。但複雜性狀（高血壓、糖尿病、思覺失調）背後沒有單一致病基因；癌症治療失敗常因「多通路冗餘」。</p>
+<p><strong>系統生物學</strong>把分子層級的網絡（基因、蛋白、代謝、訊號）視為整體：用 ODE 模型、Boolean networks、agent-based models、flux balance analysis (FBA) 描述動態行為。代表平台：CellDesigner、COPASI、PySB、Reactome、KEGG、HumanCyc、Recon3D（人類代謝模型）。</p>
+<p>應用：合理化藥物組合、預測 KO 表型（CellOracle、scTenifoldNet）、優化發酵代謝（metabolic engineering）。</p>
+</div>
+<div data-lang="en">
+<p>20th-century molecular biology was reductionist — one gene, one function, one paper. But complex traits (hypertension, diabetes, schizophrenia) have no single gene; cancer therapies often fail because of pathway redundancy.</p>
+<p><strong>Systems biology</strong> treats networks (gene, protein, metabolic, signaling) holistically — ODE models, Boolean networks, agent-based models, flux balance analysis (FBA). Platforms: CellDesigner, COPASI, PySB, Reactome, KEGG, HumanCyc, Recon3D (human metabolic model).</p>
+<p>Applications: rational drug combinations, KO phenotype prediction (CellOracle, scTenifoldNet), metabolic engineering optimization.</p>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="多組學整合" data-en="MULTI-OMICS">多組學整合</div>
+<h2 data-zh="跨層級整合的三大策略" data-en="Three Strategies for Cross-layer Integration">跨層級整合的三大策略</h2>
+<div class="card-grid cols-3">
+<div class="card"><h4 data-zh="🪡 早期整合 (Early)" data-en="🪡 Early integration">🪡 早期整合</h4>
+<div data-lang="zh"><p>把所有 modality concat 後再做模型（PCA、autoencoder）。簡單但 modality 尺度與雜訊不同會主導結果。</p></div>
+<div data-lang="en"><p>Concatenate all modalities then model (PCA, autoencoder). Simple, but scale and noise differences dominate.</p></div></div>
+<div class="card"><h4 data-zh="🪢 中期整合 (Intermediate)" data-en="🪢 Intermediate">🪢 中期整合</h4>
+<div data-lang="zh"><p>每個 modality 學自己的 latent，再共享或對齊。MOFA+, totalVI, MultiVI, scMOMAT, Multigrate, scGLUE, GLUE 屬於此類。可學共享 + 私有 factor。</p></div>
+<div data-lang="en"><p>Each modality learns its own latent, then shares/aligns. MOFA+, totalVI, MultiVI, scMOMAT, Multigrate, scGLUE belong here. Learns shared + private factors.</p></div></div>
+<div class="card"><h4 data-zh="🪜 晚期整合 (Late)" data-en="🪜 Late">🪜 晚期整合</h4>
+<div data-lang="zh"><p>各 modality 做完獨立分析後再融合（如 meta-analysis）。失去 cross-modality 互動訊號，但易實作。</p></div>
+<div data-lang="en"><p>Analyze each modality independently then fuse (meta-analysis style). Loses cross-modality interaction signal but easy to implement.</p></div></div>
+</div>
+<div class="callout tip"><span class="callout-icon">💡</span><div>
+<span data-lang="zh"><strong>選擇指南：</strong>樣本對齊（同細胞同樣本）→ 中期整合最強；非配對（不同樣本但同種 condition）→ scGLUE / GLUE 等用 graph + adversarial 對齊；只能 meta-analysis（公開資料） → 晚期整合。</span>
+<span data-lang="en"><strong>Guide:</strong> Paired (same cell/sample) → intermediate integration. Unpaired (different samples, same condition) → graph + adversarial alignment (scGLUE / GLUE). Meta-analysis only (public data) → late integration.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="臨床轉譯" data-en="CLINICAL TRANSLATION">臨床轉譯</div>
+<h2 data-zh="從研究到精準醫療" data-en="From Research to Precision Medicine">從研究到精準醫療</h2>
+<table class="comp-table">
+<thead><tr><th data-zh="應用" data-en="Application">應用</th><th data-zh="技術組合" data-en="Tech stack">技術組合</th><th data-zh="例子" data-en="Example">例子</th></tr></thead>
+<tbody>
+<tr><td data-zh="新生兒罕病診斷" data-en="Newborn rare-disease dx">新生兒罕病</td><td>WES / WGS + ACMG + clinical phenotype (HPO) + family trio</td><td>UDN（美國未診斷網絡）、Rapid Genomes Project（rWGS 24 hr 內）</td></tr>
+<tr><td data-zh="癌症精準治療" data-en="Precision oncology">癌症</td><td>tumor WES + matched normal + RNA-seq + MSI + TMB + HRD score</td><td>FoundationOne CDx, MSK-IMPACT, Tempus xT</td></tr>
+<tr><td data-zh="藥物基因組" data-en="Pharmacogenomics">藥物</td><td>CYP2D6, CYP2C9/19, TPMT, DPYD, UGT1A1 panel</td><td>CPIC guidelines（warfarin, codeine, abacavir）</td></tr>
+<tr><td data-zh="液態活檢" data-en="Liquid biopsy">液態活檢</td><td>ctDNA / cfDNA + ultra-deep panel + methylation</td><td>Guardant360, SignaTera (MRD), GRAIL Galleri</td></tr>
+<tr><td data-zh="細胞療法" data-en="Cell therapy">細胞療法</td><td>scRNA-seq + TCR/BCR seq + CRISPR screen</td><td>CAR-T 設計、TIL 篩選、tumor antigen 發現</td></tr>
+<tr><td data-zh="個體化疫苗" data-en="Personalized vaccine">個體化疫苗</td><td>tumor WES + HLA typing + neoantigen 預測 (NetMHCpan, MHCflurry)</td><td>BioNTech / Moderna 個體化癌症疫苗</td></tr>
+</tbody></table>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="FAIR 與倫理" data-en="FAIR &amp; ETHICS">FAIR 與倫理</div>
+<h2 data-zh="資料分享與生物倫理" data-en="Data Sharing &amp; Bioethics">資料分享與生物倫理</h2>
+<div data-lang="zh">
+<p><strong>FAIR 原則 (Wilkinson 2016)：</strong>Findable, Accessible, Interoperable, Reusable。具體做法包括註冊到 GEO / SRA / EGA / ENA、提供 controlled vocabulary（HPO, MONDO, EFO, OBI）、使用標準格式（FASTQ, VCF, MAF, mzML）、提供 metadata。</p>
+<p><strong>關鍵倫理議題：</strong></p>
+<ul>
+<li><strong>知情同意</strong>：研究與商業使用界線、broad consent、re-contact 規範。</li>
+<li><strong>隱私與再識別</strong>：即便去識別，匯總多個資料（如 23andMe 的姓氏推論）可重新辨識個體。基因組資料無法被「忘記」。</li>
+<li><strong>族群代表性</strong>：歐裔過度代表使 PRS、藥物代謝預測在其他族群效果差，加劇健康不平等。</li>
+<li><strong>意外發現 (incidental findings)</strong>：ACMG SF v3.2 列出 81 個 actionable genes 必須回報。</li>
+<li><strong>編輯與生殖細胞</strong>：CRISPR germline editing 在多數國家受限（2018 He Jiankui 事件後）。</li>
+</ul>
+<p><strong>關鍵法規：</strong>HIPAA（美國醫療隱私）、GDPR + EHDS（歐盟）、GINA（美國基因歧視）、台灣個資法與人體研究法、HIPAA Privacy Rule 對 ChatGPT/AI 的 BAA 要求。</p>
+</div>
+<div data-lang="en">
+<p><strong>FAIR principles (Wilkinson 2016):</strong> Findable, Accessible, Interoperable, Reusable. Practically: register in GEO / SRA / EGA / ENA; use controlled vocabularies (HPO, MONDO, EFO, OBI); standard formats (FASTQ, VCF, MAF, mzML); rich metadata.</p>
+<p><strong>Key ethics issues:</strong></p>
+<ul>
+<li><strong>Consent</strong>: research vs commercial boundaries, broad consent, re-contact policies.</li>
+<li><strong>Privacy &amp; re-identification</strong>: even de-identified, combining sources (e.g. 23andMe surname inference) can re-identify individuals. Genomic data cannot be "forgotten."</li>
+<li><strong>Ancestry representation</strong>: European overrepresentation reduces PRS / pharmacogenomic accuracy for others, worsening health inequities.</li>
+<li><strong>Incidental findings</strong>: ACMG SF v3.2 lists 81 actionable genes for mandatory return.</li>
+<li><strong>Germline editing</strong>: CRISPR germline editing restricted in most countries since He Jiankui (2018).</li>
+</ul>
+<p><strong>Key regulations:</strong> HIPAA (US), GDPR + EHDS (EU), GINA (US, genetic discrimination), Taiwan PIPA &amp; Human Subjects Research Act, HIPAA BAAs for ChatGPT/AI use in PHI.</p>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="與既有教程銜接" data-en="LINKS TO OTHER TUTORIALS">與既有教程銜接</div>
+<h2 data-zh="本系列其他教程的進階學習路徑" data-en="Where to Go Next in This Series">本系列其他教程的進階學習路徑</h2>
+<div class="card-grid cols-3">
+<div class="card"><h4>🧬 <span data-zh="走分子生物資料分析" data-en="Molecular bio analysis path">分子分析路徑</span></h4>
+<div data-lang="zh"><p>Genomics → Transcriptomics → scRNA-seq → Spatial Transcriptomics → Multi-Omics。對應 E:\Charlene\Bioinformatics_Tutorials 內各資料夾。</p></div>
+<div data-lang="en"><p>Genomics → Transcriptomics → scRNA-seq → Spatial → Multi-Omics. See sibling folders in E:\Charlene\Bioinformatics_Tutorials.</p></div></div>
+<div class="card"><h4>🤖 <span data-zh="走 AI / 機器學習" data-en="AI / ML path">AI/ML 路徑</span></h4>
+<div data-lang="zh"><p>Machine Learning → Deep Learning → AI in Biomed → AI Agents → scLLMs（單細胞基礎模型）。</p></div>
+<div data-lang="en"><p>Machine Learning → Deep Learning → AI in Biomed → AI Agents → scLLMs (single-cell foundation models).</p></div></div>
+<div class="card"><h4>📈 <span data-zh="走統計與系統" data-en="Stats &amp; systems path">統計/系統路徑</span></h4>
+<div data-lang="zh"><p>Statistical Inference → Biomedical Informatics → Systems Biology → Academic Writing。</p></div>
+<div data-lang="en"><p>Statistical Inference → Biomedical Informatics → Systems Biology → Academic Writing.</p></div></div>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">1. MOFA+ / totalVI / scGLUE 屬於哪一類多組學整合策略？</p>
+<p data-lang="en">1. MOFA+ / totalVI / scGLUE belong to which integration strategy?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 早期整合（concat）</span><span data-lang="en">A. Early integration (concat)</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 中期整合（latent-level alignment / shared factors）</span><span data-lang="en">B. Intermediate integration (latent-level alignment / shared factors)</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 晚期整合（meta-analysis）</span><span data-lang="en">C. Late integration (meta-analysis)</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 完全無整合</span><span data-lang="en">D. No integration at all</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">2. FAIR 原則指什麼？</p>
+<p data-lang="en">2. The FAIR principles stand for?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. Fast, Accurate, Inexpensive, Reproducible</span><span data-lang="en">A. Fast, Accurate, Inexpensive, Reproducible</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. Federated, Anonymous, Inferred, Random</span><span data-lang="en">B. Federated, Anonymous, Inferred, Random</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. Findable, Accessible, Interoperable, Reusable</span><span data-lang="en">C. Findable, Accessible, Interoperable, Reusable</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. Functional, Annotated, Indexed, Reviewed</span><span data-lang="en">D. Functional, Annotated, Indexed, Reviewed</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">3. ACMG SF v3.2「次要發現」清單的核心精神是？</p>
+<p data-lang="en">3. The core principle of the ACMG SF v3.2 secondary findings list?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 不允許告訴病人任何意外發現</span><span data-lang="en">A. Disallow disclosing any incidental findings</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 所有變異都必須報告</span><span data-lang="en">B. All variants must be reported</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 列出特定 actionable genes，臨床定序時即使非主要適應症也應主動回報，但允許病患選擇退出</span><span data-lang="en">C. Specific actionable genes should be proactively returned even when not the primary indication, with patient opt-out</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 全面禁止 germline editing</span><span data-lang="en">D. Bans germline editing entirely</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="metabolomics-lipidomics.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="代謝體與脂質體" data-en="Metabolomics &amp;amp; Lipidomics">代謝體與脂質體</span></a>
+<a href="index.html"><span class="nav-dir" data-zh="完成 ✓" data-en="Done ✓">完成 ✓</span><span class="nav-title" data-zh="回到首頁" data-en="Back to Home">回到首頁</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+const QF={
+ zh:{q1_y:'這些工具屬於中期整合：每個 modality 自學 latent，再以 shared/aligned factor 對齊。',q1_n:'正確答案已標示。',
+     q2_y:'FAIR = Findable / Accessible / Interoperable / Reusable，是現代科學資料分享的指導原則。',q2_n:'正確答案已標示。',
+     q3_y:'ACMG SF 強調 actionable secondary findings 的主動回報，病患可選擇 opt-out。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'These tools fit intermediate integration — each modality learns its own latent and aligns via shared / private factors.',q1_n:'Correct answer highlighted.',
+     q2_y:'FAIR = Findable / Accessible / Interoperable / Reusable — the modern guiding principle for data sharing.',q2_n:'Correct answer highlighted.',
+     q3_y:'ACMG SF emphasizes proactive return of actionable secondary findings with patient opt-out.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

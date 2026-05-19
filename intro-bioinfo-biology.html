@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.1 為什麼生物資訊學需要生物學 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html" class="active">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 1 / 18 · BLOCK A</div>
+<h1 data-zh="為什麼生物資訊學需要生物學？" data-en="Why Does Bioinformatics Need Biology?">為什麼生物資訊學需要生物學？</h1>
+<p class="subtitle" data-lang="zh">資料不是憑空冒出來的——每一個 FASTQ、VCF、count matrix 背後都對應到具體的生物現象、樣本處理與量測技術。理解這個對應，是不被資料表象誤導的關鍵。</p>
+<p class="subtitle" data-lang="en">Data doesn't appear from thin air — every FASTQ, VCF, or count matrix maps to a concrete biological phenomenon, sample workflow, and measurement technology. Understanding that mapping is the antidote to being fooled by data artifacts.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="概覽" data-en="OVERVIEW">概覽</div>
+<h2 data-zh="生物資訊學究竟在做什麼？" data-en="What Does Bioinformatics Actually Do?">生物資訊學究竟在做什麼？</h2>
+<div data-lang="zh">
+<p><strong>生物資訊學 (Bioinformatics)</strong> 並不是「生物學的程式設計版」，也不只是「處理生物資料的統計分析」。它的真正本質是：以計算與統計為工具，<strong>從生物量測產生的雜訊與訊號中提取有意義的生物學知識</strong>。</p>
+<p>這個定義隱藏了一個關鍵假設——分析者必須知道「有意義」是什麼。沒有生物學背景的分析者，可能會把組織污染當成新發現的細胞型態、把批次效應當成疾病訊號、把粒線體 DNA 比對失敗當成「演算法 bug」。<strong>生物學知識決定了你能不能看出 P 值背後的真實故事。</strong></p>
+</div>
+<div data-lang="en">
+<p><strong>Bioinformatics</strong> is not "biology done with code," nor is it merely "statistics on biological data." Its real essence is: using computation and statistics to <strong>extract meaningful biological knowledge from the noise-and-signal produced by biological measurements</strong>.</p>
+<p>This definition hides a critical assumption — the analyst must know what "meaningful" looks like. Without biology, contamination becomes a novel cell type, batch effects become disease signal, and a mitochondrial-mapping failure becomes "an algorithm bug." <strong>Biological knowledge determines whether you see the real story behind the p-value.</strong></p>
+</div>
+<div class="callout tip"><span class="callout-icon">💡</span><div>
+<span data-lang="zh"><strong>本章核心問題：</strong>當你拿到一個 RNA-seq count matrix，你看到的不是「12,000 個基因 × 8 個樣本的數字」，而是「8 隻小鼠的特定組織，經 X 試劑萃取 RNA、Y 套件建庫、Z 平台定序、W 工具比對所得的轉錄本豐度估計」。每一步都會在數字上留下痕跡——而你的工作是辨識生物訊號與技術假象。</span>
+<span data-lang="en"><strong>The chapter's core question:</strong> When you receive an RNA-seq count matrix, you are not looking at "12,000 genes × 8 sample numbers." You are looking at "transcript abundance estimates from 8 mice tissues, RNA extracted with kit X, library prepared with kit Y, sequenced on platform Z, and aligned with tool W." Every step leaves a fingerprint on the numbers — your job is to separate biological signal from technical artifact.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="雙軌引導" data-en="DUAL TRACK">雙軌引導</div>
+<h2 data-zh="兩種讀者，兩條學習路徑" data-en="Two Audiences, Two Learning Paths">兩種讀者，兩條學習路徑</h2>
+<div data-lang="zh"><p>本教程同時為兩類讀者設計，每章都會在關鍵概念附近放置「快速回顧」與「進階補充」雙軌標示。</p></div>
+<div data-lang="en"><p>This tutorial is designed for two audiences. Every chapter places "Quick Review" and "Deep Dive" boxes near key concepts.</p></div>
+<div class="dual-track">
+  <div class="track-box review">
+    <h5>📘 <span data-zh="快速回顧（給有生物背景者）" data-en="Quick Review (for those with biology background)">快速回顧</span></h5>
+    <div data-lang="zh"><p>你可能已經熟悉中心法則、孟德爾遺傳、PCR 等概念，這些 box 會在每章開頭快速重述核心定義，並指出哪些「教科書描述」在實際資料上會出現微妙偏差。</p></div>
+    <div data-lang="en"><p>You may already be familiar with the central dogma, Mendelian inheritance, PCR, etc. These boxes summarize core definitions and highlight where "textbook descriptions" subtly diverge from what real data shows.</p></div>
+  </div>
+  <div class="track-box advanced">
+    <h5>🚀 <span data-zh="進階補充（給 CS/統計/工程背景者）" data-en="Deep Dive (for CS/stats/eng. background)">進階補充</span></h5>
+    <div data-lang="zh"><p>沒有生物學背景也沒關係——這些 box 會把生物學概念翻譯成「資料的形狀」「量測的訊雜比」「常見假設與它們失敗的方式」，並直接連結到 bioinformatics 工具與分析流程。</p></div>
+    <div data-lang="en"><p>No biology background? These boxes translate biology into "the shape of the data," "measurement SNR," and "common assumptions and how they fail" — directly tied to bioinformatics tools.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="量測的層級" data-en="LAYERS OF MEASUREMENT">量測的層級</div>
+<h2 data-zh="生物量測的六大層級" data-en="Six Layers of Biological Measurement">生物量測的六大層級</h2>
+<div data-lang="zh"><p>分子生物學系統可從不同層級量測，每個層級都對應一類技術與一類資料格式。理解這個分層，是判斷「該用哪個資料解答哪個問題」的起點。</p></div>
+<div data-lang="en"><p>The molecular system can be measured at multiple layers, each tied to a class of technology and data format. Knowing which layer answers which question is fundamental.</p></div>
+<div class="card-grid cols-3">
+  <div class="card"><div class="card-icon">🧬</div><h4>Genome</h4>
+    <div data-lang="zh"><p>DNA 序列本身：誰擁有什麼基因型？變異在哪？資料：FASTQ → BAM → VCF。</p></div>
+    <div data-lang="en"><p>The DNA sequence itself: who has what genotype? Where are the variants? Data: FASTQ → BAM → VCF.</p></div></div>
+  <div class="card"><div class="card-icon">🎭</div><h4>Epigenome</h4>
+    <div data-lang="zh"><p>DNA 不變，但化學修飾與染色質狀態如何？資料：WGBS（甲基化）、ATAC/DNase-seq（可及性）、ChIP-seq（修飾位點）。</p></div>
+    <div data-lang="en"><p>DNA stays the same — what are the chemical marks and chromatin states? Data: WGBS, ATAC/DNase-seq, ChIP-seq.</p></div></div>
+  <div class="card"><div class="card-icon">📜</div><h4>Transcriptome</h4>
+    <div data-lang="zh"><p>哪些基因被轉錄、轉錄多少？bulk RNA-seq、scRNA-seq、spatial transcriptomics、long-read isoform。</p></div>
+    <div data-lang="en"><p>Which genes transcribed, and how much? Bulk RNA-seq, scRNA-seq, spatial transcriptomics, long-read isoforms.</p></div></div>
+  <div class="card"><div class="card-icon">⚖️</div><h4>Proteome</h4>
+    <div data-lang="zh"><p>實際的蛋白質豐度與修飾。LC-MS/MS（DDA/DIA）、TMT、affinity-MS、CITE-seq 表面蛋白。</p></div>
+    <div data-lang="en"><p>Actual protein abundance and modifications. LC-MS/MS (DDA/DIA), TMT, affinity-MS, CITE-seq surface proteins.</p></div></div>
+  <div class="card"><div class="card-icon">🌡️</div><h4>Metabolome / Lipidome</h4>
+    <div data-lang="zh"><p>小分子代謝中間物與脂質。targeted/untargeted MS、HMDB / LIPID MAPS 註解。</p></div>
+    <div data-lang="en"><p>Small-molecule metabolites and lipids. Targeted/untargeted MS with HMDB / LIPID MAPS annotation.</p></div></div>
+  <div class="card"><div class="card-icon">🔬</div><h4>Phenome / Imaging</h4>
+    <div data-lang="zh"><p>細胞形態、組織結構、臨床表型。bio-image（共軛焦/IHC/HCS）、digital pathology、EHR。</p></div>
+    <div data-lang="en"><p>Cell morphology, tissue structure, clinical phenotype. Bio-imaging (confocal/IHC/HCS), digital pathology, EHR.</p></div></div>
+</div>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>快速回顧：</strong>中心法則是 DNA → RNA → Protein，但量測各層級的技術解析度、雜訊性質、可推論的問題完全不同。例如，蛋白質豐度與 mRNA 豐度的相關係數常在 0.4–0.6 之間，意味著「轉錄不代表蛋白」。</span>
+<span data-lang="en"><strong>Quick review:</strong> The central dogma is DNA → RNA → Protein, but each layer has different resolution, noise structure, and answerable questions. For example, protein and mRNA abundances correlate only ~0.4–0.6 — "transcribed" ≠ "translated."</span>
+</div></div>
+<div class="callout advanced"><span class="callout-icon">🚀</span><div>
+<span data-lang="zh"><strong>進階補充：</strong>從 CS/統計觀點，每個層級可視為「對同一隱變數 (cell state) 的不同 noisy projections」。多組學整合 (multi-omics integration) 的核心問題就是：在 sample/cell 維度對齊後，能否在 latent space 中還原出生物狀態？這條思路通向 MOFA、totalVI、Multigrate 等方法。</span>
+<span data-lang="en"><strong>Deep dive:</strong> From a CS/stats lens, each layer is a noisy projection of the same latent (cell state). Multi-omics integration asks: after aligning sample/cell axes, can we recover the latent in shared space? This motivates methods like MOFA, totalVI, and Multigrate.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="互動視覺化" data-en="INTERACTIVE">互動視覺化</div>
+<h2 data-zh="從生物學到資料的映射" data-en="Mapping Biology to Data">從生物學到資料的映射</h2>
+<div data-lang="zh"><p>選擇一個生物學問題，看看它對應到哪一個量測層級、哪一類資料格式、哪一個典型的下游分析。</p></div>
+<div data-lang="en"><p>Pick a biological question to see which measurement layer, data format, and downstream analysis it maps to.</p></div>
+<div class="interactive-panel">
+  <div class="toggle-row" id="qToggle">
+    <button class="toggle-btn active" data-q="0" data-zh="哪些細胞表達 IL-6？" data-en="Which cells express IL-6?">哪些細胞表達 IL-6？</button>
+    <button class="toggle-btn" data-q="1" data-zh="患者是否帶有致病性 BRCA1 變異？" data-en="Does the patient carry a pathogenic BRCA1 variant?">BRCA1 變異？</button>
+    <button class="toggle-btn" data-q="2" data-zh="某啟動子的活性如何？" data-en="How active is this promoter?">啟動子活性？</button>
+    <button class="toggle-btn" data-q="3" data-zh="此通路的代謝中間物變化？" data-en="How do metabolites change?">代謝物變化？</button>
+  </div>
+  <div id="qaContent" style="background:var(--c-surface-alt);padding:18px 22px;border-radius:var(--radius);font-size:.92rem;line-height:1.7"></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="決策引導" data-en="DECISION GUIDE">決策引導</div>
+<h2 data-zh="選對技術的決策樹" data-en="Decision Tree: Picking the Right Assay">選對技術的決策樹</h2>
+<div class="decision-tree">
+<h4>🌳 <span data-zh="從問題到技術" data-en="From Question to Assay">從問題到技術</span></h4>
+<div data-lang="zh">
+<div class="dt-node"><span class="dt-q">Q1:</span><div>你關心序列本身、表達、調控，還是蛋白？<span class="dt-arrow">→</span> 序列 → WGS/WES；表達 → RNA-seq；調控 → ATAC/ChIP；蛋白 → MS。</div></div>
+<div class="dt-node"><span class="dt-q">Q2:</span><div>需要單細胞解析嗎？<span class="dt-arrow">→ 是 →</span> scRNA-seq / scATAC / CITE-seq / spatial。否 → bulk。</div></div>
+<div class="dt-node"><span class="dt-q">Q3:</span><div>關注 isoform 或結構變異？<span class="dt-arrow">→ 是 →</span> long-read（PacBio HiFi / ONT）。否 → short-read 通常即可。</div></div>
+<div class="dt-node"><span class="dt-q">Q4:</span><div>樣本量大且需可重現？<span class="dt-arrow">→ 是 →</span> 標準化試劑 + 統一 pipeline + workflow manager（Snakemake/Nextflow）+ container（Docker/Singularity）。</div></div>
+</div>
+<div data-lang="en">
+<div class="dt-node"><span class="dt-q">Q1:</span><div>Care about sequence, expression, regulation, or protein? <span class="dt-arrow">→</span> Sequence → WGS/WES; expression → RNA-seq; regulation → ATAC/ChIP; protein → MS.</div></div>
+<div class="dt-node"><span class="dt-q">Q2:</span><div>Need single-cell resolution? <span class="dt-arrow">→ Yes →</span> scRNA-seq / scATAC / CITE-seq / spatial. No → bulk.</div></div>
+<div class="dt-node"><span class="dt-q">Q3:</span><div>Interested in isoforms or SVs? <span class="dt-arrow">→ Yes →</span> long-read (PacBio HiFi / ONT). Otherwise short-read suffices.</div></div>
+<div class="dt-node"><span class="dt-q">Q4:</span><div>Large cohort with reproducibility needs? <span class="dt-arrow">→ Yes →</span> standardized reagents + unified pipeline + workflow manager (Snakemake/Nextflow) + containers (Docker/Singularity).</div></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="資料格式速覽" data-en="FILE FORMATS">資料格式速覽</div>
+<h2 data-zh="一眼認出常見生物資料檔" data-en="Recognize Common Bio File Formats">一眼認出常見生物資料檔</h2>
+<table class="comp-table">
+<thead><tr><th data-zh="檔案" data-en="File">檔案</th><th data-zh="內容" data-en="Content">內容</th><th data-zh="生物學意義" data-en="Biology">生物學意義</th></tr></thead>
+<tbody>
+<tr><td><strong>FASTA</strong></td><td data-lang="zh">序列（DNA/RNA/protein）</td><td data-lang="zh">參考基因組、轉錄本、蛋白序列</td><td data-lang="en">Sequences (DNA/RNA/protein)</td><td data-lang="en">Reference genome, transcripts, protein sequence</td></tr>
+<tr><td><strong>FASTQ</strong></td><td data-lang="zh">序列 + Phred 品質分數</td><td data-lang="zh">定序儀的原始 reads（含定序錯誤機率）</td><td data-lang="en">Sequence + Phred quality</td><td data-lang="en">Raw sequencer reads with per-base error probability</td></tr>
+<tr><td><strong>BAM / CRAM</strong></td><td data-lang="zh">已對齊的 reads（壓縮）</td><td data-lang="zh">告訴你每個 read 比對到基因組哪個位置</td><td data-lang="en">Aligned reads (compressed)</td><td data-lang="en">Where each read maps on the reference</td></tr>
+<tr><td><strong>VCF</strong></td><td data-lang="zh">變異位點與基因型</td><td data-lang="zh">SNV / indel / SV / CNV 的結構化記錄</td><td data-lang="en">Variant sites and genotypes</td><td data-lang="en">Structured record of SNVs / indels / SVs / CNVs</td></tr>
+<tr><td><strong>GTF / GFF3</strong></td><td data-lang="zh">基因註解</td><td data-lang="zh">告訴你基因組哪段是 exon / intron / UTR / CDS</td><td data-lang="en">Gene annotation</td><td data-lang="en">Maps genome coordinates to exons/introns/UTRs/CDSs</td></tr>
+<tr><td><strong>BED</strong></td><td data-lang="zh">基因組區段（chr / start / end / [score]）</td><td data-lang="zh">ChIP/ATAC peaks、CpG island、enhancer 範圍</td><td data-lang="en">Genomic intervals</td><td data-lang="en">ChIP/ATAC peaks, CpG islands, enhancers</td></tr>
+<tr><td><strong>BigWig / bedGraph</strong></td><td data-lang="zh">每個 bp 的訊號值</td><td data-lang="zh">ChIP/ATAC 覆蓋度視覺化（IGV/UCSC track）</td><td data-lang="en">Per-bp signal</td><td data-lang="en">Coverage tracks for ChIP/ATAC (IGV/UCSC)</td></tr>
+<tr><td><strong>MTX / H5 / H5AD</strong></td><td data-lang="zh">稀疏矩陣 / AnnData</td><td data-lang="zh">scRNA-seq count matrix（cell × gene）</td><td data-lang="en">Sparse matrix / AnnData</td><td data-lang="en">scRNA-seq count matrix (cell × gene)</td></tr>
+</tbody></table>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="範例" data-en="EXAMPLES">範例</div>
+<h2 data-zh="這些檔案長什麼樣？" data-en="What Do These Files Look Like?">這些檔案長什麼樣？</h2>
+<div class="code-tabs"><div class="code-tab-btns"><button class="code-tab-btn active" onclick="switchTab(this,'f-fasta')">FASTA</button><button class="code-tab-btn" onclick="switchTab(this,'f-fastq')">FASTQ</button><button class="code-tab-btn" onclick="switchTab(this,'f-vcf')">VCF</button><button class="code-tab-btn" onclick="switchTab(this,'f-gtf')">GTF</button><button class="code-tab-btn" onclick="switchTab(this,'f-bed')">BED</button></div>
+<div class="code-tab-content active" id="f-fasta"><pre><span class="comment"># FASTA — 一行 header (&gt;) + 多行序列</span>
+&gt;chr1
+NNNNNNNNNNATCGATCGATCGATCGATCGATCGATCGATCGAATCGTAGCT
+AGCTAGCTAGCTAGCTACGTAGCTAGCATCGTAGCTAGCATGCATGCATGCG
+&gt;chr2
+ATCGATCGATCGATCGATGCATGCATGCATCGTAGCATCGTAGCATCGTAGC</pre></div>
+<div class="code-tab-content" id="f-fastq"><pre><span class="comment"># FASTQ — 4 行為一筆 read：@id / 序列 / + / Phred 品質字元</span>
+@SRR12345678.1 length=150
+ATCGATCGTAGCTAGCATCGTAGCATCGTAGCATGCATCGTAGCAT
++
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FF::F
+<span class="comment"># Phred F = ASCII 70, Q = 70-33 = 37 → 錯誤率 ~ 1/5000</span></pre></div>
+<div class="code-tab-content" id="f-vcf"><pre><span class="comment">##fileformat=VCFv4.2</span>
+<span class="comment">#CHROM  POS      ID         REF  ALT  QUAL  FILTER  INFO          FORMAT      Sample1</span>
+chr17   41244435 rs80357906 A    T    50    PASS    AF=0.0001     GT:DP:GQ    0/1:42:99
+<span class="comment"># BRCA1 上一個 missense 變異，雜合，深度 42</span></pre></div>
+<div class="code-tab-content" id="f-gtf"><pre><span class="comment"># GTF — 9 欄位，最後一欄是 key "value"; key "value"; ...</span>
+chr1  HAVANA  gene        11869  14409  .  +  .  gene_id "ENSG00000223972"; gene_name "DDX11L1";
+chr1  HAVANA  transcript  11869  14409  .  +  .  gene_id "ENSG00000223972"; transcript_id "ENST00000456328";
+chr1  HAVANA  exon        11869  12227  .  +  .  exon_number "1";</pre></div>
+<div class="code-tab-content" id="f-bed"><pre><span class="comment"># BED — chr / start (0-based) / end (1-based open) / [name / score / strand]</span>
+chr1    1000    2000    peak_1   85   +
+chr1    5000    6500    peak_2   120  -
+chr2    100     300     peak_3   45   +</pre></div>
+</div>
+<div class="callout warn"><span class="callout-icon">⚠️</span><div>
+<span data-lang="zh"><strong>陷阱：</strong>BED 是 <strong>0-based, half-open</strong>（[start, end)），GTF/GFF/VCF 是 <strong>1-based, closed</strong>。off-by-one 錯誤是新手最常見的 bug，使用 GenomicRanges (R) 或 pyranges (Python) 可自動處理座標系統。</span>
+<span data-lang="en"><strong>Gotcha:</strong> BED is <strong>0-based, half-open</strong>; GTF/GFF/VCF are <strong>1-based, closed</strong>. Off-by-one errors are the most common rookie bug — let GenomicRanges (R) or pyranges (Python) handle coordinates.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="關鍵心智" data-en="KEY MINDSETS">關鍵心智</div>
+<h2 data-zh="生物資訊新手最常犯的五個生物學認知錯誤" data-en="Five Biology Mindset Mistakes Beginners Make">生物資訊新手最常犯的五個生物學認知錯誤</h2>
+<div class="card-grid cols-2">
+<div class="card"><h4>1. <span data-zh="把「基因」當成單一實體" data-en="Treating 'gene' as a single entity">把「基因」當成單一實體</span></h4>
+  <div data-lang="zh"><p>一個基因常有多個轉錄本（isoform）、多個編碼產物（protein isoforms）、不同細胞型態下不同表達模式。RNA-seq 量到的是 transcript / gene-level abundance，不是「蛋白的活性」。</p></div>
+  <div data-lang="en"><p>One gene often has many transcripts, many protein isoforms, and different expression across cell types. RNA-seq quantifies transcript/gene abundance, not protein activity.</p></div></div>
+<div class="card"><h4>2. <span data-zh="混淆 mRNA 表達 = 蛋白質活性" data-en="Confusing mRNA = protein activity">混淆 mRNA 表達 = 蛋白質活性</span></h4>
+  <div data-lang="zh"><p>蛋白質與 mRNA 的相關性常僅 0.4–0.6，更別說酵素活性、PTM 狀態、亞細胞定位都沒被 RNA-seq 捕捉。</p></div>
+  <div data-lang="en"><p>mRNA–protein correlation is often 0.4–0.6; enzyme activity, PTM status, and subcellular localization are invisible to RNA-seq.</p></div></div>
+<div class="card"><h4>3. <span data-zh="忽略樣本來源與保存方式" data-en="Ignoring sample provenance">忽略樣本來源與保存方式</span></h4>
+  <div data-lang="zh"><p>FFPE、新鮮、冷凍、培養 → RNA 降解程度與 read 分佈完全不同。Tissue dissociation 偏好某些細胞型態，造成 scRNA-seq 細胞比例偏差。</p></div>
+  <div data-lang="en"><p>FFPE vs fresh vs frozen vs cultured drastically changes RNA integrity. Tissue dissociation biases scRNA-seq toward easier-to-release cell types.</p></div></div>
+<div class="card"><h4>4. <span data-zh="忽視批次效應" data-en="Underestimating batch effects">忽視批次效應</span></h4>
+  <div data-lang="zh"><p>不同日期、不同試劑批號、不同操作者都會在數據上留下系統性偏差，常常比生物差異還大。需要 ComBat / Harmony / mutual nearest neighbours 等方法校正。</p></div>
+  <div data-lang="en"><p>Different days, lots, operators leave systematic biases often larger than the biology. Correct with ComBat / Harmony / MNN.</p></div></div>
+<div class="card"><h4>5. <span data-zh="把統計顯著當作生物意義" data-en="Conflating p-value with biology">把統計顯著當作生物意義</span></h4>
+  <div data-lang="zh"><p>p &lt; 0.05 不代表生物上有意義；effect size、生物學功能、可重現性才是核心。報告時同時呈現 effect、CI、FDR。</p></div>
+  <div data-lang="en"><p>p &lt; 0.05 ≠ biologically meaningful. Effect size, biological context, and reproducibility matter more — report effect, CI, and FDR together.</p></div></div>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">1. 一份 RNA-seq count matrix 直接告訴你哪一項？</p>
+<p data-lang="en">1. An RNA-seq count matrix directly tells you which of the following?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 每個基因對應的蛋白質活性</span><span data-lang="en">A. Protein activity per gene</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 每個基因的 PTM 狀態</span><span data-lang="en">B. PTM status per gene</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 每個樣本中估計到的轉錄本／基因 read 數</span><span data-lang="en">C. Estimated transcript/gene read counts per sample</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 該基因突變對表型的因果效應</span><span data-lang="en">D. Causal effect of mutations on phenotype</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">2. 關於座標系統，下列何者正確？</p>
+<p data-lang="en">2. About coordinate systems, which statement is correct?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. BED 是 1-based closed，GTF 是 0-based half-open</span><span data-lang="en">A. BED is 1-based closed, GTF is 0-based half-open</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. BED 是 0-based half-open，GTF/GFF/VCF 是 1-based closed</span><span data-lang="en">B. BED is 0-based half-open, GTF/GFF/VCF are 1-based closed</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 所有格式都使用 1-based closed</span><span data-lang="en">C. All formats use 1-based closed</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. VCF 是 0-based half-open</span><span data-lang="en">D. VCF is 0-based half-open</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="3">
+<p data-lang="zh">3. 你想知道「哪些細胞同時帶有特定基因型，且該基因高度表達」，最直接的技術組合是？</p>
+<p data-lang="en">3. To identify "which cells carry a specific genotype AND highly express that gene," the most direct assay combination is?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. bulk WGS + bulk RNA-seq</span><span data-lang="en">A. bulk WGS + bulk RNA-seq</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 質譜蛋白質體</span><span data-lang="en">B. Mass-spec proteomics</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 只做 scATAC-seq</span><span data-lang="en">C. scATAC-seq alone</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. scDNA + scRNA 多組學（如 G&amp;T-seq / Mission Bio Tapestri）</span><span data-lang="en">D. scDNA + scRNA multi-omics (G&amp;T-seq / Mission Bio Tapestri)</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="index.html"><span class="nav-dir" data-zh="← 回首頁" data-en="← Home">← 回首頁</span><span class="nav-title" data-zh="教程首頁" data-en="Tutorial Home">教程首頁</span></a>
+<a href="cell-organelles.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="細胞與胞器" data-en="Cells &amp;amp; Organelles">細胞與胞器</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+
+const QA_DATA = [
+  {zh_q:"哪些細胞表達 IL-6？",en_q:"Which cells express IL-6?",
+   zh:"<strong>層級：</strong>Transcriptome（單細胞解析度）<br><strong>技術：</strong>scRNA-seq（10x Chromium、Drop-seq）<br><strong>資料：</strong>cell × gene 稀疏 count matrix（H5AD/MTX）<br><strong>分析：</strong>QC → 標準化 → PCA/UMAP → 聚類 → 細胞註釋 → 在 IL-6 上做 violin/feature plot",
+   en:"<strong>Layer:</strong> Transcriptome (single-cell)<br><strong>Tech:</strong> scRNA-seq (10x Chromium, Drop-seq)<br><strong>Data:</strong> cell × gene sparse matrix (H5AD/MTX)<br><strong>Pipeline:</strong> QC → normalize → PCA/UMAP → cluster → annotate → violin/feature plot of IL-6"},
+  {zh_q:"BRCA1 變異",en_q:"BRCA1 variant",
+   zh:"<strong>層級：</strong>Genome<br><strong>技術：</strong>WES（外顯子組）或 WGS；針對 BRCA1 也可用 amplicon panel<br><strong>資料：</strong>FASTQ → BAM → VCF<br><strong>分析：</strong>variant calling (DeepVariant/GATK) → VEP 註解 → ClinVar 致病性查詢",
+   en:"<strong>Layer:</strong> Genome<br><strong>Tech:</strong> WES or WGS; targeted panel for BRCA1<br><strong>Data:</strong> FASTQ → BAM → VCF<br><strong>Pipeline:</strong> variant calling (DeepVariant/GATK) → VEP annotation → ClinVar pathogenicity"},
+  {zh_q:"啟動子活性",en_q:"Promoter activity",
+   zh:"<strong>層級：</strong>Epigenome（染色質可及性 + TF 結合）<br><strong>技術：</strong>ATAC-seq（可及性）、ChIP-seq / CUT&amp;RUN（TF 結合）、PRO-seq（轉錄起始）<br><strong>資料：</strong>FASTQ → BAM → BED（peaks）+ BigWig（覆蓋度）<br><strong>分析：</strong>peak calling (MACS3) → motif enrichment (HOMER/MEME) → 啟動子與表達聯合分析",
+   en:"<strong>Layer:</strong> Epigenome (accessibility + TF binding)<br><strong>Tech:</strong> ATAC-seq, ChIP-seq / CUT&amp;RUN, PRO-seq<br><strong>Data:</strong> FASTQ → BAM → BED peaks + BigWig coverage<br><strong>Pipeline:</strong> peak calling (MACS3) → motif enrichment → joint analysis with expression"},
+  {zh_q:"代謝物變化",en_q:"Metabolite changes",
+   zh:"<strong>層級：</strong>Metabolome<br><strong>技術：</strong>LC-MS / GC-MS（untargeted 或 targeted panels）<br><strong>資料：</strong>mzML / mzXML → peak table（feature × sample）<br><strong>分析：</strong>peak detection (XCMS/MZmine) → 註解 (HMDB/METLIN, MSI level) → 通路富集 (MetaboAnalyst/KEGG)",
+   en:"<strong>Layer:</strong> Metabolome<br><strong>Tech:</strong> LC-MS / GC-MS (untargeted or targeted)<br><strong>Data:</strong> mzML/mzXML → feature × sample peak table<br><strong>Pipeline:</strong> peak detection (XCMS/MZmine) → annotation (HMDB/METLIN, MSI level) → pathway enrichment"}
+];
+function renderQA(){
+  const L=I18n.get();
+  const idx = +document.querySelector('#qToggle .toggle-btn.active').dataset.q;
+  document.getElementById('qaContent').innerHTML = QA_DATA[idx][L];
+}
+document.querySelectorAll('#qToggle .toggle-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('#qToggle .toggle-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); renderQA();
+  });
+});
+document.addEventListener('langchange',renderQA);
+renderQA();
+
+const QF={
+  zh:{q1_y:'count matrix 量化的是 read 數，仍需轉成 TPM/CPM 或下游建模才能比對。',q1_n:'正確答案已標示。',q2_y:'BED 0-based half-open；GTF/GFF/VCF 1-based closed——這是 off-by-one bug 的主要來源。',q2_n:'正確答案已標示。',q3_y:'要同時關聯基因型與表達，scDNA+scRNA 多組學（G&T-seq、Tapestri）是最直接的技術。',q3_n:'正確答案已標示。'},
+  en:{q1_y:'A count matrix records read counts; convert to TPM/CPM or model downstream.',q1_n:'Correct answer highlighted.',q2_y:'BED is 0-based half-open; GTF/GFF/VCF are 1-based closed — the source of off-by-one bugs.',q2_n:'Correct answer highlighted.',q3_y:'To jointly read genotype + expression, scDNA+scRNA multi-omics (G&T-seq, Tapestri) is the most direct option.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.6 轉錄與 RNA 加工 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html" class="active">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 6 / 18 · BLOCK B</div>
+<h1 data-zh="轉錄與 RNA 加工" data-en="Transcription &amp; RNA Processing">轉錄與 RNA 加工</h1>
+<p class="subtitle" data-lang="zh">從 DNA 到 mRNA 的旅程一點都不直接——啟動子、增強子、polymerase pausing、剪接、5'cap、polyA tail——每一步都會在 RNA-seq read 分布裡留下痕跡。</p>
+<p class="subtitle" data-lang="en">The DNA-to-mRNA trip is anything but direct — promoters, enhancers, pol pausing, splicing, capping, polyadenylation — every step leaves fingerprints in RNA-seq read distributions.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="轉錄起始" data-en="INITIATION">轉錄起始</div>
+<h2 data-zh="RNA 聚合酶與啟動子" data-en="RNA Polymerases &amp; Promoters">RNA 聚合酶與啟動子</h2>
+<div data-lang="zh">
+<p>真核細胞有三種 RNA polymerase：<strong>Pol I</strong>（轉錄 rRNA，核仁內）、<strong>Pol II</strong>（轉錄 mRNA、多數 ncRNA）、<strong>Pol III</strong>（轉錄 tRNA、5S rRNA、U6）。</p>
+<p>Pol II 啟動需要<strong>核心啟動子 (core promoter)</strong> 與<strong>通用轉錄因子 (TFIID, TFIIA-H)</strong> 組裝 pre-initiation complex (PIC)。核心啟動子元素包含 TATA box (–25)、Inr、DPE、CpG island、BRE。<strong>啟動子上游與下游</strong>的<strong>增強子 (enhancer)</strong> 透過染色質 looping 與啟動子互動，由特定 TF + Mediator + cohesin 介導。</p>
+<p>許多基因 Pol II 在轉錄起始位點 (TSS) 下游 30–60 bp 處<strong>停頓 (promoter-proximal pausing)</strong>，由 NELF/DSIF 維持。P-TEFb 磷酸化 Pol II Ser2 後才釋放進入延伸期——這是另一層快速調控。</p>
+</div>
+<div data-lang="en">
+<p>Eukaryotes have three RNA polymerases: <strong>Pol I</strong> (rRNA, nucleolus), <strong>Pol II</strong> (mRNA, most ncRNAs), <strong>Pol III</strong> (tRNA, 5S rRNA, U6).</p>
+<p>Pol II initiation needs a <strong>core promoter</strong> + <strong>general TFs (TFIID, TFIIA-H)</strong> assembling the pre-initiation complex (PIC). Core promoter elements: TATA (–25), Inr, DPE, CpG island, BRE. <strong>Enhancers</strong> contact promoters via chromatin looping mediated by TFs + Mediator + cohesin.</p>
+<p>For many genes Pol II <strong>pauses</strong> 30–60 bp downstream of TSS (NELF/DSIF), then P-TEFb phosphorylates Pol II Ser2 to release into elongation — an additional layer of rapid regulation.</p>
+</div>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>快速回顧：</strong>啟動子是「靠近 TSS、招募 PIC 的 DNA 序列」；增強子是「遠端、能加強轉錄、不依賴方向的調控元件」。它們的活躍狀態可由 chromatin marks 推測（H3K4me3 啟動子、H3K4me1+H3K27ac 增強子）。</span>
+<span data-lang="en"><strong>Quick review:</strong> Promoters are TSS-proximal DNA recruiting the PIC; enhancers are distal, orientation-independent boosters. Their activity is read from chromatin marks (H3K4me3 = promoter; H3K4me1 + H3K27ac = enhancer).</span>
+</div></div>
+<div class="callout advanced"><span class="callout-icon">🚀</span><div>
+<span data-lang="zh"><strong>進階補充：</strong>PRO-seq / GRO-seq 直接量到「正在延伸的 Pol II」，可看到 promoter-proximal pausing 與 enhancer RNA (eRNA)；RNA-seq 量穩定的成熟 RNA，不直接反映轉錄速率。在 ChIP-seq 中 Pol II Ser5-P 富集在啟動子、Ser2-P 富集在基因體內，是區分 paused/elongating 的指標。</span>
+<span data-lang="en"><strong>Deep dive:</strong> PRO-seq / GRO-seq measure actively elongating Pol II — reveal promoter-proximal pausing and eRNAs. RNA-seq measures steady-state mature RNA, not transcription rate. In ChIP-seq, Pol II Ser5-P enriches at promoters and Ser2-P over gene bodies — markers of paused vs elongating Pol II.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="RNA 加工" data-en="RNA PROCESSING">RNA 加工</div>
+<h2 data-zh="pre-mRNA 到 mRNA：三步加工" data-en="pre-mRNA to mRNA: Three Processing Steps">pre-mRNA 到 mRNA：三步加工</h2>
+<div class="workflow">
+<div class="workflow-step" data-step="1"><h4 data-zh="5' Cap" data-en="5' Capping">5' Cap 加帽</h4>
+<div data-lang="zh"><p>轉錄起始後 ~30 nt 即加上 m7G cap（7-methylguanosine 透過 5'-5' 三磷酸鍵連接）。功能：保護 mRNA 不被外切酶分解、招募 eIF4E 啟動轉譯。</p></div>
+<div data-lang="en"><p>m7G cap (7-methylguanosine via 5'-5' triphosphate) added ~30 nt after initiation. Protects from exonucleases and recruits eIF4E to initiate translation.</p></div></div>
+<div class="workflow-step" data-step="2"><h4 data-zh="剪接 (Splicing)" data-en="Splicing">剪接 (Splicing)</h4>
+<div data-lang="zh"><p>由<strong>剪接體 (spliceosome, U1/U2/U4/U5/U6 snRNP)</strong> 辨識 5' splice site (GU)、branch point (A)、3' splice site (AG)、polypyrimidine tract，切除 intron 並接合 exon。</p>
+<p><strong>替代剪接 (alternative splicing)</strong>：exon skipping、alt 5'/3' splice site、intron retention、mutually exclusive exon、alt promoter、alt polyA——同一基因產生多個 isoforms。人類 90%+ 多 exon 基因會發生替代剪接。</p></div>
+<div data-lang="en"><p>The <strong>spliceosome (U1/U2/U4/U5/U6 snRNP)</strong> recognizes 5' splice site (GU), branch point (A), 3' splice site (AG), and polypyrimidine tract — excises introns and joins exons.</p>
+<p><strong>Alternative splicing:</strong> exon skipping, alt 5'/3' sites, intron retention, mutually exclusive exons, alt promoters, alt polyA — multiple isoforms from one gene. &gt;90% of human multi-exon genes are alternatively spliced.</p></div></div>
+<div class="workflow-step" data-step="3"><h4 data-zh="3' polyadenylation" data-en="3' polyadenylation">3' polyA 尾</h4>
+<div data-lang="zh"><p>CPSF 辨識 AAUAAA polyA signal（多在 stop codon 下游 10–30 bp），切割 pre-mRNA 並加上 ~200 個 A 的 polyA tail。功能：穩定 mRNA、促進核外運送與轉譯。</p>
+<p><strong>APA (Alternative PolyAdenylation)</strong>：許多基因有多個 polyA site → 不同 3'UTR 長度 → 影響 miRNA 結合與 mRNA 穩定性。3' Tag-seq、Quant-seq 等技術專門解析 APA。</p></div>
+<div data-lang="en"><p>CPSF recognizes AAUAAA polyA signal (10–30 bp downstream of stop), cleaves, and ~200 As are added. Stabilizes mRNA, drives export and translation.</p>
+<p><strong>APA (Alternative PolyAdenylation):</strong> many genes have multiple polyA sites → different 3'UTR lengths → impacts miRNA binding and mRNA stability. 3' Tag-seq / Quant-seq specifically resolve APA.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="剪接事件" data-en="SPLICING EVENTS">剪接事件</div>
+<h2 data-zh="五大替代剪接事件" data-en="The Five Alternative Splicing Events">五大替代剪接事件</h2>
+<div class="card-grid cols-3">
+<div class="card"><h4>SE (Skipped Exon)</h4><div data-lang="zh"><p>單一 exon 被跳過或包含，最常見類型。</p></div><div data-lang="en"><p>One exon included or skipped — most common.</p></div></div>
+<div class="card"><h4>A5SS / A3SS</h4><div data-lang="zh"><p>替代 5' 或 3' splice site，改變 exon 邊界。</p></div><div data-lang="en"><p>Alternative 5' or 3' splice site — changes exon boundary.</p></div></div>
+<div class="card"><h4>MXE (Mutually Excl. Exon)</h4><div data-lang="zh"><p>兩個 exon 互斥使用（A 或 B）。</p></div><div data-lang="en"><p>Two exons used mutually exclusively.</p></div></div>
+<div class="card"><h4>RI (Retained Intron)</h4><div data-lang="zh"><p>Intron 沒被剪掉，常導致 NMD 或保留調控元件。</p></div><div data-lang="en"><p>Intron retained — often triggers NMD or keeps regulatory elements.</p></div></div>
+<div class="card"><h4>APA / Alt-promoter</h4><div data-lang="zh"><p>改變起始或終止位置，影響 UTR 長度與 isoform 序列。</p></div><div data-lang="en"><p>Alternate initiation or termination — affects UTR length and isoform sequence.</p></div></div>
+<div class="card"><h4>分析工具</h4><div data-lang="zh"><p>rMATS（event）、SUPPA2、MAJIQ、Whippet（PSI 計算）；long-read：FLAIR、IsoQuant、StringTie2 LR。</p></div><div data-lang="en"><p>rMATS / SUPPA2 / MAJIQ / Whippet (PSI); long-read: FLAIR / IsoQuant / StringTie2 LR.</p></div></div>
+</div>
+<div class="callout tip"><span class="callout-icon">💡</span><div>
+<span data-lang="zh"><strong>PSI（Percent Spliced In）：</strong>某 exon 被包含的比例，是替代剪接定量的標準。PSI 變化 ΔPSI &gt; 0.1 且 FDR 顯著常作為事件 cutoff。</span>
+<span data-lang="en"><strong>PSI (Percent Spliced In):</strong> the fraction of transcripts including a given exon — the standard splicing quantification. ΔPSI &gt; 0.1 with significant FDR is a common cutoff.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="互動視覺化" data-en="INTERACTIVE">互動視覺化</div>
+<h2 data-zh="RNA-seq read 分布如何反映 RNA 加工" data-en="How RNA-seq Read Distribution Reflects Processing">RNA-seq read 分布如何反映 RNA 加工</h2>
+<div data-lang="zh"><p>切換不同 library prep，觀察 read 在 gene body 上的分布如何改變。</p></div>
+<div data-lang="en"><p>Switch library preps to see how read distribution along a gene body changes.</p></div>
+<div class="interactive-panel">
+<div class="toggle-row" id="libToggle">
+<button class="toggle-btn active" data-l="polyA" data-zh="polyA selection" data-en="polyA selection">polyA selection</button>
+<button class="toggle-btn" data-l="ribozero" data-zh="rRNA depletion" data-en="rRNA depletion">rRNA depletion</button>
+<button class="toggle-btn" data-l="tag3p" data-zh="3' Tag-seq" data-en="3' Tag-seq">3' Tag-seq</button>
+<button class="toggle-btn" data-l="longread" data-zh="long-read full-length" data-en="long-read">long-read</button>
+</div>
+<div class="chart-container"><canvas id="rsChart"></canvas></div>
+<p id="libExplain" style="font-size:.88rem;color:var(--c-ink-light);margin-top:6px"></p>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">1. 5' cap 的主要功能是？</p>
+<p data-lang="en">1. The main function of the 5' cap is?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 提供 polyA tail 的合成模板</span><span data-lang="en">A. A template for polyA synthesis</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 保護 mRNA 不被 5'→3' 外切酶降解，並招募 eIF4E 啟動轉譯</span><span data-lang="en">B. Protect mRNA from 5'→3' exonuclease and recruit eIF4E for translation</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 提供剪接體辨識的 branch point</span><span data-lang="en">C. Provide the branch point for the spliceosome</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 編碼第一個胺基酸</span><span data-lang="en">D. Encode the first amino acid</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="3">
+<p data-lang="zh">2. PSI 在替代剪接分析中代表什麼？</p>
+<p data-lang="en">2. What does PSI mean in alternative splicing analysis?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. Pol II Ser5 磷酸化比例</span><span data-lang="en">A. Pol II Ser5 phosphorylation %</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. Peptide spectral identification 分數</span><span data-lang="en">B. Peptide spectral identification</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 蛋白質單體比例</span><span data-lang="en">C. Protein subunit ratio</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. Percent Spliced In：該 exon 被包含到 mRNA 的比例</span><span data-lang="en">D. Percent Spliced In: fraction of transcripts including the exon</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="0">
+<p data-lang="zh">3. 為什麼 polyA selection RNA-seq 對 circRNA 偵測力差？</p>
+<p data-lang="en">3. Why is polyA-selected RNA-seq poor at detecting circRNAs?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. circRNA 沒有 polyA tail，無法被 oligo-dT 富集</span><span data-lang="en">A. circRNAs lack a polyA tail and aren't captured by oligo-dT</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. circRNA 序列太短</span><span data-lang="en">B. circRNAs are too short</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. circRNA 不存在於細胞質</span><span data-lang="en">C. circRNAs do not exist in cytoplasm</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. circRNA 被甲基化抑制</span><span data-lang="en">D. circRNAs are methylated and silenced</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="dna-replication-repair.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="DNA 複製與修復" data-en="DNA Replication &amp;amp; Repair">DNA 複製與修復</span></a>
+<a href="translation-protein.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="轉譯與蛋白質結構" data-en="Translation &amp;amp; Protein Structure">轉譯與蛋白質結構</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+
+// 50 bins along gene body (5' to 3')
+const bins = Array.from({length:50},(_,i)=>i+1);
+const PROFILES={
+  polyA:{data:bins.map(i=>0.4+0.6*Math.exp(-((50-i)*(50-i))/60)),
+    zh:'polyA 富集偏向 3' 端，因為 oligo-dT 從 polyA tail 拉 → 5' bias，常見「3\' coverage 偏高」訊號。',
+    en:'PolyA enrichment skews to 3\' (oligo-dT primer pulls from tail) — characteristic 3\' coverage bias.'},
+  ribozero:{data:bins.map(i=>0.7+0.2*Math.sin(i*0.3)+0.1*Math.random()),
+    zh:'rRNA 去除保留 pre-mRNA、intron 與 ncRNA，覆蓋度沿 gene body 較均勻，但 rRNA 殘留比例變高。',
+    en:'rRNA depletion keeps pre-mRNA, introns, ncRNAs — fairly uniform coverage, more residual rRNA.'},
+  tag3p:{data:bins.map(i=>i>45?1.0:0.05),
+    zh:'3\' Tag-seq 僅讀 3\' 末端的一小段，是 APA 分析與低成本基因表達定量的首選。',
+    en:'3\' Tag-seq reads only the very 3\' end — best for APA analysis and low-cost expression quantification.'},
+  longread:{data:bins.map(i=>0.85+0.05*Math.random()),
+    zh:'Long-read（PacBio HiFi、ONT）full-length transcript：每條 read 跨越整個 isoform，覆蓋極均勻，isoform 解析力最高。',
+    en:'Long-read (PacBio HiFi, ONT) reads whole isoforms — very uniform coverage, highest isoform resolution.'}
+};
+const rsChart=new Chart(document.getElementById('rsChart'),{type:'line',data:{labels:bins,datasets:[{label:'Coverage (relative)',data:PROFILES.polyA.data,borderColor:'rgba(4,120,87,1)',backgroundColor:'rgba(4,120,87,0.15)',tension:0.3,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:"5' → gene body → 3'"}},y:{beginAtZero:true,max:1.1,title:{display:true,text:'Relative coverage'}}}}});
+function renderLib(){
+  const L=I18n.get();
+  const which=document.querySelector('#libToggle .toggle-btn.active').dataset.l;
+  rsChart.data.datasets[0].data=PROFILES[which].data; rsChart.update('none');
+  document.getElementById('libExplain').textContent=PROFILES[which][L];
+}
+document.querySelectorAll('#libToggle .toggle-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#libToggle .toggle-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderLib();}));
+document.addEventListener('langchange',renderLib);renderLib();
+
+const QF={
+ zh:{q1_y:'m7G cap 保護 5\' 端、招募 eIF4E 與小核糖體亞單位啟動轉譯。',q1_n:'正確答案已標示。',
+     q2_y:'PSI = Percent Spliced In，是替代剪接定量的核心指標。',q2_n:'正確答案已標示。',
+     q3_y:'circRNA 經 back-splicing 形成環狀無 polyA tail，polyA 法捕獲不到，需 rRNA depletion + RNase R 處理。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'m7G cap protects the 5\' end and recruits eIF4E + small ribosomal subunit to initiate translation.',q1_n:'Correct answer highlighted.',
+     q2_y:'PSI = Percent Spliced In — the standard quantitative metric for alternative splicing.',q2_n:'Correct answer highlighted.',
+     q3_y:'circRNAs form via back-splicing and have no polyA tail; oligo-dT misses them. Need rRNA depletion + RNase R.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

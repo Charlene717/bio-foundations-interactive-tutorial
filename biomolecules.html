@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.3 生物大分子 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html" class="active">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 3 / 18 · BLOCK A</div>
+<h1 data-zh="四大生物大分子" data-en="The Four Biomolecules">四大生物大分子</h1>
+<p class="subtitle" data-lang="zh">蛋白質、核酸、醣類、脂質——生命的化學積木。每一類分子都有對應的量測技術與資料形態，搞清楚這個對應，能避免「拿錯資料回答錯誤的問題」。</p>
+<p class="subtitle" data-lang="en">Proteins, nucleic acids, carbohydrates, lipids — life's chemical Lego. Each class maps to specific assays and data shapes; matching biology to measurement avoids "asking the wrong data the wrong question."</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="概覽" data-en="OVERVIEW">概覽</div>
+<h2 data-zh="生命由四類大分子組成" data-en="Life is Built from Four Classes of Macromolecules">生命由四類大分子組成</h2>
+<div data-lang="zh"><p>所有生物大分子都是由<strong>小單體 (monomer)</strong> 聚合而成的<strong>聚合物 (polymer)</strong>。理解單體種類、鍵結方式、與功能的對應，就能解讀任何一份生物分子資料。</p></div>
+<div data-lang="en"><p>All biomolecules are <strong>polymers</strong> of small <strong>monomers</strong>. Knowing the monomers, bonds, and function lets you read any molecular dataset.</p></div>
+<table class="comp-table">
+<thead><tr><th>分子 / Macromolecule</th><th>單體 / Monomer</th><th>鍵結 / Bond</th><th>主要功能 / Function</th><th>資料 / Data</th></tr></thead>
+<tbody>
+<tr><td><strong>蛋白質 Protein</strong></td><td data-lang="zh">20 種胺基酸</td><td data-lang="en">20 amino acids</td><td>peptide bond</td><td data-lang="zh">催化、結構、訊號、運輸</td><td data-lang="en">catalysis, structure, signaling, transport</td><td>LC-MS/MS, AlphaFold</td></tr>
+<tr><td><strong>核酸 Nucleic acid</strong></td><td data-lang="zh">4 種核苷酸 (A/T/G/C 或 A/U/G/C)</td><td data-lang="en">4 nucleotides</td><td>phosphodiester</td><td data-lang="zh">遺傳訊息儲存與傳遞</td><td data-lang="en">information storage &amp; transfer</td><td>NGS, long-read seq</td></tr>
+<tr><td><strong>醣類 Carbohydrate</strong></td><td data-lang="zh">單糖 (glucose, galactose...)</td><td data-lang="en">monosaccharides</td><td>glycosidic</td><td data-lang="zh">能量、結構、辨識（醣化）</td><td data-lang="en">energy, structure, recognition</td><td>glycomics MS, lectin array</td></tr>
+<tr><td><strong>脂質 Lipid</strong></td><td data-lang="zh">脂肪酸、甘油、膽固醇骨架</td><td data-lang="en">fatty acids, glycerol, sterol</td><td data-lang="zh">酯鍵、共價/非共價</td><td data-lang="en">ester, covalent/non-covalent</td><td data-lang="zh">膜、能量儲存、訊號</td><td data-lang="en">membranes, energy storage, signaling</td><td>LC-MS lipidomics</td></tr>
+</tbody></table>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="蛋白質" data-en="PROTEINS">蛋白質</div>
+<h2 data-zh="蛋白質：生命的工作分子" data-en="Proteins: The Working Molecules of Life">蛋白質：生命的工作分子</h2>
+<div data-lang="zh">
+<p><strong>胺基酸 (amino acid)</strong> 結構：中心碳（α-C）連接胺基（-NH₂）、羧基（-COOH）、氫、與決定性質的<strong>側鏈 R</strong>。20 種標準胺基酸依 R 性質分為：<strong>非極性</strong>（A, V, L, I, M, F, W, P）、<strong>極性中性</strong>（S, T, N, Q, Y, C, G）、<strong>酸性</strong>（D, E）、<strong>鹼性</strong>（K, R, H）。胺基酸之間以<strong>肽鍵 (peptide bond)</strong> 連結成多肽鏈。</p>
+<p><strong>四級結構：</strong>一級（序列）→ 二級（α-螺旋、β-摺板，由氫鍵主導）→ 三級（單一肽鏈的 3D 摺疊）→ 四級（多條鏈組裝）。<strong>結構決定功能。</strong></p>
+</div>
+<div data-lang="en">
+<p>An <strong>amino acid</strong> has α-carbon connecting amino (-NH₂), carboxyl (-COOH), hydrogen, and a <strong>side chain R</strong>. The 20 standard amino acids group as: <strong>nonpolar</strong> (A, V, L, I, M, F, W, P), <strong>polar neutral</strong> (S, T, N, Q, Y, C, G), <strong>acidic</strong> (D, E), <strong>basic</strong> (K, R, H). They link via <strong>peptide bonds</strong>.</p>
+<p><strong>Four-level structure:</strong> primary (sequence) → secondary (α-helix, β-sheet, H-bond-driven) → tertiary (3D fold) → quaternary (multi-chain assembly). <strong>Structure dictates function.</strong></p>
+</div>
+<div class="card-grid cols-3">
+<div class="card"><div class="card-icon">⚗️</div><h4 data-zh="酵素 (Enzyme)" data-en="Enzymes">酵素</h4>
+<div data-lang="zh"><p>催化生化反應，加速反應 10⁶–10²² 倍。EC number 系統分類（EC 1-7）。</p></div><div data-lang="en"><p>Catalyze reactions, 10⁶–10²² speed-up. Classified by EC numbers (EC 1-7).</p></div></div>
+<div class="card"><div class="card-icon">🦴</div><h4 data-zh="結構蛋白" data-en="Structural">結構蛋白</h4>
+<div data-lang="zh"><p>膠原蛋白、肌動蛋白、細胞角蛋白——細胞與組織的骨架。</p></div><div data-lang="en"><p>Collagen, actin, keratin — cell and tissue skeletons.</p></div></div>
+<div class="card"><div class="card-icon">📨</div><h4 data-zh="訊號蛋白" data-en="Signaling">訊號蛋白</h4>
+<div data-lang="zh"><p>激素、生長因子、受體、激酶——細胞間與細胞內的訊息傳遞。</p></div><div data-lang="en"><p>Hormones, growth factors, receptors, kinases — inter/intra-cellular signaling.</p></div></div>
+<div class="card"><div class="card-icon">🚚</div><h4 data-zh="運輸蛋白" data-en="Transport">運輸蛋白</h4>
+<div data-lang="zh"><p>血紅蛋白、白蛋白、膜離子通道、ABC transporters。</p></div><div data-lang="en"><p>Hemoglobin, albumin, ion channels, ABC transporters.</p></div></div>
+<div class="card"><div class="card-icon">🛡️</div><h4 data-zh="免疫蛋白" data-en="Immune">免疫蛋白</h4>
+<div data-lang="zh"><p>抗體 (Ig)、MHC、補體——免疫辨識與清除。</p></div><div data-lang="en"><p>Antibodies (Ig), MHC, complement — immune recognition and clearance.</p></div></div>
+<div class="card"><div class="card-icon">🎛️</div><h4 data-zh="調控蛋白" data-en="Regulatory">調控蛋白</h4>
+<div data-lang="zh"><p>轉錄因子、染色質修飾酶、E3 連接酶——調控基因表達與蛋白命運。</p></div><div data-lang="en"><p>TFs, chromatin modifiers, E3 ligases — regulate expression and protein fate.</p></div></div>
+</div>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>快速回顧：</strong>蛋白質序列由 mRNA 翻譯而來，每三個核苷酸（codon）對應一個胺基酸。同一段 ORF 可有不同 isoform、PTM、亞細胞定位——這些差異無法從序列直接讀出，需 proteomics / 結構生物學補充。</span>
+<span data-lang="en"><strong>Quick review:</strong> Protein sequence comes from mRNA — every codon (3 nt) encodes one amino acid. The same ORF can yield different isoforms, PTMs, and localizations — not readable from sequence alone, needs proteomics / structural biology.</span>
+</div></div>
+<div class="callout advanced"><span class="callout-icon">🚀</span><div>
+<span data-lang="zh"><strong>進階補充（給 CS/ML 背景）：</strong>蛋白質序列空間 (20^L) 巨大但摺疊空間相對緊湊——AlphaFold 2/3、ESMFold 等模型透過 evolutionary coupling + 深度學習能從序列預測 3D 結構，準確度逼近實驗 (CASP15 中 GDT-TS &gt; 90)。但動態構象、配體結合姿態、與 PTM 影響仍是開放問題。</span>
+<span data-lang="en"><strong>Deep dive (for CS/ML readers):</strong> Sequence space (20^L) is huge but the folded manifold is relatively compact — AlphaFold 2/3 and ESMFold predict 3D structure from sequence with near-experimental accuracy (CASP15 GDT-TS &gt; 90). Open problems: conformational dynamics, ligand poses, and PTM effects.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="核酸" data-en="NUCLEIC ACIDS">核酸</div>
+<h2 data-zh="核酸：訊息分子" data-en="Nucleic Acids: The Information Carriers">核酸：訊息分子</h2>
+<div data-lang="zh">
+<p>核苷酸 = <strong>戊糖（pentose）+ 含氮鹼基（base）+ 磷酸基</strong>。DNA 用 deoxyribose；RNA 用 ribose（2'-OH 多一個氧）。鹼基分嘌呤（A, G）與嘧啶（C, T/U）；A 與 T/U 配對（2 個氫鍵），G 與 C 配對（3 個氫鍵）。</p>
+<p>RNA 種類繁多：mRNA（編碼）、rRNA（核糖體骨架）、tRNA（攜帶胺基酸）、miRNA / siRNA（基因沉默）、lncRNA（長非編碼）、snoRNA / snRNA / piRNA / circRNA 等。它們在 RNA-seq 中的回收率因 library prep（polyA 富集 vs total RNA / RiboZero）大不相同。</p>
+</div>
+<div data-lang="en">
+<p>A nucleotide = <strong>pentose + nitrogenous base + phosphate</strong>. DNA uses deoxyribose; RNA uses ribose (an extra 2'-OH). Bases split into purines (A, G) and pyrimidines (C, T/U); A pairs T/U (2 H-bonds); G pairs C (3 H-bonds).</p>
+<p>RNA species are diverse: mRNA (coding), rRNA (ribosome scaffold), tRNA, miRNA / siRNA (silencing), lncRNA, snoRNA / snRNA / piRNA / circRNA. Their recovery in RNA-seq differs greatly by library prep (polyA enrichment vs total RNA / RiboZero).</p>
+</div>
+<table class="comp-table">
+<thead><tr><th>RNA</th><th data-zh="長度" data-en="Length">長度</th><th data-zh="功能" data-en="Function">功能</th><th data-zh="是否被 polyA 法捕獲" data-en="PolyA captures?">PolyA?</th></tr></thead>
+<tbody>
+<tr><td><strong>mRNA</strong></td><td data-zh="0.5–10 kb" data-en="0.5–10 kb">0.5–10 kb</td><td data-zh="編碼蛋白" data-en="Codes proteins">編碼蛋白</td><td>✅</td></tr>
+<tr><td><strong>rRNA</strong></td><td>120 b – 5 kb</td><td data-zh="核糖體骨架（占 RNA 總量 80–90%）" data-en="Ribosome scaffold (80–90% of total RNA)">核糖體骨架</td><td>❌</td></tr>
+<tr><td><strong>tRNA</strong></td><td>~75–95 b</td><td data-zh="攜帶胺基酸、解碼 codon" data-en="Carries aa, decodes codon">攜帶胺基酸</td><td>❌</td></tr>
+<tr><td><strong>miRNA</strong></td><td>~22 b</td><td data-zh="調控基因沉默" data-en="Gene silencing">基因沉默</td><td>❌（需 small-RNA-seq）</td></tr>
+<tr><td><strong>lncRNA</strong></td><td>&gt; 200 b</td><td data-zh="支架、調控、印記" data-en="Scaffold, regulation, imprinting">調控/支架</td><td data-zh="部分（依 polyA 狀態）" data-en="Some (depends on polyA)">Some</td></tr>
+<tr><td><strong>circRNA</strong></td><td data-zh="變" data-en="Variable">變</td><td data-zh="海綿吸附 miRNA、調控" data-en="miRNA sponge, regulation">調控</td><td>❌（需 RiboZero + circ-pipeline）</td></tr>
+</tbody></table>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="醣類與脂質" data-en="SUGARS &amp; LIPIDS">醣類與脂質</div>
+<h2 data-zh="常被忽略的兩類：醣與脂" data-en="Often Overlooked: Sugars &amp; Lipids">常被忽略的兩類：醣與脂</h2>
+<div class="card-grid cols-2">
+<div class="card"><h4 data-zh="🍯 醣類（Carbohydrate）" data-en="🍯 Carbohydrates">🍯 醣類</h4>
+<div data-lang="zh"><p>從單糖（葡萄糖、半乳糖、岩藻糖）到多糖（澱粉、糖原、纖維素）。<br><strong>關鍵應用：</strong>蛋白質<strong>糖基化 (glycosylation)</strong> 是最普遍的 PTM 之一（N-linked、O-linked），影響蛋白摺疊、運輸、辨識（如血型 ABO 系統、流感病毒受體）。糖蛋白佔細胞表面蛋白 &gt; 50%。<br><strong>資料：</strong>glycomics MS（PGC、HILIC）+ glycoproteomics（強胞固相提取與 fragment ion 計分）。</p></div>
+<div data-lang="en"><p>From monosaccharides (glucose, galactose, fucose) to polysaccharides (starch, glycogen, cellulose).<br><strong>Why bioinfo cares:</strong> <strong>Glycosylation</strong> is one of the most common PTMs (N-linked, O-linked) — drives folding, trafficking, recognition (e.g. ABO blood groups, influenza receptors). Glycoproteins make up &gt;50% of cell-surface proteins.<br><strong>Data:</strong> glycomics MS (PGC, HILIC) + glycoproteomics (enrichment + fragment-ion scoring).</p></div></div>
+<div class="card"><h4 data-zh="🧈 脂質（Lipid）" data-en="🧈 Lipids">🧈 脂質</h4>
+<div data-lang="zh"><p>四大類：<strong>脂肪酸 (FA)</strong>、<strong>甘油脂 (TG, DG, MG)</strong>、<strong>磷脂 (PC, PE, PS, PI)</strong>、<strong>固醇類 (cholesterol, steroids)</strong>。<br><strong>功能：</strong>膜、能量儲存、訊號（PIP3、DAG、ceramide）。膜脂組成決定流動性、cholesterol 含量決定 lipid raft 形成。<br><strong>資料：</strong>LC-MS / shotgun lipidomics → 鑑定 LIPID MAPS 註解，需區分「class、subclass、acyl chain」三個層次。</p></div>
+<div data-lang="en"><p>Four classes: <strong>fatty acids</strong>, <strong>glycerolipids</strong> (TG/DG/MG), <strong>phospholipids</strong> (PC/PE/PS/PI), <strong>sterols</strong> (cholesterol, steroids).<br><strong>Functions:</strong> membranes, energy storage, signaling (PIP3, DAG, ceramide). Membrane lipid composition controls fluidity; cholesterol drives lipid rafts.<br><strong>Data:</strong> LC-MS / shotgun lipidomics → LIPID MAPS annotation at class / subclass / acyl-chain levels.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="互動視覺化" data-en="INTERACTIVE">互動視覺化</div>
+<h2 data-zh="20 種胺基酸性質瀏覽" data-en="Explore 20 Amino Acid Properties">20 種胺基酸性質瀏覽</h2>
+<div class="interactive-panel">
+<div class="toggle-row" id="aaToggle">
+<button class="toggle-btn active" data-p="hydro" data-zh="疏水性" data-en="Hydrophobicity">疏水性</button>
+<button class="toggle-btn" data-p="size" data-zh="分子量" data-en="Molecular weight">分子量</button>
+<button class="toggle-btn" data-p="charge" data-zh="電荷" data-en="Charge">電荷</button>
+</div>
+<div class="chart-container"><canvas id="aaChart"></canvas></div>
+<p style="font-size:.82rem;color:var(--c-ink-muted);text-align:center;margin-top:8px;" data-lang="zh">疏水性以 Kyte-Doolittle scale；分子量為 monoisotopic mass；電荷為 pH 7 下淨電荷。</p>
+<p style="font-size:.82rem;color:var(--c-ink-muted);text-align:center;margin-top:8px;" data-lang="en">Hydrophobicity by Kyte-Doolittle; mass = monoisotopic; charge at pH 7.</p>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">1. polyA-selected RNA-seq 主要遺失哪些 RNA？</p>
+<p data-lang="en">1. PolyA-selected RNA-seq mostly misses which RNAs?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 編碼蛋白的 mRNA</span><span data-lang="en">A. Protein-coding mRNA</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. polyA 化的 lncRNA</span><span data-lang="en">B. PolyA-tailed lncRNA</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. rRNA、tRNA、circRNA、多數 miRNA</span><span data-lang="en">C. rRNA, tRNA, circRNA, most miRNAs</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 任何細胞中的 RNA</span><span data-lang="en">D. All RNA</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">2. 關於蛋白質結構與功能，下列何者最正確？</p>
+<p data-lang="en">2. Which statement on protein structure-function is most correct?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 一級序列完全決定生物功能，無需考慮環境</span><span data-lang="en">A. Primary sequence alone determines function</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 結構決定功能；同一序列因 PTM、結合伴侶、環境可呈現不同活性</span><span data-lang="en">B. Structure dictates function; same sequence can show different activity via PTM, partners, environment</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 二級結構（α/β）由共價二硫鍵主導</span><span data-lang="en">C. Secondary structure (α/β) is driven by disulfide bonds</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 摺疊一旦完成就不可逆</span><span data-lang="en">D. Folding is irreversible once completed</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">3. 細胞表面蛋白的「ABO 血型抗原」差異主要來自？</p>
+<p data-lang="en">3. The "ABO blood-group antigen" difference originates mainly from?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. mRNA 表達量差異</span><span data-lang="en">A. mRNA expression differences</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 蛋白質的胺基酸序列完全不同</span><span data-lang="en">B. Completely different protein amino acid sequences</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 醣基轉移酶活性差異，使紅血球表面糖鏈不同</span><span data-lang="en">C. Glycosyltransferase activity differences yield different surface sugar chains</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 磷酸化修飾不同</span><span data-lang="en">D. Phosphorylation differences</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="cell-organelles.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="細胞與胞器" data-en="Cells &amp;amp; Organelles">細胞與胞器</span></a>
+<a href="dna-chromosome.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="DNA、染色質與染色體" data-en="DNA, Chromatin &amp;amp; Chromosomes">DNA、染色質與染色體</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+
+const AA=[
+ {n:'A',h:1.8,m:71.04,c:0},{n:'R',h:-4.5,m:156.10,c:1},{n:'N',h:-3.5,m:114.04,c:0},{n:'D',h:-3.5,m:115.03,c:-1},
+ {n:'C',h:2.5,m:103.01,c:0},{n:'E',h:-3.5,m:129.04,c:-1},{n:'Q',h:-3.5,m:128.06,c:0},{n:'G',h:-0.4,m:57.02,c:0},
+ {n:'H',h:-3.2,m:137.06,c:0.1},{n:'I',h:4.5,m:113.08,c:0},{n:'L',h:3.8,m:113.08,c:0},{n:'K',h:-3.9,m:128.09,c:1},
+ {n:'M',h:1.9,m:131.04,c:0},{n:'F',h:2.8,m:147.07,c:0},{n:'P',h:-1.6,m:97.05,c:0},{n:'S',h:-0.8,m:87.03,c:0},
+ {n:'T',h:-0.7,m:101.05,c:0},{n:'W',h:-0.9,m:186.08,c:0},{n:'Y',h:-1.3,m:163.06,c:0},{n:'V',h:4.2,m:99.07,c:0}
+];
+const aaChart=new Chart(document.getElementById('aaChart'),{type:'bar',data:{labels:AA.map(a=>a.n),datasets:[{label:'',data:AA.map(a=>a.h),backgroundColor:AA.map(a=>a.h>0?'rgba(4,120,87,0.7)':'rgba(234,88,12,0.7)')}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+function setProp(p){
+  const vals=AA.map(a=>p==='hydro'?a.h:p==='size'?a.m:a.c);
+  const colors=AA.map(v=>v>0?'rgba(4,120,87,0.7)':'rgba(234,88,12,0.7)');
+  aaChart.data.datasets[0].data=vals; aaChart.data.datasets[0].backgroundColor=colors;
+  const L=I18n.get();
+  const labels={hydro:{zh:'Kyte-Doolittle 疏水性',en:'Kyte-Doolittle hydrophobicity'},size:{zh:'單同位素質量 (Da)',en:'Monoisotopic mass (Da)'},charge:{zh:'pH 7 淨電荷',en:'Net charge at pH 7'}};
+  aaChart.data.datasets[0].label=labels[p][L];
+  aaChart.update();
+}
+document.querySelectorAll('#aaToggle .toggle-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#aaToggle .toggle-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');setProp(b.dataset.p);}));
+document.addEventListener('langchange',()=>setProp(document.querySelector('#aaToggle .toggle-btn.active').dataset.p));
+setProp('hydro');
+
+const QF={
+ zh:{q1_y:'polyA 法依靠 polyA tail 富集；rRNA/tRNA/circRNA/miRNA 多無 polyA tail，會被遺失。',q1_n:'正確答案已標示。',
+     q2_y:'序列只決定構象 ensemble；環境、PTM、夥伴蛋白會改變實際活性。',q2_n:'正確答案已標示。',
+     q3_y:'ABO 抗原是糖基轉移酶（ABO 基因）活性差異所致——A、B 加上不同末端糖；O 則無活性。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'PolyA enrichment relies on polyA tails — rRNA/tRNA/circRNA/miRNA mostly lack them and are lost.',q1_n:'Correct answer highlighted.',
+     q2_y:'Sequence sets the ensemble; environment/PTM/partners shape the active state.',q2_n:'Correct answer highlighted.',
+     q3_y:'ABO antigens are produced by glycosyltransferase activity differences — A and B add different terminal sugars; O has no enzyme activity.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

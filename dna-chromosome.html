@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.4 DNA、染色質與染色體 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html" class="active">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 4 / 18 · BLOCK A</div>
+<h1 data-zh="DNA、染色質與染色體" data-en="DNA, Chromatin &amp; Chromosomes">DNA、染色質與染色體</h1>
+<p class="subtitle" data-lang="zh">從雙股螺旋到核小體，再到 TAD 與染色體核型——DNA 的物理組織方式決定了 ATAC-seq、ChIP-seq、Hi-C 量測的是什麼。</p>
+<p class="subtitle" data-lang="en">From double helix to nucleosome to TADs and karyotype — how DNA is physically organized determines what ATAC-seq, ChIP-seq, and Hi-C are actually measuring.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="DNA 結構" data-en="DNA STRUCTURE">DNA 結構</div>
+<h2 data-zh="雙股螺旋：穩定、可複製、可讀取" data-en="The Double Helix: Stable, Copyable, Readable">雙股螺旋：穩定、可複製、可讀取</h2>
+<div data-lang="zh">
+<p><strong>Watson 與 Crick（1953）</strong>結合 Franklin 的 X 光繞射資料提出雙股螺旋模型：兩股反向平行（antiparallel）的核苷酸鏈，由互補鹼基對形成（A=T, G≡C）。雙股以氫鍵維持，但兩股可以被酶分開（這是複製、轉錄的基礎）。</p>
+<p><strong>關鍵幾何特性：</strong>每圈 10.5 bp、長 3.4 nm；主溝（major groove）較寬，是 TF 辨識位點；副溝（minor groove）較窄。GC 含量高的區域因 3 個氫鍵更穩定 → 較高熔解溫度（Tm）→ PCR primer 設計時要平衡 GC%（45–60% 為宜）。</p>
+</div>
+<div data-lang="en">
+<p><strong>Watson and Crick (1953)</strong>, with Franklin's X-ray diffraction data, proposed the antiparallel double helix with complementary base pairs (A=T, G≡C). The strands are held by H-bonds but enzymes can pull them apart — the basis of replication and transcription.</p>
+<p><strong>Key geometry:</strong> 10.5 bp/turn, 3.4 nm/turn; <strong>major groove</strong> (wider, where TFs read sequence) and <strong>minor groove</strong>. GC-rich regions are more stable (3 H-bonds vs 2) → higher melting temperature (Tm) → balance GC% (45–60%) when designing PCR primers.</p>
+</div>
+<div class="card-grid cols-3">
+<div class="card"><h4>📏 <span data-zh="長度" data-en="Length">長度</span></h4><div data-lang="zh"><p>人類單倍體基因組 ~3.1 Gb，展開長度 ~2 m，但壓縮到 ~5 μm 細胞核裡——壓縮比 ~10⁵。</p></div><div data-lang="en"><p>Human haploid genome ~3.1 Gb, ~2 m extended, packed into ~5 μm nucleus — compression ratio ~10⁵.</p></div></div>
+<div class="card"><h4>🌡️ <span data-zh="熔解溫度 (Tm)" data-en="Melting temp (Tm)">熔解溫度</span></h4><div data-lang="zh"><p>雙股解離為單股的溫度。<strong>Tm ≈ 4(G+C) + 2(A+T)</strong> 是簡化估算，PCR primer 設計核心參數。</p></div><div data-lang="en"><p>Temperature where the duplex separates. <strong>Tm ≈ 4(G+C) + 2(A+T)</strong> as rough estimate — core parameter for PCR primer design.</p></div></div>
+<div class="card"><h4>🧭 <span data-zh="方向性 (Directionality)" data-en="Directionality">方向性</span></h4><div data-lang="zh"><p>核酸有 5' → 3' 方向。DNA pol 與 RNA pol 都只能向 3' 端延伸（這是 Okazaki 片段存在的原因）。</p></div><div data-lang="en"><p>Nucleic acids have 5' → 3' directionality. DNA pol and RNA pol only extend 3'-ward — the reason Okazaki fragments exist.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="壓縮層級" data-en="PACKING LEVELS">壓縮層級</div>
+<h2 data-zh="從 2 公尺 DNA 到 5 微米核：染色質層級" data-en="From 2 m DNA to 5 μm Nucleus: Chromatin Levels">從 2 公尺 DNA 到 5 微米核：染色質層級</h2>
+<div class="workflow">
+<div class="workflow-step" data-step="1"><h4>DNA 雙股</h4><div data-lang="zh"><p>2 nm 直徑、3.4 nm/圈。如果展開人類基因組 ~ 2 公尺長。</p></div><div data-lang="en"><p>2 nm wide, 3.4 nm/turn. Unwound human genome ~ 2 m.</p></div></div>
+<div class="workflow-step" data-step="2"><h4 data-zh="核小體 (Nucleosome) — 11 nm" data-en="Nucleosome — 11 nm">核小體 (Nucleosome) — 11 nm</h4>
+<div data-lang="zh"><p>~146 bp DNA 環繞 <strong>組蛋白八聚體</strong>（H2A, H2B, H3, H4 各兩個）1.65 圈。核小體之間以 linker DNA（~20–80 bp）相連，看起來像「念珠串 (beads on a string)」。H1 在外圍穩定結構。</p></div>
+<div data-lang="en"><p>~146 bp DNA wrapped 1.65 turns around a <strong>histone octamer</strong> (H2A, H2B, H3, H4 ×2). Linker DNA (~20–80 bp) connects them — "beads on a string." H1 stabilizes from outside.</p></div></div>
+<div class="workflow-step" data-step="3"><h4 data-zh="30 nm 纖維" data-en="30 nm fiber">30 nm 纖維</h4>
+<div data-lang="zh"><p>核小體進一步螺旋摺疊（solenoid 或 zigzag 模型），活躍轉錄區較鬆，靜默區較緊。</p></div><div data-lang="en"><p>Nucleosomes coil further (solenoid or zigzag) — actively transcribed regions are looser; silenced regions tighter.</p></div></div>
+<div class="workflow-step" data-step="4"><h4 data-zh="TAD（Topologically Associating Domain）— 0.1–1 Mb" data-en="TADs — 0.1–1 Mb">TAD — 0.1–1 Mb</h4>
+<div data-lang="zh"><p>由 CTCF / cohesin 透過 loop extrusion 機制形成的染色質結構域。<strong>同一 TAD 內</strong>的 enhancer 與 promoter 才容易互動。Hi-C 熱圖上的「方塊」就是 TAD。</p></div><div data-lang="en"><p>Chromatin domains formed by CTCF / cohesin loop extrusion. Enhancer-promoter contacts are constrained <strong>within a TAD</strong>. The "blocks" on Hi-C heatmaps are TADs.</p></div></div>
+<div class="workflow-step" data-step="5"><h4 data-zh="A/B Compartments" data-en="A/B compartments">A/B Compartments</h4>
+<div data-lang="zh"><p>細胞核空間區隔成兩大區：<strong>A 隔室</strong>（活躍、euchromatin、富 GC、富基因）、<strong>B 隔室</strong>（靜默、heterochromatin、富 AT、貧基因，常貼近核膜）。Hi-C 第一主成分區分此兩類。</p></div><div data-lang="en"><p>Nuclear space partitions into <strong>A compartments</strong> (active euchromatin, GC- and gene-rich) and <strong>B compartments</strong> (silenced heterochromatin, AT-rich, gene-poor, near nuclear envelope). Hi-C PC1 separates them.</p></div></div>
+<div class="workflow-step" data-step="6"><h4 data-zh="染色體 (Chromosome)" data-en="Chromosome">染色體 (Chromosome)</h4>
+<div data-lang="zh"><p>有絲分裂時染色質高度凝集成 X 型染色體（含 centromere、p/q arms、telomere）。人類 22 對體染色體 + XY 性染色體。</p></div><div data-lang="en"><p>During mitosis, chromatin condenses into X-shaped chromosomes (centromere, p/q arms, telomeres). Humans: 22 autosomes + XY sex chromosomes.</p></div></div>
+</div>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>快速回顧：</strong>染色質有兩態——euchromatin（鬆、可轉錄、含 H3K4me3/H3K27ac）與 heterochromatin（緊、靜默、含 H3K9me3/H3K27me3）。ATAC-seq 偵測「鬆」的區域，ChIP-seq 偵測特定 histone marks 或 TF 結合。</span>
+<span data-lang="en"><strong>Quick review:</strong> Chromatin exists in two states — euchromatin (open, transcribable, marks H3K4me3/H3K27ac) and heterochromatin (closed, silent, marks H3K9me3/H3K27me3). ATAC-seq finds open regions; ChIP-seq probes specific histone marks or TF binding.</span>
+</div></div>
+<div class="callout advanced"><span class="callout-icon">🚀</span><div>
+<span data-lang="zh"><strong>進階補充：</strong>Loop extrusion 是 CTCF/cohesin 在 DNA 上不斷「擠出」環的物理模型——它預測了大部分 Hi-C 訊號，且支持「enhancer-promoter contact frequency 正比於 expression」假說。但近年研究發現某些 enhancer-promoter 接觸並不依賴 cohesin，揭示更複雜的拓撲調控機制。</span>
+<span data-lang="en"><strong>Deep dive:</strong> Loop extrusion describes CTCF/cohesin physically "pumping" DNA loops — it reproduces most Hi-C signals and supports the "contact frequency ∝ expression" hypothesis. Recent work finds some E-P contacts are cohesin-independent, suggesting richer topological control.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="染色體核型" data-en="KARYOTYPE">染色體核型</div>
+<h2 data-zh="人類核型與重要區域" data-en="Human Karyotype &amp; Landmark Regions">人類核型與重要區域</h2>
+<div class="card-grid cols-2">
+<div class="card"><h4 data-zh="🧷 著絲粒 (Centromere)" data-en="🧷 Centromere">🧷 著絲粒</h4>
+<div data-lang="zh"><p>分為 p arm（short）與 q arm（long）的點，富含 α-satellite 重複序列、由 CENP-A 取代 H3 標記。<strong>長期是 short-read 比對的盲點</strong>，T2T-CHM13（2022）首次完成著絲粒組裝。</p></div><div data-lang="en"><p>Divides chromosome into p (short) and q (long) arms. Rich in α-satellite repeats; H3 replaced by CENP-A. <strong>Historically a blind spot for short-read alignment</strong> — T2T-CHM13 (2022) first fully assembled centromeres.</p></div></div>
+<div class="card"><h4 data-zh="🎯 端粒 (Telomere)" data-en="🎯 Telomere">🎯 端粒</h4>
+<div data-lang="zh"><p>染色體末端的保護結構，人類重複序列 <code>TTAGGG</code>。每次複製縮短一些（因 end-replication problem）→ 老化指標。Telomerase 在生殖細胞與幹細胞補長度。癌細胞常活化 telomerase 以維持永生。</p></div><div data-lang="en"><p>Chromosome end-protectors. Human repeat <code>TTAGGG</code>. Shortens each replication (end-replication problem) — an aging marker. Telomerase extends in germ/stem cells. Cancers often reactivate telomerase for immortality.</p></div></div>
+<div class="card"><h4 data-zh="🚹 性染色體 (X / Y)" data-en="🚹 Sex chromosomes (X / Y)">🚹 性染色體</h4>
+<div data-lang="zh"><p>女性 XX、男性 XY；XY 在 PAR 區（pseudoautosomal）能重組。X 上有 ~1000 個基因，Y 上 ~50 個。女性兩條 X 中一條會隨機<strong>失活</strong>（XCI，由 XIST lncRNA 主導）。</p></div><div data-lang="en"><p>XX female, XY male; XY recombines only at PARs (pseudoautosomal regions). X carries ~1000 genes, Y ~50. One X is randomly <strong>inactivated</strong> in females (XCI, driven by XIST lncRNA).</p></div></div>
+<div class="card"><h4 data-zh="🔁 重複序列 (Repetitive elements)" data-en="🔁 Repetitive elements">🔁 重複序列</h4>
+<div data-lang="zh"><p>佔人類基因組 &gt; 50%：LINE-1（~17%）、SINE/Alu（~11%）、LTR/ERV（~8%）、衛星 DNA、簡單重複（STR/microsatellite）。是 short-read 比對的主要難題（multi-mapping reads）。</p></div><div data-lang="en"><p>&gt;50% of human genome: LINE-1 (~17%), SINE/Alu (~11%), LTR/ERV (~8%), satellite DNA, simple repeats (STR/microsatellite). Major source of short-read multi-mappers.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="互動視覺化" data-en="INTERACTIVE">互動視覺化</div>
+<h2 data-zh="人類染色體基因密度與 GC 含量" data-en="Human Chromosomes: Gene Density &amp; GC Content">人類染色體基因密度與 GC 含量</h2>
+<div data-lang="zh"><p>不同染色體的基因密度差異懸殊——chr 19 是「基因稠密」的代表，chr Y 與許多異染色質區基因極少。</p></div>
+<div data-lang="en"><p>Gene density varies enormously across chromosomes — chr 19 is the gene-densest; chr Y and heterochromatic regions are gene-sparse.</p></div>
+<div class="interactive-panel">
+<div class="chart-container"><canvas id="chrChart"></canvas></div>
+<p style="font-size:.82rem;color:var(--c-ink-muted);text-align:center;margin-top:8px;" data-lang="zh">資料來源：GENCODE v45 蛋白編碼基因數 / 染色體 Mb 長度（近似值）。</p>
+<p style="font-size:.82rem;color:var(--c-ink-muted);text-align:center;margin-top:8px;" data-lang="en">Source: GENCODE v45 protein-coding gene count / chromosome Mb length (approximate).</p>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="實作銜接" data-en="CODE BRIDGE">實作銜接</div>
+<h2 data-zh="讀取參考基因組與染色體資訊" data-en="Read a Reference Genome and Chromosome Info">讀取參考基因組與染色體資訊</h2>
+<div class="code-tabs"><div class="code-tab-btns"><button class="code-tab-btn active" onclick="switchTab(this,'r-ref')">R / Bioconductor</button><button class="code-tab-btn" onclick="switchTab(this,'py-ref')">Python / pyfaidx</button><button class="code-tab-btn" onclick="switchTab(this,'cli-ref')">CLI / samtools</button></div>
+<div class="code-tab-content active" id="r-ref"><pre><span class="func">library</span>(BSgenome.Hsapiens.UCSC.hg38)
+<span class="func">library</span>(GenomicRanges)
+genome &lt;- BSgenome.Hsapiens.UCSC.hg38
+<span class="func">seqlengths</span>(genome)[<span class="num">1</span>:<span class="num">5</span>]  <span class="comment"># chr1..chr5 長度</span>
+<span class="comment"># 取出 chr1 1000-2000 序列</span>
+<span class="func">getSeq</span>(genome, GRanges(<span class="str">"chr1"</span>, IRanges(<span class="num">1000</span>, <span class="num">2000</span>)))</pre></div>
+<div class="code-tab-content" id="py-ref"><pre><span class="kw">from</span> pyfaidx <span class="kw">import</span> Fasta
+genome = Fasta(<span class="str">"GRCh38.primary_assembly.genome.fa"</span>)
+<span class="func">print</span>(<span class="func">len</span>(genome[<span class="str">"chr1"</span>]))      <span class="comment"># 染色體長度</span>
+seq = genome[<span class="str">"chr1"</span>][<span class="num">999</span>:<span class="num">2000</span>].seq   <span class="comment"># 0-based slice, 1000-2000</span>
+<span class="comment"># GC 含量</span>
+gc = (seq.count(<span class="str">"G"</span>)+seq.count(<span class="str">"C"</span>)) / <span class="func">len</span>(seq)</pre></div>
+<div class="code-tab-content" id="cli-ref"><pre><span class="comment"># 為 FASTA 建索引（.fai）</span>
+samtools faidx GRCh38.primary_assembly.genome.fa
+<span class="comment"># 取出 chr1:1000-2000（1-based, closed!）</span>
+samtools faidx GRCh38.primary_assembly.genome.fa chr1:1000-2000
+<span class="comment"># 查看所有染色體長度</span>
+cut -f1,2 GRCh38.primary_assembly.genome.fa.fai</pre></div>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">1. ATAC-seq 訊號最強的區域對應於？</p>
+<p data-lang="en">1. The strongest ATAC-seq signal corresponds to?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 緊密包覆的 heterochromatin</span><span data-lang="en">A. Tightly packed heterochromatin</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 染色質開放區（如活躍 promoter / enhancer）</span><span data-lang="en">B. Open chromatin (active promoters / enhancers)</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. centromere α-satellite 重複區</span><span data-lang="en">C. Centromeric α-satellite repeats</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. telomere TTAGGG 重複區</span><span data-lang="en">D. Telomeric TTAGGG repeats</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">2. Hi-C 熱圖上的「方塊 (block)」最直接對應的結構是？</p>
+<p data-lang="en">2. The "blocks" on Hi-C heatmaps most directly correspond to?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 核小體位置</span><span data-lang="en">A. Nucleosome positions</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 染色體 p/q 臂</span><span data-lang="en">B. Chromosome p/q arms</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. TADs（Topologically Associating Domains）</span><span data-lang="en">C. TADs</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. PCR 重複</span><span data-lang="en">D. PCR duplicates</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="3">
+<p data-lang="zh">3. 為什麼 short-read 比對在 telomere、centromere、segmental duplications 區域常出問題？</p>
+<p data-lang="en">3. Why do short-read alignments often fail at telomeres / centromeres / segmental duplications?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 因為這些區域沒有基因</span><span data-lang="en">A. Because they have no genes</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 因為這些區域 GC% 過高無法定序</span><span data-lang="en">B. Because GC% is too high to sequence</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 因為這些區域長度過長</span><span data-lang="en">C. Because they are extremely long</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 因為大量重複序列使 reads 無法被唯一比對（multi-mapping）</span><span data-lang="en">D. Because heavy repetitive content makes reads multi-mappers</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="biomolecules.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="四大生物大分子" data-en="The Four Biomolecules">四大生物大分子</span></a>
+<a href="dna-replication-repair.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="DNA 複製與修復" data-en="DNA Replication &amp;amp; Repair">DNA 複製與修復</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+
+const CHR_DATA = {
+  labels:['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','X','Y'],
+  genes:[2100,1300,1100, 800,890,1080, 940,710, 800,750,1290,1080, 340, 830, 640,890,1170, 280,1470,560, 260,500, 840,75],
+  Mb:   [248,242,198,190,182,171,159,145,138,134,135,133,114,107,102, 90, 83, 80, 59, 64, 47, 51,156, 57]
+};
+const density = CHR_DATA.genes.map((g,i)=>+(g/CHR_DATA.Mb[i]).toFixed(2));
+const chrChart=new Chart(document.getElementById('chrChart'),{type:'bar',data:{labels:CHR_DATA.labels,datasets:[{label:'genes / Mb',data:density,backgroundColor:density.map(d=>d>15?'rgba(234,88,12,0.78)':d>10?'rgba(16,163,107,0.75)':'rgba(4,120,87,0.55)')}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'Chromosome'}},y:{title:{display:true,text:'genes per Mb (approx.)'},beginAtZero:true}}}});
+
+const QF={
+ zh:{q1_y:'ATAC-seq 用 Tn5 轉座酶切入「無核小體保護」的開放區，最強訊號在活躍 promoter/enhancer。',q1_n:'正確答案已標示。',
+     q2_y:'Hi-C 方塊代表「同一 TAD 內接觸頻率高」，是 loop extrusion 的指紋。',q2_n:'正確答案已標示。',
+     q3_y:'重複序列（LINE/SINE/STR/segmental dup）使 short-read 無法唯一定位，需 long-read 或 graph genome 解決。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'ATAC-seq uses Tn5 to access nucleosome-free regions — strongest signal at active promoters/enhancers.',q1_n:'Correct answer highlighted.',
+     q2_y:'Hi-C blocks reflect intra-TAD contact enrichment — the fingerprint of loop extrusion.',q2_n:'Correct answer highlighted.',
+     q3_y:'Repeats (LINE/SINE/STR/segmental dup) prevent unique short-read placement — long-read or graph genomes help.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>

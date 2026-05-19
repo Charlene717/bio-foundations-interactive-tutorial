@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch.14 定序技術與基因組學 — Biology Foundations</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head><body>
+<nav class="top-nav"><div class="top-nav-inner">
+  <a href="index.html" class="top-nav-brand"><span>🌿</span> <span data-zh="生物學基礎" data-en="Biology Foundations">生物學基礎</span></a>
+  <ul class="top-nav-links">
+    <li><a href="intro-bioinfo-biology.html">Intro</a></li><li><a href="cell-organelles.html">Cell</a></li><li><a href="biomolecules.html">Biomol.</a></li><li><a href="dna-chromosome.html">DNA</a></li><li><a href="dna-replication-repair.html">Replic.</a></li><li><a href="transcription-rna.html">Trans.</a></li><li><a href="translation-protein.html">Protein</a></li><li><a href="gene-regulation.html">Reg.</a></li><li><a href="genome-structure.html">Genome</a></li><li><a href="mutations-variants.html">Variants</a></li><li><a href="inheritance-popgen.html">Genetics</a></li><li><a href="epigenetics.html">Epi.</a></li><li><a href="cell-cycle-signaling.html">Cycle</a></li><li><a href="sequencing-genomics.html" class="active">Seq.</a></li><li><a href="transcriptomics.html">Trscr.</a></li><li><a href="proteomics-ptm.html">Proteo.</a></li><li><a href="metabolomics-lipidomics.html">Metab.</a></li><li><a href="systems-multiomics-clinical.html">Systems</a></li>
+    <li><a href="references/index.html" data-zh="📚 參考資料" data-en="📚 References">📚 參考資料</a></li>
+  </ul>
+</div></nav>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="page-hero"><div class="step-badge">CHAPTER 14 / 18 · BLOCK D</div>
+<h1 data-zh="定序技術與基因組學" data-en="Sequencing &amp; Genomics">定序技術與基因組學</h1>
+<p class="subtitle" data-lang="zh">從 Sanger 一條讀 500–1000 bp，到 Illumina 數十億條 short reads，再到 PacBio HiFi 與 ONT 的 long-read——不同平台的吞吐、長度、錯誤模式，根本決定了你能回答什麼生物學問題。</p>
+<p class="subtitle" data-lang="en">From Sanger's 500–1000 bp reads to Illumina's billions of short reads to PacBio HiFi and ONT long reads — throughput, length, and error mode of each platform decide what biology you can answer.</p>
+</header>
+
+<main class="content-wrap">
+
+<section class="section">
+<div class="section-label" data-zh="平台比較" data-en="PLATFORMS">平台比較</div>
+<h2 data-zh="2026 年定序平台地景" data-en="The 2026 Sequencing Landscape">2026 年定序平台地景</h2>
+<table class="comp-table">
+<thead><tr><th>Platform</th><th data-zh="讀長" data-en="Read length">讀長</th><th data-zh="錯誤率" data-en="Error">錯誤</th><th data-zh="通量 / run" data-en="Throughput">通量</th><th data-zh="主要應用" data-en="Use">應用</th></tr></thead>
+<tbody>
+<tr><td><strong>Illumina (NovaSeq X / NextSeq)</strong></td><td>2 × 50–300 bp</td><td>~0.1%</td><td data-zh="高（TB/run）" data-en="High (TB/run)">TB/run</td><td data-zh="WGS, WES, RNA-seq, 大型隊列" data-en="WGS, WES, RNA-seq, large cohorts">標準 NGS</td></tr>
+<tr><td><strong>Element AVITI / Onso</strong></td><td>2 × 150–300 bp</td><td>~0.01% (Q40+)</td><td data-zh="中（Gb/run）" data-en="Mid (Gb/run)">Gb/run</td><td data-zh="高準確 WGS、liquid biopsy" data-en="High-fidelity WGS, liquid biopsy">高準確</td></tr>
+<tr><td><strong>PacBio Revio (HiFi)</strong></td><td>10–25 kb (HiFi)</td><td>~0.1% (Q30+)</td><td>~Tb/run</td><td data-zh="de novo 組裝、SV、isoform、native methylation" data-en="de novo, SV, isoform, native methylation">long-read 金標</td></tr>
+<tr><td><strong>Oxford Nanopore (PromethION)</strong></td><td>10 kb – Mb</td><td>~1% (Q20+)</td><td data-zh="高（適合 ultra-long）" data-en="High (ultra-long)">大</td><td data-zh="即時定序、結構變異、native modifications" data-en="Real-time, SVs, native modifications">即時/超長</td></tr>
+<tr><td><strong>Sanger</strong></td><td>500–1000 bp</td><td>~0.001%</td><td data-zh="極低（單樣本驗證）" data-en="Very low (validation)">低</td><td data-zh="驗證、HLA、單一變異" data-en="Validation, HLA, single variants">驗證</td></tr>
+<tr><td><strong>Single-cell (10x Chromium, Parse, Honeycomb)</strong></td><td>varies</td><td>~Illumina-based</td><td data-zh="cells/run" data-en="cells/run">10K–1M cells</td><td>scRNA / scATAC / sc-multiome</td></tr>
+</tbody></table>
+<div class="callout review"><span class="callout-icon">📘</span><div>
+<span data-lang="zh"><strong>快速回顧：</strong>Illumina 短讀 ≠ 整段 DNA；它們是隨機打散後讀到的「片段」，需要靠 reference + 比對演算法重建。Long-read（PacBio / ONT）直接讀整條分子，能解決 short-read 永遠解不開的 SV、isoform、repeat 問題。</span>
+<span data-lang="en"><strong>Quick review:</strong> Illumina short reads aren't whole DNA — they're random fragments needing alignment to reconstruct. Long reads (PacBio / ONT) read whole molecules — solving SV, isoform, and repeat problems that short reads can't.</span>
+</div></div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="WGS / WES / Panel" data-en="WGS / WES / PANEL">WGS / WES / Panel</div>
+<h2 data-zh="基因組學三種主要策略" data-en="Three Genomic Sequencing Strategies">基因組學三種主要策略</h2>
+<div class="card-grid cols-3">
+<div class="card"><h4>🌐 <span data-zh="WGS（全基因組）" data-en="WGS (whole-genome)">WGS</span></h4>
+<div data-lang="zh"><p>覆蓋整個 3.1 Gb，含非編碼區、SV、CNV、線粒體。30x depth 約 90 Gb data/個體。價格降至 ~$200/genome（消費端）。</p></div>
+<div data-lang="en"><p>Covers entire 3.1 Gb, including non-coding, SVs, CNVs, mitochondria. 30× depth ~ 90 Gb/individual. Price ~$200/genome (consumer).</p></div></div>
+<div class="card"><h4>🧬 <span data-zh="WES（外顯子組）" data-en="WES (exome)">WES</span></h4>
+<div data-lang="zh"><p>富集 ~30 Mb 蛋白編碼區（capture probes），約佔 1% 基因組但藏 ~85% 致病變異。便宜、效率高，臨床診斷主力。</p></div>
+<div data-lang="en"><p>Captures ~30 Mb coding regions (~1% genome) but harbors ~85% disease variants. Cheap and efficient — clinical diagnosis workhorse.</p></div></div>
+<div class="card"><h4>🎯 <span data-zh="Targeted panel" data-en="Targeted panel">Targeted panel</span></h4>
+<div data-lang="zh"><p>數十到數百個基因（e.g. 癌症 panel、HBOC panel）。極深覆蓋（500x+）可偵測低 VAF somatic 變異，是臨床腫瘤學首選。</p></div>
+<div data-lang="en"><p>Tens to hundreds of genes (e.g. cancer panel, HBOC panel). Very deep (500×+) — detects low-VAF somatic variants; clinical oncology first choice.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="比對與召喚" data-en="ALIGN &amp; CALL">比對與召喚</div>
+<h2 data-zh="從 FASTQ 到 VCF：標準流程" data-en="From FASTQ to VCF: Standard Pipeline">從 FASTQ 到 VCF：標準流程</h2>
+<div class="workflow">
+<div class="workflow-step" data-step="1"><h4>QC + trim</h4><div data-lang="zh"><p>FastQC、MultiQC 檢視；fastp / Trimmomatic 去 adapter 與低品質尾端。</p></div><div data-lang="en"><p>FastQC, MultiQC inspection; fastp / Trimmomatic to trim adapters and low-Q bases.</p></div></div>
+<div class="workflow-step" data-step="2"><h4>Alignment</h4><div data-lang="zh"><p>BWA-MEM2 / bwa / Bowtie2（short）、minimap2 / Winnowmap（long）、STAR / HISAT2 / Salmon（RNA）。</p></div><div data-lang="en"><p>BWA-MEM2 / Bowtie2 (short), minimap2 / Winnowmap (long), STAR / HISAT2 / Salmon (RNA).</p></div></div>
+<div class="workflow-step" data-step="3"><h4>Sort + duplicate marking</h4><div data-lang="zh"><p>samtools sort + GATK MarkDuplicates / picard。PCR duplicate 是大問題（尤其低投入量 library）。</p></div><div data-lang="en"><p>samtools sort + GATK MarkDuplicates / Picard. PCR duplicates are critical to flag (esp. low-input libraries).</p></div></div>
+<div class="workflow-step" data-step="4"><h4>Base recalibration + variant calling</h4><div data-lang="zh"><p>GATK BQSR；germline: DeepVariant / HaplotypeCaller；somatic: Mutect2 / Strelka2。joint-genotyping for cohorts (GLnexus, GenomicsDB)。</p></div><div data-lang="en"><p>GATK BQSR; germline: DeepVariant / HaplotypeCaller; somatic: Mutect2 / Strelka2. Joint genotyping for cohorts (GLnexus, GenomicsDB).</p></div></div>
+<div class="workflow-step" data-step="5"><h4>Annotation + filtering</h4><div data-lang="zh"><p>VEP / ANNOVAR / SnpEff 加註；gnomAD MAF filter；ACMG / ClinVar 解讀。</p></div><div data-lang="en"><p>VEP / ANNOVAR / SnpEff annotation; gnomAD MAF filter; ACMG / ClinVar interpretation.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label" data-zh="圖譜基因組" data-en="GRAPH GENOMES">圖譜基因組</div>
+<h2 data-zh="從線性參考到 pangenome graph" data-en="From Linear Reference to Pangenome Graph">從線性參考到 pangenome graph</h2>
+<div data-lang="zh">
+<p>使用單一線性參考有 <strong>reference bias</strong>——非歐裔變異在參考上不存在 → reads 無法比對 → 召喚遺漏。<strong>HPRC pangenome (2023)</strong> 用 47 個多倍體個體構建圖譜基因組，工具：minigraph / vg / Giraffe / pggb。可顯著降低 SV 與 indel miss rate。</p>
+<p>新一代分析範式：<strong>用 graph genome 比對 → 在 reference path 上呼叫變異</strong>，未來臨床基因組分析的標準路線。</p>
+</div>
+<div data-lang="en">
+<p>A single linear reference has <strong>reference bias</strong> — non-European variants absent in reference → reads fail to align → call missed. The <strong>HPRC pangenome (2023)</strong> uses 47 diploid individuals; tools: minigraph / vg / Giraffe / pggb. Substantially reduces SV / indel miss rates.</p>
+<p>Emerging paradigm: <strong>align to graph genome, call variants on the reference path</strong> — likely the future of clinical genomics.</p>
+</div>
+</section>
+
+<section class="quiz-section">
+<h3>📝 <span data-zh="自我檢測" data-en="Self-Check">自我檢測</span></h3>
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">1. 想偵測一個 200 bp tandem duplication，最有可能成功的策略是？</p>
+<p data-lang="en">1. To detect a 200 bp tandem duplication, the most likely successful strategy is?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. Sanger 一個位點</span><span data-lang="en">A. Sanger single locus</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. Illumina 短讀 + 一般 SNV caller（HaplotypeCaller）</span><span data-lang="en">B. Illumina short reads + standard SNV caller</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. PacBio HiFi 或 ONT long-read + SV caller（Sniffles, pbsv）</span><span data-lang="en">C. PacBio HiFi or ONT long-read + SV caller (Sniffles, pbsv)</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. WES + targeted panel</span><span data-lang="en">D. WES + targeted panel</span></div>
+</div><div class="quiz-feedback" id="fb1"></div></div>
+
+<div class="quiz-q" data-answer="1">
+<p data-lang="zh">2. 為什麼臨床腫瘤通常選用 targeted panel 而不是 WGS？</p>
+<p data-lang="en">2. Why do clinical tumor tests usually prefer targeted panels over WGS?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. WGS 完全不能找到 somatic 變異</span><span data-lang="en">A. WGS cannot find somatic variants</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 深覆蓋（500x+）能偵測低 VAF subclonal mutation，且成本可控、turn-around time 短</span><span data-lang="en">B. Deep coverage (500×+) detects low-VAF subclonal mutations with controlled cost &amp; turn-around time</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. WGS 不支援肝癌</span><span data-lang="en">C. WGS doesn't support liver cancer</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. Panel 提供更長 read</span><span data-lang="en">D. Panels yield longer reads</span></div>
+</div><div class="quiz-feedback" id="fb2"></div></div>
+
+<div class="quiz-q" data-answer="2">
+<p data-lang="zh">3. Reference bias 的最具體後果是？</p>
+<p data-lang="en">3. The most concrete consequence of reference bias?</p>
+<div class="quiz-options">
+<div class="quiz-opt" data-idx="0"><span data-lang="zh">A. 改善定序錯誤率</span><span data-lang="en">A. Improves sequencing error rate</span></div>
+<div class="quiz-opt" data-idx="1"><span data-lang="zh">B. 提升非歐裔人群的變異召喚靈敏度</span><span data-lang="en">B. Increases variant-calling sensitivity in non-European individuals</span></div>
+<div class="quiz-opt" data-idx="2"><span data-lang="zh">C. 在非歐裔/特殊群體上漏掉變異，影響族群健康公平</span><span data-lang="en">C. Misses variants in non-European populations, harming health equity</span></div>
+<div class="quiz-opt" data-idx="3"><span data-lang="zh">D. 增加 PCR duplicates</span><span data-lang="en">D. Increases PCR duplicates</span></div>
+</div><div class="quiz-feedback" id="fb3"></div></div>
+</section>
+
+<nav class="page-nav">
+<a href="cell-cycle-signaling.html"><span class="nav-dir" data-zh="← 上一章" data-en="← Prev">← 上一章</span><span class="nav-title" data-zh="細胞週期、分裂與訊號傳遞" data-en="Cell Cycle, Division &amp;amp; Signaling">細胞週期、分裂與訊號傳遞</span></a>
+<a href="transcriptomics.html"><span class="nav-dir" data-zh="下一章 →" data-en="Next →">下一章 →</span><span class="nav-title" data-zh="轉錄體學" data-en="Transcriptomics">轉錄體學</span></a>
+</nav>
+</main>
+<footer class="site-footer">© Charlene — Biological Foundations for Bioinformatics</footer>
+<script src="i18n.js"></script>
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';});
+function switchTab(b,id){const p=b.closest('.code-tabs');p.querySelectorAll('.code-tab-btn').forEach(x=>x.classList.remove('active'));p.querySelectorAll('.code-tab-content').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(id).classList.add('active');}
+const QF={
+ zh:{q1_y:'重複擴增類 SV（如 STR、tandem dup）short-read 經常漏；long-read 是解方。',q1_n:'正確答案已標示。',
+     q2_y:'Panel 高深度可偵測低 VAF subclonal mutation、成本低且 turnaround 快。',q2_n:'正確答案已標示。',
+     q3_y:'Reference bias 直接影響非歐裔變異的偵測——pangenome 與圖譜基因組是解方。',q3_n:'正確答案已標示。'},
+ en:{q1_y:'Repeat-driven SVs (STRs, tandem dup) often slip past short-read callers; long-read solves it.',q1_n:'Correct answer highlighted.',
+     q2_y:'Panels\' deep coverage detects low-VAF subclonal mutations cheaply and quickly.',q2_n:'Correct answer highlighted.',
+     q3_y:'Reference bias undermines variant detection in non-European populations — pangenome / graph genomes are the fix.',q3_n:'Correct answer highlighted.'}
+};
+document.querySelectorAll('.quiz-q').forEach((q,qi)=>{const ans=+q.dataset.answer;q.querySelectorAll('.quiz-opt').forEach(o=>{o.addEventListener('click',()=>{if(q.classList.contains('answered'))return;q.classList.add('answered');const fb=document.getElementById('fb'+(qi+1));const ok=+o.dataset.idx===ans;o.classList.add(ok?'correct':'wrong');if(!ok)q.querySelectorAll('.quiz-opt')[ans].classList.add('correct');const L=I18n.get();fb.className='quiz-feedback show '+(ok?'correct-fb':'wrong-fb');fb.textContent=(ok?'✅ ':'❌ ')+(QF[L]['q'+(qi+1)+'_'+(ok?'y':'n')]||'');});});});
+</script>
+</body></html>
